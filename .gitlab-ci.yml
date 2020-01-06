@@ -1,0 +1,3 @@
+include:
+  - ./ClientMobile/.gitlab-ci.yml
+
