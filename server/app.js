@@ -1,6 +1,12 @@
 var express = require("express")
 var app = express()
 const MongoClient = require('mongodb').MongoClient;
+var bodyParser = require('body-parser')
+var cors = require("cors")
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors())
 
 const myUrl = 'mongodb://localhost:27017';
 
