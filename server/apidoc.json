@@ -1,0 +1,7 @@
+{
+    "name": "DashboardApi",
+    "version": "0.1.1",
+    "description": "Api Dashboard",
+    "title": "Custom apiDoc browser title",
+    "url" : "http://localhost:5042"
+  }
