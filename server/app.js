@@ -29,10 +29,6 @@ MongoClient.connect(myUrl, function (err, db) {
     })
 
 
-    app.get('/closeServer', function(req, res) {
-        res.send(200)
-        server.close();
-    })
 })
 
 

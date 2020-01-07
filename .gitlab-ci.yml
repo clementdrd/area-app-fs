@@ -1,5 +1,4 @@
 include:
   - local: '/ClientMobile/.gitlab-ci.yml'
   - local: '/server/.gitlab-ci.yml'
-  - local: '/ClientWeb/.gitlab-ci.yml'
 
