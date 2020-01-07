@@ -23,13 +23,13 @@ define({ "api": [
     "url": "",
     "version": "0.0.0",
     "filename": "./mydoc/main.js",
-    "group": "/home/Matthieu-CM/DEV_area_2019/server/mydoc/main.js",
-    "groupTitle": "/home/Matthieu-CM/DEV_area_2019/server/mydoc/main.js",
+    "group": "/home/taxel/semestre/semestre5/AppDev/DEV_area_2019/server/mydoc/main.js",
+    "groupTitle": "/home/taxel/semestre/semestre5/AppDev/DEV_area_2019/server/mydoc/main.js",
     "name": ""
   },
   {
     "type": "delete",
-    "url": "/user/:email/:token",
+    "url": "/deleteUser",
     "title": "Delete a User",
     "description": "<p>delete an User account</p>",
     "group": "UserManagement",
@@ -42,13 +42,6 @@ define({ "api": [
             "optional": false,
             "field": "token",
             "description": "<p>User own token</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "email",
-            "description": "<p>email of the account to delete</p>"
           }
         ]
       }
@@ -57,7 +50,7 @@ define({ "api": [
       "examples": [
         {
           "title": "User Deleted",
-          "content": "HTTP/1.1 200\n \"User deleted\"",
+          "content": "HTTP/1.1 200\n \"User John deleted\"",
           "type": "String"
         }
       ]
@@ -65,7 +58,7 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "./doc/UserManagement.apidoc.js",
     "groupTitle": "UserManagement",
-    "name": "DeleteUserEmailToken",
+    "name": "DeleteDeleteuser",
     "error": {
       "fields": {
         "Error 4xx": [
@@ -78,8 +71,8 @@ define({ "api": [
           {
             "group": "Error 4xx",
             "optional": false,
-            "field": "AnotherAccount",
-            "description": "<p>The account to delete wasn't matching with the user own access_token</p>"
+            "field": "EmptyAccountField",
+            "description": "<p>The account can't have an empty username</p>"
           }
         ]
       },
@@ -90,8 +83,8 @@ define({ "api": [
           "type": "String"
         },
         {
-          "title": "Another Account",
-          "content": "HTTP/1.1 403 Forbidden\n\"You can only delete your account\"",
+          "title": "Cant Find Account",
+          "content": "HTTP/1.1 400 Not Modified\n\"You can't send an empty username\"",
           "type": "String"
         }
       ]
@@ -126,7 +119,7 @@ define({ "api": [
       "examples": [
         {
           "title": "User Loged",
-          "content": "HTTP/1.1 200",
+          "content": "HTTP/1.1 200\n \"User John Created\"",
           "type": "json"
         }
       ]
@@ -161,16 +154,16 @@ define({ "api": [
       "examples": [
         {
           "title": "Doesnt Exist",
-          "content": "HTTP/1.1 400 Bad Request\n\"This account doesn't exists\"",
+          "content": "HTTP/1.1 400 Bad Request\n\"This account doesn't exist\"",
           "type": "String"
         },
         {
           "title": "Bad Password",
-          "content": "HTTP/1.1 400 Bad Request\n\"Passwords doesn't match\"",
+          "content": "HTTP/1.1 400 Bad Request\n\"Password doesn't match\"",
           "type": "String"
         },
         {
-          "title": "Bad Password",
+          "title": "Empty Fields",
           "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
           "type": "String"
         }
@@ -205,7 +198,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "email",
-            "description": "<p>(In the body) Email to associate with the account</p>"
+            "description": "<p>[TO DO] (In the body) Email to associate with the account</p>"
           }
         ]
       }
@@ -213,7 +206,7 @@ define({ "api": [
     "success": {
       "examples": [
         {
-          "title": "User Created",
+          "title": "User John connected",
           "content": "HTTP/1.1 200\n \"Account created\"",
           "type": "String"
         }
@@ -243,12 +236,12 @@ define({ "api": [
       "examples": [
         {
           "title": "Cant Update",
-          "content": "HTTP/1.1 400 Bad Request\n\"User John already exists\"",
+          "content": "HTTP/1.1 400 Bad Request\n\"User John already exist\"",
           "type": "String"
         },
         {
           "title": "Email Exist",
-          "content": "HTTP/1.1 400 Bad Request\n\"An email is already associate with an account\"",
+          "content": "[TO DO] HTTP/1.1 400 Bad Request\n\"An email is already associate with an account\"",
           "type": "String"
         }
       ]

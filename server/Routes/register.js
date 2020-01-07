@@ -13,9 +13,9 @@ module.exports = function (app, db) {
                 password = sha256(password)
                 db.collection("users").insert(req.body)
                 console.log(password)
-                res.send(200, "User created")
+                res.status(200).send("Account created")
             } else {
-                res.send(402, "User already exists")
+                res.status(400).send("User" + req.body.username + "already exists")
             }
         })
     })

@@ -1,0 +1,9 @@
+* @api {delete} /user/:email/:token Delete a User
+
+* @apiParam {String} email email of the account to delete
+
+* @apiError AnotherAccount The account to delete wasn't matching with the user own access_token
+*
+* @apiErrorExample {String} Another Account
+*     HTTP/1.1 403 Forbidden
+*     "You can only delete your account"

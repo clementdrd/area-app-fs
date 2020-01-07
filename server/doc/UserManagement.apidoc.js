@@ -5,13 +5,13 @@
  *
  * @apiErrorExample {String} Doesnt Exist
  *     HTTP/1.1 400 Bad Request
- *     "This account doesn't exists"
+ *     "This account doesn't exist"
  *
  * @apiError BadPassword The password doesn't match with the one stored for this account
  *
  * @apiErrorExample {String} Bad Password
  *     HTTP/1.1 400 Bad Request
- *     "Passwords doesn't match"
+ *     "Password doesn't match"
  *
  * @apiError EmptyFields Either the username or the password as been sent as empty
  *
@@ -27,12 +27,12 @@
  *
  * @apiErrorExample {String} Cant Update
  *     HTTP/1.1 400 Bad Request
- *     "User John already exists"
+ *     "User John already exist"
  *
  * @apiError EmailExist The Email is already associated to an account
  *
  * @apiErrorExample {String} Email Exist
- *     HTTP/1.1 400 Bad Request
+ *     [TO DO] HTTP/1.1 400 Bad Request
  *     "An email is already associate with an account"
  */
 
@@ -45,11 +45,12 @@
  *     HTTP/1.1 400 Not Modified
  *     "Could not find the account"
  *
- * @apiError AnotherAccount The account to delete wasn't matching with the user own access_token
+ * @apiError  EmptyAccountField The account can't have an empty username
  *
- * @apiErrorExample {String} Another Account
- *     HTTP/1.1 403 Forbidden
- *     "You can only delete your account"
+ * @apiErrorExample {String} Cant Find Account
+ *     HTTP/1.1 400 Not Modified
+ *     "You can't send an empty username"
+
  */
 
 /**
@@ -61,6 +62,7 @@
  *
  * @apiSuccessExample User Loged
  *     HTTP/1.1 200
+ *      "User John Created"
  *
  * @apiUse UserLoginError
  */
@@ -72,9 +74,9 @@
 *
 * @apiParam {Number} username (In the body) Username of the user
 * @apiParam {String} password (In the body) Password of the user
-* @apiParam {String} email (In the body) Email to associate with the account
+* @apiParam {String} email [TO DO] (In the body) Email to associate with the account
 *
-* @apiSuccessExample {String} User Created
+* @apiSuccessExample {String} User John connected
 *     HTTP/1.1 200
 *      "Account created"
 *
@@ -82,15 +84,14 @@
 */
 
 /**
-* @api {delete} /user/:email/:token Delete a User
+* @api {delete} /deleteUser Delete a User
 * @apiDescription delete an User account
 * @apiGroup UserManagement
 *
 * @apiParam {String} token User own token
-* @apiParam {String} email email of the account to delete
 *
 * @apiSuccessExample {String} User Deleted
 *     HTTP/1.1 200
-*      "User deleted"
+*      "User John deleted"
 * @apiuse UserDeleteError
 */

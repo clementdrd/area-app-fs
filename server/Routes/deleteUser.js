@@ -4,12 +4,12 @@ module.exports = function (app, db) {
         console.log(req.body)
 
         if (req.body.username === "") {
-            res.send("You can't send an empty username")
+            res.status(400).send("You can't send an empty username")
             return;
         }
         db.collection("users").find({username: req.body.username}).toArray(function(err, result) {
             if (result[0] === undefined) {
-                res.send("User doesn't exist")
+                res.status(400).send("Could not find the account")
             }
             else if (req.body.username === result[0].username) {
                 db.collection("users").remove({_id: result[0]._id})
