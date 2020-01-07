@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "./node_modules/nodemon/bin/./nodemon.js",
-    "doc": "./node_modules/apidoc/bin/apidoc -e \"node_modules|Dockerfile|package.json|package-lock.json\" -o mydoc"
+    "doc": "./node_modules/apidoc/bin/apidoc -e \"node_modules|Dockerfile|package.json|package-lock.json\" -o mydoc && firefox mydoc/index.html"
   },
   "repository": {
     "type": "git",

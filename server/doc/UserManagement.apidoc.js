@@ -5,13 +5,19 @@
  *
  * @apiErrorExample {String} Doesnt Exist
  *     HTTP/1.1 400 Bad Request
- *     "Your account doesn't exists"
+ *     "This account doesn't exists"
  *
  * @apiError BadPassword The password doesn't match with the one stored for this account
  *
  * @apiErrorExample {String} Bad Password
  *     HTTP/1.1 400 Bad Request
- *     "PASSWORD ERROR"
+ *     "Passwords doesn't match"
+ *
+ * @apiError EmptyFields Either the username or the password as been sent as empty
+ *
+ * @apiErrorExample {String} Empty Fields
+ *     HTTP/1.1 400 Bad Request
+ *     "You can't send an empty field"
  */
 
 /**
