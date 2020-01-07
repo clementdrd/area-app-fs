@@ -33,12 +33,14 @@ lintDebug:
   stage: build
   image: openjdk:8-jdk
   script:
+    - cd ClientMobile
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
   image: openjdk:8-jdk
   script:
+    - cd ClientMobile
     - ./gradlew assembleDebug
   artifacts:
     paths:
@@ -48,4 +50,5 @@ debugTests:
   stage: test
   image: openjdk:8-jdk
   script:
+    - cd ClientMobile
     - ./gradlew -Pci --console=plain :app:testDebug
