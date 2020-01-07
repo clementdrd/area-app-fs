@@ -19,7 +19,7 @@ describe('/GET edeho', () => {
         chai.request(app)
             .get('/edeho')
             .end((err, res) => {
-                res.should.have.status(200);
+                res.should.have.status(404);
                 res.body.should.be.a('object');
                 done();
             });
@@ -38,7 +38,7 @@ describe('/GET isonline', () => {
 }); 
 
 describe('/GET ', () => {
-    it('it should work', (done) => {
+    it('\"/\" should return 404', (done) => {
         chai.request(app)
             .get('/')
             .end((err, res) => {
