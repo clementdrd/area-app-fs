@@ -37,7 +37,7 @@ describe('/GET isonline', () => {
 }); 
 
 describe('/GET ', () => {
-    it('it should work', (done) => {
+    it('\"/\" should return 404', (done) => {
         chai.request(app)
             .get('/')
             .end((err, res) => {
@@ -52,9 +52,11 @@ describe('/POST register', () => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "toto" })
+            .send({ username: "TestAccount", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
+                console.log(res)
                 res.should.have.status(200);
+                res.header.should.have.property("usertoken")
                 res.text.should.be.eql("User created")
                 done();
             });
@@ -66,7 +68,7 @@ describe('/POST register', () => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "toto" })
+            .send({ username: "TestAccount", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
                 res.should.have.status(400);
                 res.text.should.be.eql("This user already exists")
@@ -80,7 +82,7 @@ describe('/POST register', () => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "", password: "toto" })
+            .send({ username: "", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
                 res.should.have.status(400);
                 res.text.should.be.eql("You can't send an empty field")
@@ -94,7 +96,21 @@ describe('/POST register', () => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "" })
+            .send({ username: "TestAccount", password: "", email: "matthieu.correia-moreira@epitech.eu" })
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.text.should.be.eql("You can't send an empty field")
+                done();
+            });
+    });
+});
+
+describe('/POST register', () => {
+    it('it cannot register with empty email', (done) => {
+        chai.request(app)
+            .post('/register')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "TestAccount", password: "toto", email: "" })
             .end((err, res) => {
                 res.should.have.status(400);
                 res.text.should.be.eql("You can't send an empty field")
@@ -108,7 +124,7 @@ describe('/POST register', () => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "", password: "" })
+            .send({ username: "", password: "", email: "" })
             .end((err, res) => {
                 res.should.have.status(400);
                 res.text.should.be.eql("You can't send an empty field")
@@ -136,7 +152,7 @@ describe('/POST login', () => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "" })
+            .send({ username: "TestAccount", password: "" })
             .end((err, res) => {
                 res.should.have.status(400);
                 res.text.should.be.eql("You can't send an empty field")
@@ -178,7 +194,7 @@ describe('/POST login', () => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "Guillaume" })
+            .send({ username: "TestAccount", password: "TestAccount" })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.text.should.be.eql("User connected!")
@@ -192,7 +208,7 @@ describe('/POST login', () => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "toto" })
+            .send({ username: "TestAccount", password: "toto" })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.text.should.be.eql("User connected!")
@@ -206,10 +222,10 @@ describe('/DELETE deleteUser', () => {
         chai.request(app)
             .delete('/deleteUser')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "Guillaume", password: "toto" })
+            .send({ username: "TestAccount", password: "toto" })
             .end((err, res) => {
                 res.should.have.status(200);
-                res.text.should.be.eql("User Guillaume deleted")
+                res.text.should.be.eql("User TestAccount deleted")
                 done();
             });
     });
