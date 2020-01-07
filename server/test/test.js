@@ -7,9 +7,7 @@ chai.use(chaiHttp);
 chai.request('http://localhost:8080');
 
 before(done => {
-    console.log("CHOSE")
     app.on("listening", function (err) {
-        console.log("COUCOU")
         done()
     })
 })
@@ -27,11 +25,12 @@ describe('/GET edeho', () => {
 });
 
 describe('/GET isonline', () => {
-    it('it should display Online', (done) => {
+    it('Is API online and accessible', (done) => {
         chai.request(app)
             .get('/isonline')
             .end((err, res) => {
                 res.should.have.status(200);
+                res.text.should.be.eql("Online");
                 done();
             });
     });
@@ -50,7 +49,6 @@ describe('/GET ', () => {
 
 
 after(done => {
-    console.log("COUCOU")
     let server = app.listen()
     server.close(done)
     setTimeout(function() {
