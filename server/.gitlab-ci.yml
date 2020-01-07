@@ -1,7 +1,6 @@
 # This file is a template, and might need editing before it works on your project.
 # Official framework image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/node/tags/
-image: node:latest
 
 # Pick zero or more services to be used on all builds.
 # Only needed when using a docker container to run your tests in.
@@ -18,11 +17,13 @@ cache:
     - node_modules/
 
 test_async:
+  image: node:latest
   script:
     - npm install
     - node ./specs/start.js ./specs/async.spec.js
 
 test_db:
+  image: node:latest
   script:
     - npm install
     - node ./specs/start.js ./specs/db-postgres.spec.js
