@@ -37,7 +37,7 @@ describe('/GET isonline', () => {
 }); 
 
 describe('/GET ', () => {
-    it('it should work', (done) => {
+    it('\"/\" should return 404', (done) => {
         chai.request(app)
             .get('/')
             .end((err, res) => {
