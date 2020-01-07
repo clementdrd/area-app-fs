@@ -10,7 +10,7 @@ module.exports = function (app, db) {
                 res.status(400).send("Could not find the account")
             }
             else if (req.body.username === result[0].username) {
-                db.collection("users").remove({_id: result[0]._id})
+                db.collection("users").deleteOne({_id: result[0]._id})
                 res.status(200).send("User " + req.body.username + " deleted")
             }
         })

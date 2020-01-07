@@ -19,11 +19,11 @@ module.exports = function (app, db) {
                     email: req.body.email,
                     userToken: userToken
                 }
-                db.collection("users").insert(insertion)
+                db.collection("users").insertOne(insertion)
                 res.set("UserToken", userToken)
                 res.status(200).send("User created")
             } else {
-                res.status(400).send("User" + req.body.username + "already exists")
+                res.status(400).send("User " + req.body.username + " already exist")
             }
         })
     })

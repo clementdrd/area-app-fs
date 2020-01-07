@@ -11,10 +11,9 @@ app.use(cors())
 
 const myUrl = 'mongodb+srv://AREA:AREA@users-uxyki.mongodb.net/test?retryWrites=true&w=majority';
 
-MongoClient.connect(myUrl, function (err, db) {
+MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     db = db.db("AREA")
 
-    console.log("TOTO")
     require("./Routes/register")(app, db)
     require("./Routes/isonline")(app, db)
     require("./Routes/login")(app, db)

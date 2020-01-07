@@ -1,5 +1,5 @@
 module.exports = function (app, db) {
     app.get('/isonline', function (req, res) {
-        res.send(200, 'Online');
+        res.status(200).send('Online');
     })
 }

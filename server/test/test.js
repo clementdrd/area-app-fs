@@ -12,7 +12,7 @@ before(done => {
     })
 })
 
-describe('/GET edeho', () => {
+describe('Basic test', () => {
     it('it should return 404', (done) => {
         chai.request(app)
             .get('/edeho')
@@ -22,9 +22,7 @@ describe('/GET edeho', () => {
                 done();
             });
     });
-});
 
-describe('/GET isonline', () => {
     it('Is API online and accessible', (done) => {
         chai.request(app)
             .get('/isonline')
@@ -34,9 +32,7 @@ describe('/GET isonline', () => {
                 done();
             });
     });
-}); 
 
-describe('/GET ', () => {
     it('\"/\" should return 404', (done) => {
         chai.request(app)
             .get('/')
@@ -45,25 +41,23 @@ describe('/GET ', () => {
                 done();
             });
     });
-}); 
+});
 
-describe('/POST register', () => {
+describe('register', () => {
     it('it register an account', (done) => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "TestAccount", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
-                console.log(res)
                 res.should.have.status(200);
                 res.header.should.have.property("usertoken")
                 res.text.should.be.eql("User created")
                 done();
             });
     });
-}); 
 
-describe('/POST register', () => {
+
     it('it cannot register two account with the same username', (done) => {
         chai.request(app)
             .post('/register')
@@ -71,13 +65,11 @@ describe('/POST register', () => {
             .send({ username: "TestAccount", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
                 res.should.have.status(400);
-                res.text.should.be.eql("This user already exists")
+                res.text.should.be.eql("User TestAccount already exist")
                 done();
             });
     });
-}); 
 
-describe('/POST register', () => {
     it('it cannot register with empty username', (done) => {
         chai.request(app)
             .post('/register')
@@ -89,9 +81,7 @@ describe('/POST register', () => {
                 done();
             });
     });
-});
 
-describe('/POST register', () => {
     it('it cannot register with empty password', (done) => {
         chai.request(app)
             .post('/register')
@@ -103,9 +93,7 @@ describe('/POST register', () => {
                 done();
             });
     });
-});
 
-describe('/POST register', () => {
     it('it cannot register with empty email', (done) => {
         chai.request(app)
             .post('/register')
@@ -117,9 +105,7 @@ describe('/POST register', () => {
                 done();
             });
     });
-});
 
-describe('/POST register', () => {
     it('it cannot register with empty fields', (done) => {
         chai.request(app)
             .post('/register')
@@ -133,8 +119,9 @@ describe('/POST register', () => {
     });
 });
 
-describe('/POST login', () => {
-    it('it cannot login with empty username', (done) => {
+
+describe('login', () => {
+    it('Cannot login with empty username', (done) => {
         chai.request(app)
             .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
@@ -145,10 +132,8 @@ describe('/POST login', () => {
                 done();
             });
     });
-});
 
-describe('/POST login', () => {
-    it('it cannot login with empty password', (done) => {
+    it('Cannot login with empty password', (done) => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
@@ -159,10 +144,8 @@ describe('/POST login', () => {
                 done();
             });
     });
-});
 
-describe('/POST login', () => {
-    it('it cannot login with empty fields', (done) => {
+    it('Cannot login with empty fields', (done) => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
@@ -173,10 +156,8 @@ describe('/POST login', () => {
                 done();
             });
     });
-});
 
-describe('/POST login', () => {
-    it('it cannot log a non existing user', (done) => {
+    it('Cannot log a non existing user', (done) => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
@@ -187,24 +168,20 @@ describe('/POST login', () => {
                 done();
             });
     });
-}); 
 
-describe('/POST login', () => {
-    it('it cannot log with an wrong password', (done) => {
+    it('Cannot log with an wrong password', (done) => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "TestAccount", password: "TestAccount" })
             .end((err, res) => {
-                res.should.have.status(200);
-                res.text.should.be.eql("User connected!")
+                res.should.have.status(400);
+                res.text.should.be.eql("Passwords doesn't match")
                 done();
             });
     });
-});
 
-describe('/POST login', () => {
-    it('it log an user', (done) => {
+    it('Can log as a user', (done) => {
         chai.request(app)
             .post('/login')
             .set('content-type', 'application/x-www-form-urlencoded')
@@ -217,8 +194,9 @@ describe('/POST login', () => {
     });
 });
 
+
 describe('/DELETE deleteUser', () => {
-    it('it deletes an user', (done) => {
+    it('Can delete an account', (done) => {
         chai.request(app)
             .delete('/deleteUser')
             .set('content-type', 'application/x-www-form-urlencoded')
@@ -235,7 +213,7 @@ describe('/DELETE deleteUser', () => {
 after(done => {
     let server = app.listen()
     server.close(done)
-    setTimeout(function() {
+    setTimeout(function () {
         process.exit()
     }, 9999)
 });
