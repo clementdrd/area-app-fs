@@ -11,9 +11,13 @@
  *
  * @apiErrorExample {String} Bad Password
  *     HTTP/1.1 400 Bad Request
- *     "Password doesn't match"
+ *     "Passwords doesn't match"
  *
- * @apiError EmptyFields Either the username or the password as been sent as empty
+ **/
+ /**
+ * @apiDefine EmptyField
+ *
+ * @apiError EmptyFields You sent an empty field
  *
  * @apiErrorExample {String} Empty Fields
  *     HTTP/1.1 400 Bad Request
@@ -23,17 +27,17 @@
 /**
  * @apiDefine UserRegistrationError
  *
- * @apiError UserExist The Username is already taken
+ * @apiError UserAlreadyExist The Username is already taken
  *
- * @apiErrorExample {String} Cant Update
+ * @apiErrorExample {String} User already exist
  *     HTTP/1.1 400 Bad Request
  *     "User John already exist"
  *
- * @apiError EmailExist The Email is already associated to an account
+ * @apiError EmptyField You sent an empty field either in the username, password or email
  *
- * @apiErrorExample {String} Email Exist
- *     [TO DO] HTTP/1.1 400 Bad Request
- *     "An email is already associate with an account"
+ * @apiErrorExample {String} Empty Field
+ *     HTTP/1.1 400 Bad Request
+ *     "You can't send an empty field"
  */
 
 /**
@@ -55,43 +59,48 @@
 
 /**
  * @api {post} /login Log an User
+ * @apiName Login
  * @apiGroup UserManagement
  *
- * @apiParam {String} username username of the account (in the body)
- * @apiParam {String} password Password of the account (In the body)
+ * @apiParam (Request body) {String} username username of the account
+ * @apiParam (Request body) {String} password Password of the account
  *
  * @apiSuccessExample User Loged
- *     HTTP/1.1 200
- *      "User John Created"
+ *     HTTP/1.1 200 OK
+ *     "User connected!"
  *
  * @apiUse UserLoginError
+ * @apiUse EmptyField
  */
 
 /**
 * @api {post} /register Register a User
+* @apiName Register
 * @apiDescription Create an account for the user
 * @apiGroup UserManagement
 *
-* @apiParam {Number} username (In the body) Username of the user
-* @apiParam {String} password (In the body) Password of the user
-* @apiParam {String} email [TO DO] (In the body) Email to associate with the account
+* @apiParam (Request body) {String} username Username of the new user
+* @apiParam (Request body) {String} password Password of the new user
+* @apiParam (Request body) {String} email Email to associate with the account
 *
-* @apiSuccessExample {String} User John connected
-*     HTTP/1.1 200
+* @apiSuccessExample {String} Account created
+*     HTTP/1.1 200 OK
 *      "Account created"
 *
 * @apiUse UserRegistrationError
+* @apiUse EmptyField
 */
 
 /**
 * @api {delete} /deleteUser Delete a User
+* @apiName Delete Account
 * @apiDescription delete an User account
 * @apiGroup UserManagement
 *
-* @apiParam {String} token User own token
+* @apiParam (Request body) {String} token User own token
 *
 * @apiSuccessExample {String} User Deleted
-*     HTTP/1.1 200
+*     HTTP/1.1 200 OK
 *      "User John deleted"
 * @apiuse UserDeleteError
 */
