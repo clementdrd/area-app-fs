@@ -18,6 +18,7 @@ MongoClient.connect(myUrl, function (err, db) {
     require("./Routes/register")(app, db)
     require("./Routes/isonline")(app, db)
     require("./Routes/login")(app, db)
+    require("./Routes/deleteUser")(app, db)
 
     app.use(function (req, res, next) {
         res.status(404).send('404 page not found');
