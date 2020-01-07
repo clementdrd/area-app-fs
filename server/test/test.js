@@ -19,7 +19,7 @@ describe('/GET edeho', () => {
         chai.request(app)
             .get('/edeho')
             .end((err, res) => {
-                res.should.have.status(404);
+                res.should.have.status(200);
                 res.body.should.be.a('object');
                 done();
             });
