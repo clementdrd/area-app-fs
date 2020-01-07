@@ -1,17 +1,4 @@
 include:
   - local: '/ClientMobile/.gitlab-ci.yml'
-variables:
-  CUSTOMER_NAME: pan
-  APP_NAME: awesomeapp
-  CLUSTER_NAME: production
+  - local: '/server/.gitlab-ci.yaml'
 
-  # AUTO_DEVOPS_CHART: 'panter-charts/auto-deploy-panter'
-  # AUTO_DEVOPS_CHART_REPOSITORY: 'http://panter.git.panter.biz/helm-charts'
-
-  # disable production jobs
-  # PRODUCTION_ENABLED: ''
-
-  # disable the default test job to use your own
-  # NOTE: don't use the name 'test' for your own job since it will inherit
-  #       all the keys from the Auto DevOps template
-  TEST_DISABLED: 'true'
