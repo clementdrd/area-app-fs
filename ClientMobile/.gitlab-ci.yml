@@ -2,7 +2,6 @@
 # Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
 # If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
-image: openjdk:8-jdk
 
 variables:
   ANDROID_COMPILE_SDK: "28"
@@ -28,11 +27,13 @@ before_script:
 
 lintDebug:
   stage: build
+  image: openjdk:8-jdk
   script:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
 
 assembleDebug:
   stage: build
+  image: openjdk:8-jdk
   script:
     - ./gradlew assembleDebug
   artifacts:
@@ -41,5 +42,6 @@ assembleDebug:
 
 debugTests:
   stage: test
+  image: openjdk:8-jdk
   script:
     - ./gradlew -Pci --console=plain :app:testDebug
