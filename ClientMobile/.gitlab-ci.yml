@@ -10,7 +10,7 @@ variables:
 
 
 setupAndroid:
-    stage: build
+    stage: .pre
     image: openjdk:8-jdk
     script:
       - cd ClientMobile
