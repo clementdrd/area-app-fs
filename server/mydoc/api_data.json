@@ -170,7 +170,7 @@
           "type": "String"
         },
         {
-          "title": "Bad Password",
+          "title": "Empty Fields",
           "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
           "type": "String"
         }
