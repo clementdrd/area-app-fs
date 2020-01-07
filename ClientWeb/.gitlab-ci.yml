@@ -42,7 +42,7 @@ before_script:
 #
 # and then adding `--settings app.settings.ci` (or similar) to the test command
 
-test:
+testClient:
   image: python:latest
   variables:
     DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/$POSTGRES_DB"
