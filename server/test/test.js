@@ -191,6 +191,8 @@ describe('/POST login', () => {
             .send({ username: "TestAccount", password: "toto" })
             .end((err, res) => {
                 res.should.have.status(200);
+                res.header.should.have.property("usertoken")
+                userToken = res.header.usertoken
                 res.text.should.be.eql("User connected!")
                 done();
             });
