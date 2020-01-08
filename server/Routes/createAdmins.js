@@ -8,7 +8,7 @@ module.exports = function (app, db) {
             db.collection("users").insertOne(
                 {
                     username: "admin",
-                    password: sha256(SUFFIX_SALT + "admin" + PREFIX_SALT),
+                    password: sha256(PREFIX_SALT + "admin" + SUFFIX_SALT),
                     email: "matthieu.correia-moreira@epitech.eu",
                     admin: true
                 })
