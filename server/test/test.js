@@ -43,7 +43,7 @@ describe('Basic test', () => {
     });
 });
 
-describe('register', () => {
+describe('/POST register', () => {
     it('it register an account', (done) => {
         chai.request(app)
             .post('/register')
@@ -120,7 +120,7 @@ describe('register', () => {
 });
 
 
-describe('login', () => {
+describe('/POST login', () => {
     it('Cannot login with empty username', (done) => {
         chai.request(app)
             .post('/register')
@@ -139,7 +139,7 @@ describe('login', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "TestAccount", password: "" })
             .end((err, res) => {
-                res.should.have.status(400);
+                res.should.have.status(401);
                 res.text.should.be.eql("You can't send an empty field")
                 done();
             });

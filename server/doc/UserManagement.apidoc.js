@@ -97,7 +97,8 @@
 * @apiDescription delete an User account
 * @apiGroup UserManagement
 *
-* @apiParam (Request body) {String} token User own token
+* @apiParam (Request body) {String} token Token of the account to delete
+* @apiParam (Request body) {String} username username of the account to delete
 *
 * @apiSuccessExample {String} User Deleted
 *     HTTP/1.1 200 OK
