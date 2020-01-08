@@ -18,6 +18,7 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/isonline")(app, db)
     require("./Routes/login")(app, db)
     require("./Routes/deleteUser")(app, db)
+    require("./Routes/createAdmins")(app, db)
 
     app.use(function (req, res, next) {
         res.set("Content-Type", "text/html")
