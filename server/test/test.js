@@ -54,7 +54,6 @@ describe('/POST register', () => {
             .end((err, res) => {
                 res.should.have.status(200);
                 res.header.should.have.property("usertoken")
-                userToken = res.header.usertoken
                 res.text.should.be.eql("User created")
                 done();
             });
@@ -180,6 +179,7 @@ describe('/POST login', () => {
             .end((err, res) => {
                 res.should.have.status(400);
                 res.text.should.be.eql("Passwords doesn't match")
+                userToken = res.header.usertoken
                 done();
             });
     });
