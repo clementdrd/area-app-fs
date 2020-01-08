@@ -16,9 +16,7 @@ module.exports = function (app, db) {
             } else if (result[0].password !== password) {
                 res.status(400).send("Passwords doesn't match")
             } else {
-                console.log(result[0].userToken)
                 let userToken = sha256(req.body.username + new Date().getTime())
-                console.log(userToken)
                 let insertion = {$set :{
                     username: result[0].username,
                     password: result[0].password,
