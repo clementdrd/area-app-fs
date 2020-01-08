@@ -28,7 +28,6 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
         console.log("Server is up and running on port 8080")
     })
 
-
 })
 
 

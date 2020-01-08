@@ -16,6 +16,22 @@ module.exports = function (app, db) {
             } else if (result[0].password !== password) {
                 res.status(400).send("Passwords doesn't match")
             } else {
+                console.log(result[0].userToken)
+                let userToken = sha256(req.body.username + new Date().getTime())
+                console.log(userToken)
+                let insertion = {
+                    username: req.body.username,
+                    password: password,
+                    email: req.body.email,
+                    userToken: userToken
+                }
+                db.collection("users").updateOne(insertion, function(err, resul) {
+                    assert.equal(err, null);
+                    assert.equal(1, result.result.n);
+                    console.log("Updated the document with a random token set in the field userToken");
+                    callback(result);
+                });
+                res.set("UserToken", userToken)
                 res.status(200).send("User connected!")
             }
         })
