@@ -52,9 +52,9 @@ describe('/POST register', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "TestAccount", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
+                res.text.should.be.eql("User created")
                 res.should.have.status(200);
                 res.header.should.have.property("usertoken")
-                res.text.should.be.eql("User created")
                 done();
             });
     });
@@ -66,8 +66,8 @@ describe('/POST register', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "TestAccount", password: "toto", email: "matthieu.correia-moreira@epitech.eu" })
             .end((err, res) => {
-                res.should.have.status(400);
                 res.text.should.be.eql("User TestAccount already exist")
+                res.should.have.status(400);
                 done();
             });
     });
