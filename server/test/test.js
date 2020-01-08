@@ -184,6 +184,19 @@ describe('/POST login', () => {
             });
     });
 
+    it('Can log as admin', (done) => {
+        chai.request(app)
+            .post('/login')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "admin", password: "admin" })
+            .end((err, res) => {
+                res.text.should.be.eql("User connected!")
+                res.header.should.have.property("usertoken")
+                res.should.have.status(200);
+                done();
+            });
+    });
+
     it('Can log as a user', (done) => {
         chai.request(app)
             .post('/login')
