@@ -19,18 +19,13 @@ module.exports = function (app, db) {
                 console.log(result[0].userToken)
                 let userToken = sha256(req.body.username + new Date().getTime())
                 console.log(userToken)
-                let insertion = {
-                    username: req.body.username,
-                    password: password,
-                    email: req.body.email,
+                let insertion = {$set :{
+                    username: result[0].username,
+                    password: result[0].password,
+                    email: result[0].email,
                     userToken: userToken
-                }
-                db.collection("users").updateOne(insertion, function(err, resul) {
-                    assert.equal(err, null);
-                    assert.equal(1, result.result.n);
-                    console.log("Updated the document with a random token set in the field userToken");
-                    callback(result);
-                });
+                }}
+                db.collection("users").updateOne({username : result[0].username}, insertion)
                 res.set("UserToken", userToken)
                 res.status(200).send("User connected!")
             }

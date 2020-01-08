@@ -43,6 +43,8 @@ describe('Basic test', () => {
     });
 });
 
+var userToken;
+
 describe('/POST register', () => {
     it('it register an account', (done) => {
         chai.request(app)
@@ -52,6 +54,7 @@ describe('/POST register', () => {
             .end((err, res) => {
                 res.should.have.status(200);
                 res.header.should.have.property("usertoken")
+                userToken = res.header.usertoken
                 res.text.should.be.eql("User created")
                 done();
             });
@@ -139,7 +142,7 @@ describe('/POST login', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "TestAccount", password: "" })
             .end((err, res) => {
-                res.should.have.status(401);
+                res.should.have.status(400);
                 res.text.should.be.eql("You can't send an empty field")
                 done();
             });
@@ -196,14 +199,74 @@ describe('/POST login', () => {
 
 
 describe('/DELETE deleteUser', () => {
+    it('Cannot delete another user account', (done) => {
+        chai.request(app)
+            .delete('/deleteUser')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "TestAccountant", userToken: userToken })
+            .end((err, res) => {
+                res.text.should.be.eql("You are not allowed to modify another user account")
+                res.should.have.status(403);
+                done();
+            });
+    });
+
+    it('Cannot delete account without username', (done) => {
+        chai.request(app)
+            .delete('/deleteUser')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "", userToken: userToken })
+            .end((err, res) => {
+                res.text.should.be.eql("You can't send an empty field")
+                res.should.have.status(400);
+                done();
+            });
+    });
+
+    it('Cannot delete account without token', (done) => {
+        chai.request(app)
+            .delete('/deleteUser')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "TestAccount" })
+            .end((err, res) => {
+                res.text.should.be.eql("You can't send an empty field")
+                res.should.have.status(400);
+                done();
+            });
+    });
+
+    it('Cannot delete account with empty fields', (done) => {
+        chai.request(app)
+            .delete('/deleteUser')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "" })
+            .end((err, res) => {
+                res.text.should.be.eql("You can't send an empty field")
+                res.should.have.status(400);
+                done();
+            });
+    });
+
+    it("False Token", (done) => {
+        chai.request(app)
+            .delete('/deleteUser')
+            .set('content-type', 'application/x-www-form-urlencoded')
+            .send({ username: "TestAccount", userToken: "UDHBKZBEFD62727892BBS" })
+            .end((err, res) => {
+                res.text.should.be.eql("You are not allowed to do this request")
+                res.should.have.status(403);
+                done();
+            });
+    });
+
     it('Can delete an account', (done) => {
         chai.request(app)
             .delete('/deleteUser')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ username: "TestAccount", password: "toto" })
+            .send({ username: "TestAccount", userToken: userToken })
             .end((err, res) => {
-                res.should.have.status(200);
                 res.text.should.be.eql("User TestAccount deleted")
+                res.should.have.status(200);
                 done();
             });
     });

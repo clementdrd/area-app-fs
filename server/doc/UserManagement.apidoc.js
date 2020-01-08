@@ -14,15 +14,25 @@
  *     "Passwords doesn't match"
  *
  **/
- /**
- * @apiDefine EmptyField
- *
- * @apiError EmptyFields You sent an empty field
- *
- * @apiErrorExample {String} Empty Fields
- *     HTTP/1.1 400 Bad Request
- *     "You can't send an empty field"
- */
+/**
+* @apiDefine EmptyField
+*
+* @apiError EmptyFields You sent an empty field
+*
+* @apiErrorExample {String} Empty Fields
+*     HTTP/1.1 400 Bad Request
+*     "You can't send an empty field"
+*/
+
+/**
+* @apiDefine WrongToken
+*
+* @apiError NotAllowed The token and the username doesn't belongs to the same account
+*
+*  @apiErrorExample {String} Not Allowed
+*  HTTP/1.1 403 Forbidden
+*   "You are not allowed to modify another user account"
+*/
 
 /**
  * @apiDefine UserRegistrationError
@@ -41,20 +51,13 @@
  */
 
 /**
- * @apiDefine UserDeleteError
+ * @apiDefine FalseToken
  *
- * @apiError  CantFindAccount The account to delete cannot be found
+ * @apiError  FalseToken The token you sent doesn't match any account in the database
  *
- * @apiErrorExample {String} Cant Find Account
- *     HTTP/1.1 400 Not Modified
- *     "Could not find the account"
- *
- * @apiError  EmptyAccountField The account can't have an empty username
- *
- * @apiErrorExample {String} Cant Find Account
- *     HTTP/1.1 400 Not Modified
- *     "You can't send an empty username"
-
+ * @apiErrorExample {String} False Token
+ *     HTTP/1.1 403 Forbidden
+ *     "You are not allowed to do this request"
  */
 
 /**
@@ -88,7 +91,6 @@
 *      "Account created"
 *
 * @apiUse UserRegistrationError
-* @apiUse EmptyField
 */
 
 /**
@@ -103,5 +105,8 @@
 * @apiSuccessExample {String} User Deleted
 *     HTTP/1.1 200 OK
 *      "User John deleted"
-* @apiuse UserDeleteError
+*
+* @apiUse FalseToken
+* @apiUse WrongToken
+* @apiUse EmptyField
 */
