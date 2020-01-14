@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apidoc": "^0.19.1",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "consolidate": "^0.15.1",
