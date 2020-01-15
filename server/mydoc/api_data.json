@@ -74,16 +74,16 @@
     "group": "UserManagement",
     "parameter": {
       "fields": {
-        "Request body": [
+        "Request Body": [
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "token",
             "description": "<p>Token of the account to delete</p>"
           },
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "username",
@@ -154,16 +154,16 @@
     "group": "UserManagement",
     "parameter": {
       "fields": {
-        "Request body": [
+        "Request Body": [
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "username",
             "description": "<p>username of the account</p>"
           },
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "password",
@@ -173,10 +173,21 @@
       }
     },
     "success": {
+      "fields": {
+        "Response Headers": [
+          {
+            "group": "Response Headers",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>token for the authorization</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "User Loged",
-          "content": "HTTP/1.1 200 OK\n\"User connected!\"",
+          "content": "HTTP/1.1 200 OK\nheaders : { token : <token> }\n\"User connected!\"",
           "type": "json"
         }
       ]
@@ -235,23 +246,23 @@
     "group": "UserManagement",
     "parameter": {
       "fields": {
-        "Request body": [
+        "Request Body": [
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "username",
             "description": "<p>Username of the new user</p>"
           },
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "password",
             "description": "<p>Password of the new user</p>"
           },
           {
-            "group": "Request body",
+            "group": "Request Body",
             "type": "String",
             "optional": false,
             "field": "email",
@@ -261,10 +272,21 @@
       }
     },
     "success": {
+      "fields": {
+        "Response Headers": [
+          {
+            "group": "Response Headers",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>token for the authorization</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "Account created",
-          "content": "HTTP/1.1 200 OK\n \"Account created\"",
+          "content": "HTTP/1.1 200 OK\nheaders : { token : <token> }\n\"Account created\"",
           "type": "String"
         }
       ]

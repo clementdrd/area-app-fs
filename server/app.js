@@ -23,7 +23,10 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/login")(app, db)
     require("./Routes/deleteUser")(app, db)
     require("./Routes/createAdmins")(app, db)
-
+    app.get("/doc", (req, res) => {
+        console.log(dirname + "/index.html")
+        res.sendFile(dirname + "/index.html")
+    })
 
     let dirname = __dirname + "/mydoc"
     //add the router
@@ -32,19 +35,12 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     app.engine('html', engine.mustache);
     app.set('view engine', 'html');
     
-    app.get("/doc", (req, res) => {
-        console.log(dirname + "/index.html")
-        res.sendFile(dirname + "/index.html")
-    })
-
     app.use(function (req, res, next) {
         res.set("Content-Type", "text/html")
         res.status(404).send('404 page not found');
     });
 
-
     let port = process.env.PORT || 8080;
-
     app.listen(port, () => {
         app.emit('listening', null)
         console.log("Server is up and running on port ", port)
