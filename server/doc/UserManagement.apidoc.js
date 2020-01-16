@@ -67,11 +67,11 @@
  *
  * @apiParam (Request Body) {String} username username of the account
  * @apiParam (Request Body) {String} password Password of the account
- * @apiSuccess (Response Headers) {String} token token for the authorization
+ * @apiSuccess (Response Headers) {String} userToken token for the authorization
  *     
  * @apiSuccessExample User Loged
  *     HTTP/1.1 200 OK
- *     headers : { token : <token> }
+ *     headers : { userToken : <token> }
  *     "User connected!"
  *
  * @apiUse UserLoginError
@@ -87,10 +87,10 @@
 * @apiParam (Request Body) {String} username Username of the new user
 * @apiParam (Request Body) {String} password Password of the new user
 * @apiParam (Request Body) {String} email Email to associate with the account
-* @apiSuccess (Response Headers) {String} token token for the authorization
+* @apiSuccess (Response Headers) {String} userToken token for the authorization
 * @apiSuccessExample {String} Account created
 *     HTTP/1.1 200 OK
-*     headers : { token : <token> }
+*     headers : { userToken : <token> }
 *     "Account created"
 *
 * @apiUse UserRegistrationError
@@ -102,7 +102,7 @@
 * @apiDescription delete an User account
 * @apiGroup UserManagement
 *
-* @apiParam (Request Body) {String} token Token of the account to delete
+* @apiParam (Request Body) {String} userToken Token of the account to delete
 * @apiParam (Request Body) {String} username username of the account to delete
 *
 * @apiSuccessExample {String} User Deleted
