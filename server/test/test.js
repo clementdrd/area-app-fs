@@ -184,6 +184,7 @@ describe('/POST login', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "admin", password: "admin" })
             .end((err, res) => {
+                console.log(res.header)
                 res.text.should.be.eql("User connected!")
                 res.header.should.have.property("usertoken")
                 res.should.have.status(200);

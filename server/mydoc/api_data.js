@@ -79,7 +79,7 @@ define({ "api": [
             "group": "Request Body",
             "type": "String",
             "optional": false,
-            "field": "token",
+            "field": "userToken",
             "description": "<p>Token of the account to delete</p>"
           },
           {
@@ -179,7 +179,7 @@ define({ "api": [
             "group": "Response Headers",
             "type": "String",
             "optional": false,
-            "field": "token",
+            "field": "userToken",
             "description": "<p>token for the authorization</p>"
           }
         ]
@@ -187,7 +187,7 @@ define({ "api": [
       "examples": [
         {
           "title": "User Loged",
-          "content": "HTTP/1.1 200 OK\nheaders : { token : <token> }\n\"User connected!\"",
+          "content": "HTTP/1.1 200 OK\nheaders : { userToken : <token> }\n\"User connected!\"",
           "type": "json"
         }
       ]
@@ -278,7 +278,7 @@ define({ "api": [
             "group": "Response Headers",
             "type": "String",
             "optional": false,
-            "field": "token",
+            "field": "userToken",
             "description": "<p>token for the authorization</p>"
           }
         ]
@@ -286,7 +286,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Account created",
-          "content": "HTTP/1.1 200 OK\nheaders : { token : <token> }\n\"Account created\"",
+          "content": "HTTP/1.1 200 OK\nheaders : { userToken : <token> }\n\"Account created\"",
           "type": "String"
         }
       ]
