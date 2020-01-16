@@ -19,6 +19,7 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     db = db.db("AREA")
 
     require("./Routes/register")(app, db)
+    require("./Routes/about")(app, db)
     require("./Routes/isonline")(app, db)
     require("./Routes/login")(app, db)
     require("./Routes/deleteUser")(app, db)
