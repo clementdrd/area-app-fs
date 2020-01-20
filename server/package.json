@@ -2,9 +2,9 @@
   "name": "dev_area_2019",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server.js",
     "dev": "./node_modules/nodemon/bin/./nodemon.js",
     "doc": "./node_modules/apidoc/bin/apidoc -e \"node_modules|Dockerfile|package.json|package-lock.json\" -o mydoc && firefox mydoc/index.html",
     "test": "./node_modules/.bin/mocha --timeout 50000 ./test/test.js"
