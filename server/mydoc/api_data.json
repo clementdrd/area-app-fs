@@ -113,7 +113,7 @@
           "type": "String"
         },
         {
-          "title": "No Service",
+          "title": "Empty Access Token",
           "content": "HTTP/1.1 400 Bad Request\n\"You can't put an empty value for the Access Token\"",
           "type": "String"
         },
@@ -382,7 +382,7 @@
           "type": "String"
         },
         {
-          "title": "No Service",
+          "title": "Empty Access Token",
           "content": "HTTP/1.1 400 Bad Request\n\"You can't put an empty value for the Access Token\"",
           "type": "String"
         },

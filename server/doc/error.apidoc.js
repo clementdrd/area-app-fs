@@ -75,7 +75,7 @@
  *
  * @apiError  EmptyAccessToken The access token is empty or undefined
  *
- * @apiErrorExample {String} No Service
+ * @apiErrorExample {String} Empty Access Token
  *     HTTP/1.1 400 Bad Request
  *     "You can't put an empty value for the Access Token"
  */
