@@ -8,7 +8,7 @@ module.exports = function (app, db) {
                 userToken: req.headers.usertoken
             }).toArray(function (err, result) {
                 if (result[0] === undefined) {
-                    res.status(404).send("Could not find an account that matches the token")
+                    res.status(403).send("Could not find an account that matches the token")
                 } else {
                     if (result[0][req.headers.servicename] === undefined) {
                         res.status(422).send("The service " + req.headers.servicename + " has not been initiated for this user")
@@ -36,7 +36,7 @@ module.exports = function (app, db) {
                 }
                 db.collection("tokens").find(userQuery).toArray((err, result) => {
                     if (result[0] === undefined) {
-                        res.status(404).send("Could not find an account that matches the token")
+                        res.status(403).send("You are not allowed to do this request")
                     } else {
                         let update;
                         if (type === "added" || type === "updated") {
@@ -53,7 +53,7 @@ module.exports = function (app, db) {
                             }
                         }
                         db.collection("tokens").updateOne(userQuery, update)
-                        res.status(200).send("Service " + type)
+                        res.status(200).send("Service " + req.headers.servicename + " " + type)
                     }
                 })
             }
