@@ -8,6 +8,6 @@ import requests
 def home(request):
     response = requests.get('https://reqres.in/api/users?page=2')
     geodata = response.json()
-    return render(request, 'home.html', {
+    return render(request, 'index.html', {
         'ip': geodata,
     })
