@@ -30,7 +30,8 @@
   {
     "type": "POST",
     "url": "/addAccessToken",
-    "title": "Add an access token an his service",
+    "title": "Add Access Token",
+    "description": "<p>Add an Access Token an his service</p>",
     "name": "Add_Access_Token",
     "group": "AccessTokens",
     "parameter": {
@@ -128,7 +129,8 @@
   {
     "type": "get",
     "url": "/getAccessToken",
-    "title": "get the access token associated to a service",
+    "title": "Get Access Token",
+    "description": "<p>Get the access token associated to a service</p>",
     "name": "Get_Access_Token",
     "group": "AccessTokens",
     "parameter": {
@@ -217,9 +219,100 @@
     }
   },
   {
+    "type": "get",
+    "url": "/getAllServices",
+    "title": "Get service list",
+    "description": "<p>Get a list of all service, existing for this user</p>",
+    "name": "Get_Service_List",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "ServiceName",
+            "description": "<p>The name of the service</p>"
+          },
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Service",
+            "description": "<p>Each existing service is in the array</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "GetToken",
+          "content": "HTTP/1.1 200 OK\n{\n     Service: [<Service1>, <Service2>]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
     "type": "DELETE",
     "url": "/removeAccessToken",
-    "title": "remove a service and his Access Token",
+    "title": "Remove a Service",
+    "description": "<p>Remove a service and his Access Token</p>",
     "name": "Remove_Access_Token",
     "group": "AccessTokens",
     "parameter": {
@@ -299,7 +392,8 @@
   {
     "type": "PUT",
     "url": "/updateAccessToken",
-    "title": "update the Access Token associated to a service",
+    "title": "Update Access Token",
+    "description": "<p>Update the Access Token associated to a service</p>",
     "name": "Update_Access_Token",
     "group": "AccessTokens",
     "parameter": {

@@ -1,5 +1,6 @@
 /**
- * @api {get} /getAccessToken get the access token associated to a service
+ * @api {get} /getAccessToken Get Access Token
+ * @apiDescription Get the access token associated to a service
  * @apiName Get Access Token
  * @apiGroup AccessTokens
  *
@@ -21,9 +22,33 @@
  * @apiUse NoService
  **/
 
+ /**
+ * @api {get} /getAllServices Get service list
+ * @apiDescription Get a list of all service, existing for this user
+ * @apiName Get Service List
+ * @apiGroup AccessTokens
+ *
+ *
+ * @apiParam (Request headers) {String} usertoken The token that belongs to the user
+ *
+ * @apiSuccess ServiceName The name of the service
+ * @apiSuccess Service Each existing service is in the array
+ *
+ * @apiSuccessExample GetToken
+ *     HTTP/1.1 200 OK
+ *     {
+ *          Service: [<Service1>, <Service2>]
+ *     }
+ *
+ * @apiUse FalseToken
+ * @apiUse EmptyField
+ * @apiUse NoService
+ **/
+
 
  /**
- * @api {POST} /addAccessToken Add an access token an his service
+ * @api {POST} /addAccessToken Add Access Token
+ * @apiDescription Add an Access Token an his service
  * @apiName Add Access Token
  * @apiGroup AccessTokens
  *
@@ -43,7 +68,8 @@
  **/
 
   /**
- * @api {PUT} /updateAccessToken update the Access Token associated to a service
+ * @api {PUT} /updateAccessToken Update Access Token
+ * @apiDescription Update the Access Token associated to a service
  * @apiName Update Access Token
  * @apiGroup AccessTokens
  *
@@ -63,7 +89,8 @@
  **/
 
    /**
- * @api {DELETE} /removeAccessToken remove a service and his Access Token
+ * @api {DELETE} /removeAccessToken Remove a Service
+ * @apiDescription Remove a service and his Access Token
  * @apiName Remove Access Token
  * @apiGroup AccessTokens
  *
