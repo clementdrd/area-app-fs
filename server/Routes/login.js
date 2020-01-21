@@ -9,6 +9,7 @@ module.exports = function (app, db) {
             res.status(400).send("You can't send an empty field")
             return;
         }
+        console.log("hello",req.body)
         db.collection("users").find({username: req.body.username}).toArray(function(err, result) {
             let password = sha256(PREFIX_SALT + req.body.password + SUFFIX_SALT)
             if (result[0] === undefined) {
