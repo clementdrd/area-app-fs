@@ -10,6 +10,7 @@ module.exports = function (app, db) {
     app.post("/twitchfollowcallback", (req, res) => {
         console.log(req.query);
         console.log(req.body);
+        console.log(req.headers);
         // console.log(req.query[hub])
         res.status(200).send()
     })
