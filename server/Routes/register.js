@@ -21,6 +21,7 @@ module.exports = function (app, db) {
                 }
                 db.collection("users").insertOne(insertion)
                 db.collection("tokens").insertOne({ userToken: userToken})
+                db.collection("Services").insertOne({ userToken: userToken })
                 res.set("UserToken", userToken)
                 res.status(200).send("User created")
             } else {
