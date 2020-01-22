@@ -11,3 +11,12 @@ def home(request):
     return render(request, 'index.html', {
         'ip': geodata,
     })
+
+def loading_page(request):
+    return render(request, 'loader.html')
+
+def login(request):
+    return render(request, 'login_page.html')
+
+def register(request):
+    return render(request, 'register_page.html')
