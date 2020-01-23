@@ -75,7 +75,8 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/round_button"
+        android:backgroundTint="#EE674A"
+
         android:text="Register"/>
 
 </LinearLayout>

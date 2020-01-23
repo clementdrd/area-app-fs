@@ -17,7 +17,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:id="@+id/UsernameConnect"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
@@ -29,13 +28,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:id="@+id/UsernameConnect"
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:id="@+id/passwordConnect"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:layout_marginLeft="40dp"
@@ -46,6 +45,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/passwordConnect"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,14 +58,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:background="@drawable/round_button"
-        android:text="Connect"/>
+        android:text="Connect"
+        android:backgroundTint="#EE674A"
+        />
     <com.google.android.material.button.MaterialButton
         android:id="@+id/Register_button"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/round_button"
+        android:backgroundTint="#EE674A"
         android:text="Register"/>
 
 </LinearLayout>
