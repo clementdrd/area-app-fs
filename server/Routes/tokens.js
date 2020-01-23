@@ -71,4 +71,29 @@ module.exports = function (app, db) {
     app.delete("/removeAccessToken", (req, res) => {
         addDeleteToken(req, res, "deleted")
     })
+
+    app.get("/getAllServices", (req, res) => {
+        if (req.headers.usertoken === undefined || req.headers.usertoken === "") {
+            res.status(400).send("You can't send an empty field")
+        } else {
+            db.collection("tokens").find({
+                userToken: req.headers.usertoken
+            }).toArray(function (err, result) {
+                if (result[0] === undefined) {
+                    res.status(403).send("Could not find an account that matches the token")
+                } else {
+                    res.set("Content-Type", "application/json")
+                    let service = []
+                    for (serviceName in result[0]) {
+                        if (serviceName !== "_id" && serviceName !== "userToken") {
+                            service.push(serviceName)
+                        }
+                    }
+                    console.log(service)
+                    res.status(200).send({ Service: service })
+                }
+            })
+        }
+
+    })
 }

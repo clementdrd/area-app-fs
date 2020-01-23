@@ -8,6 +8,7 @@ var router = express.Router()
 var token = require("./Routes/tokens")
 
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(cors())
 
 
@@ -31,6 +32,7 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/deleteUser")(app, db)
     require("./Routes/createAdmins")(app, db)
     require("./Routes/tokens")(app, db)
+    require("./Routes/twitchFollowCallback")(app, db)
 
     app.get("/", (req, res) => {
         console.log(dirname + "/index.html")
