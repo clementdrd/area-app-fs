@@ -1,9 +1,9 @@
 version: '3.1'
-services:
+ClientWeb:
   server:
     restart: always
     build:
-      context: ./ClientWeb
+      context: ./DjangoWeb
       dockerfile: Dockerfile
     ports:
       - "8080:8081"
