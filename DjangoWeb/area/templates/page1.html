@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/page1.css' %}">
+  <script type="text/javascript" src="{% static 'js/page1.js' %}"></script>
+  
+</head>
+
+<body onload="Dynamic_Text()">
+
+<input type="button" class="Main_text" id="main_text"/>
+
+<label class="switch">
+  <input type="checkbox" class="checkbox" onclick="doOnClick();" />
+  <div class=""></div>
+
+</label>
+  <input type="button" class="Switch_Text" value="Disconnected" id="switch_text" disabled/>
+</body>
+
+</html>

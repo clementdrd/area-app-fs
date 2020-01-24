@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^Home/', views.home),
     url(r'^Loader/', views.loading_page),
     url(r'^Register/', views.register),
+    url(r'^Service/', views.service),
+    url(r'^Page', views.page1),
 ]

@@ -20,3 +20,9 @@ def login(request):
 
 def register(request):
     return render(request, 'register_page.html')
+
+def service(request):
+    return render(request, 'service_connection.html')
+
+def page1(request):
+    return render(request, 'page1.html')
