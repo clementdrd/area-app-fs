@@ -7,17 +7,17 @@ module.exports = {
 
 function addDeleteToken(req, res, type, db) {
     console.log(req.body)
-    if ((type === "added" || type === "updated") && (req.headers.value === undefined || req.headers.value === "")) {
-        if (req.headers.value === undefined || req.headers.value === "") {
-            console.log("Empty AccessToken")
+    if ((type === "added" || type === "updated") && (req.body.value === undefined || req.body.value === "")) {
+        if (req.body.value === undefined || req.body.value === "") {
+            console.log("Empty AccessToken", req.body.value)
         } else {
             console.log("Error server")
         }
         res.status(400).send("You can't put an empty value for the Access Token")
     } else {
-        if (req.headers.usertoken === undefined || req.headers.usertoken === ""
-            || req.headers.servicename === undefined || req.headers.servicename === "") {
-            if (req.headers.usertoken === undefined || req.headers.usertoken === "") {
+        if (req.body.usertoken === undefined || req.body.usertoken === ""
+            || req.body.servicename === undefined || req.body.servicename === "") {
+            if (req.body.usertoken === undefined || req.body.usertoken === "") {
                 console.log("Empty Username")
             } else {
                 console.log("Empty serviceName")
@@ -25,12 +25,12 @@ function addDeleteToken(req, res, type, db) {
                 res.status(400).send("You can't send an empty field")
         } else {
             let userQuery = {
-                userToken: req.headers.usertoken
+                userToken: req.body.usertoken
             }
             async function callAsync() {
                 await insertInDb(userQuery, type, db, req, res, (arg) => {
                     if (arg === 0) {
-                        tokenAdded(req.headers.servicename, db, req.headers.value)
+                        tokenAdded(req.body.servicename, db, req.body.value)
                     }
                 })
             }
@@ -49,18 +49,18 @@ async function insertInDb(userQuery, type, db, req, res, callback) {
             if (type === "added" || type === "updated") {
                 update = {
                     $set: {
-                        [req.headers.servicename]: req.headers.value
+                        [req.body.servicename]: req.body.value
                     }
                 }
             } else {
                 update = {
                     $unset: {
-                        [req.headers.servicename]: ""
+                        [req.body.servicename]: ""
                     }
                 }
             }
             db.collection("tokens").updateOne(userQuery, update)
-            res.status(200).send("Service " + req.headers.servicename + " " + type)
+            res.status(200).send("Service " + req.body.servicename + " " + type)
             callback(0)
         }
     })
