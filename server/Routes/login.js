@@ -24,9 +24,13 @@ module.exports = function (app, db) {
                     email: result[0].email,
                     userToken: userToken
                 }}
-                db.collection("users").updateOne({username : result[0].username}, insertion)
-                res.set("UserToken", userToken)
-                res.status(200).send("User connected!")
+                db.collection("users").updateOne({ username: result[0].username }, insertion)
+                db.collection("tokens").find({ userToken: result[0].userToken}).toArray((err, resultat) => {
+                    resultat = JSON.parse(JSON.stringify(resultat))
+                    db.collection("tokens").updateOne({ userToken: result[0].userToken }, {$set :{userToken: userToken}})
+                    res.set("UserToken", userToken)
+                    res.status(200).send("User connected!")
+                })
             }
         })
     })
