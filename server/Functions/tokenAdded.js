@@ -8,7 +8,11 @@ module.exports = {
 function addDeleteToken(req, res, type, db) {
     console.log(req.body)
     if ((type === "added" || type === "updated") && (req.headers.value === undefined || req.headers.value === "")) {
-        console.log("Empty AccessToken")
+        if (req.headers.value === undefined || req.headers.value === "") {
+            console.log("Empty AccessToken")
+        } else {
+            console.log("Error server")
+        }
         res.status(400).send("You can't put an empty value for the Access Token")
     } else {
         if (req.headers.usertoken === undefined || req.headers.usertoken === ""
