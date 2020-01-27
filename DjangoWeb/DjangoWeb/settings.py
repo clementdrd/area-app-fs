@@ -124,3 +124,5 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))

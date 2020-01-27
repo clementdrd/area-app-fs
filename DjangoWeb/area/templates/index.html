@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
-    <!-- <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-    <link rel="icon" type="image/png" href="{% static 'images/epitech-logo-signature-noir.png' %}" />
+    <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="{% static 'images/Logo/epitech-logo-signature-noir.png' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/navbar.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/navbar.js' %}"></script> -->
     <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
@@ -21,19 +23,20 @@
 
 <body>
     <header>
-        <img class="logo" src="{% static 'images/Logo.png' %}" alt="logo">
+        <img class="logo" src="{% static 'images/Logo/Logo.png' %}" alt="logo">
         <nav>
             <ul class="nav__links">
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#">Calendrier</a></li>
+                <li><a href="#">Cloud</a></li>
+                <li><a href="#">Message</a></li>
+                <li><a href="#">Réseaux Sociaux</a></li>
+                <li><a href="#">Streaming</a></li>
             </ul>
         </nav>
+        <div class="containerSearchBox">
+            <input id="myInput" placeholder='Search...' class='js-search' type="text" onkeyup="myFunction()">
+            <i class="fa fa-search"></i>
+        </div>
         <nav id="log-in">
             <ul class="nav__links">
                 <li><a href="/">Se déconnecter</a></li>
@@ -49,27 +52,41 @@
             </svg>
         </div> -->
     </header>
-    <div class="slide-container">
 
-        <div class="wrapper">
-            <div class="clash-card barbarian">
-                <div class="clash-card__image clash-card__image--barbarian">
-                    <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/barbarian.png" alt="barbarian" /> -->
-                </div>
-                <div class="clash-card__unit-name">Nom de Card</div>
-                <div class="clash-card__unit-description">
-                    Description de la 📦
-                </div>
-
-                <div class="clash-card__unit-stats clash-card__unit-stats--barbarian clearfix">
-                    <input type="checkbox">
-                </div>
-
-            </div> <!-- end clash-card barbarian-->
-        </div> <!-- end wrapper -->
-
-    </div> <!-- end container -->
+    <div class="container">
+    {% for image in img_path %}
+        <div class="cards" id="{% static image %}">
+            <div class="card_image"> <img src="{% static image %}" /> </div>
+            <div class="card_title title-white">
+            <!-- <p>Card Title</p> -->
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <footer>
+        <img class="logo" src="{% static 'images/Logo/epitech-icon.png' %}" alt="logo">
+        <nav>
+            <ul class="nav__links">
+                <li><a href="#">Axel Terrand</a></li>
+                <li><a href="#">Clément Durand</a></li>
+                <li><a href="#">Matthieu Correia Moreira</a></li>
+                <li><a href="#">Tom Robert</a></li>
+                <li><a href="#">Souhib Trabelsi</a></li>
+            </ul>
+        </nav>
+        <nav id="log-in">
+            <ul class="nav__links">
+                <img class="logo" src="{% static 'images/Logo/Logo.png' %}" alt="logo">
+                <!-- <li><a href="#">Se déconnecter</a></li> -->
+            </ul>
+        </nav>
+    </footer>
 </body>
-<script src="{% static 'js/hamburger.js' %}"></script>
+
+{% for id in searchID %}
+    <p> {{ id }} </p>
+{% endfor %}
+<!-- <script src="{% static 'js/hamburger.js' %}"></script> -->
+<script src="{% static 'js/searchbar.js' %}"></script>
 
 </html>
