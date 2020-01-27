@@ -25,9 +25,9 @@ module.exports = function (app, db) {
     })
 
 
-   
 
-    
+
+
 
     app.put("/updateAccessToken", (req, res) => {
         fct.addDeleteToken(req, res, "updated", db)
