@@ -67,6 +67,15 @@ header {
   height: 100px;
 }
 
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 5%;
+  background: linear-gradient(-90deg, rgb(253, 76, 6), orange);
+  height: 100px;
+}
+
 .logo {
   cursor: pointer;
 }
@@ -182,224 +191,205 @@ header {
 
 /* Cards */
 
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
-*, *:before, *:after {
+.container {
+  margin-top: 3.5em;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+
+.cards-list {
+  z-index: 0;
+  width: 100%;
+}
+
+.cards {
+  width: 180px;
+  height: 180px;
+  border-radius: 40px;
+  box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  cursor: pointer;
+  transition: 0.4s;
+  margin-left: 2em;
+  margin-bottom: 2em;
+}
+
+.cards .card_image {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+}
+
+.cards .card_image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 40px;
+  object-fit: cover;
+}
+
+.cards .card_title {
+  text-align: center;
+  border-radius: 0px 0px 40px 40px;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: -80px;
+  height: 40px;
+}
+
+.cards:hover {
+  transform: scale(0.9, 0.9);
+  box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), 
+    -5px -5px 30px 15px rgba(0,0,0,0.22);
+}
+
+.title-white {
+  color: white;
+}
+
+.title-black {
+  color: black;
+}
+
+@media all and (max-width: 500px) {
+  .card-list {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+}
+
+
+/*
+.card {
+  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 40px;
+  background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
+  transition: 0.4s;
+}
+*/
+
+/* CheckBox */
+
+.flipswitch {
+  position: relative;
+  width: 250px;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select: none;
+}
+.flipswitch input[type=checkbox] {
+  display: none;
+}
+.flipswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #999999;
+  border-radius: 50px;
+}
+.flipswitch-inner {
+  width: 200%;
+  margin-left: -100%;
+  -webkit-transition: margin 0.3s ease-in 0s;
+  -moz-transition: margin 0.3s ease-in 0s;
+  -ms-transition: margin 0.3s ease-in 0s;
+  -o-transition: margin 0.3s ease-in 0s;
+  transition: margin 0.3s ease-in 0s;
+}
+.flipswitch-inner:before, .flipswitch-inner:after {
+  float: left;
+  width: 50%;
+  height: 77px;
+  padding: 0;
+  line-height: 77px;
+  font-size: 20px;
+  color: white;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-
-/* body {
-  background: linear-gradient(to bottom, #8c7a7a 0%, #af877c 65%, #af877c 100%) fixed;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font: 14px/20px "Lato", Arial, sans-serif;
-  color: #9E9E9E;
-  margin-top: 30px;
-} */
-
-.slide-container {
-  margin: auto;
-  width: 600px;
-  text-align: center;
+.flipswitch-inner:before {
+  content: "Connected";
+  padding-left: 25px;
+  background-color: #FFD814;
+  color: #FFFFFF;
+}
+.flipswitch-inner:after {
+  content: "Disconnect";
+  padding-right: 25px;
+  background-color: #EBEBEB;
+  color: #888888;
+  text-align: right;
+}
+.flipswitch-switch {
+  width: 50px;
+  margin: 13.5px;
+  background: #FFFFFF;
+  border: 2px solid #999999;
+  border-radius: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 172px;
+  -webkit-transition: all 0.3s ease-in 0s;
+  -moz-transition: all 0.3s ease-in 0s;
+  -ms-transition: all 0.3s ease-in 0s;
+  -o-transition: all 0.3s ease-in 0s;
+  transition: all 0.3s ease-in 0s;
+}
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-inner {
+  margin-left: 0;
+}
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-switch {
+  right: 0;
 }
 
-.wrapper {
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
-.wrapper:focus {
-  outline: 0;
+ul {
+  margin-top: 0.3em;
 }
 
-.clash-card {
-  background: white;
+/* Search Box */
+
+.containerSearchBox {
+  /* width: 100%;
+  height: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type=text] {
+  position: relative;
+  padding: 15px 40px 15px 20px;
+  width: 20px;
+  color: #525252;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #FFFFFF 0%, #464747 #F9F9F9 100%);
+  transition: width 0.4s ease;
+  outline: none;
+}
+
+input[type=text]:focus {
   width: 300px;
-  display: inline-block;
-  margin: auto;
-  border-radius: 19px;
+}
+
+i {
   position: relative;
-  text-align: center;
-  box-shadow: -1px 15px 30px -12px black;
-  z-index: 9999;
-}
-
-.clash-card__image {
-  position: relative;
-  height: 230px;
-  margin-bottom: 35px;
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-}
-
-.clash-card__image--barbarian {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/barbarian-bg.jpg") no-repeat;
-}
-.clash-card__image--barbarian img {
-  width: 400px;
-  position: absolute;
-  top: -65px;
-  left: -70px;
-}
-
-.clash-card__image--archer {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/archer-bg.jpg");
-}
-.clash-card__image--archer img {
-  width: 400px;
-  position: absolute;
-  top: -34px;
   left: -37px;
-}
-
-.clash-card__image--giant {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/giant-bg.jpg");
-}
-.clash-card__image--giant img {
-  width: 340px;
-  position: absolute;
-  top: -30px;
-  left: -25px;
-}
-
-.clash-card__image--goblin {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/goblin-bg.jpg");
-}
-.clash-card__image--goblin img {
-  width: 370px;
-  position: absolute;
-  top: -21px;
-  left: -37px;
-}
-
-.clash-card__image--wizard {
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/wizard-bg.jpg");
-}
-.clash-card__image--wizard img {
-  width: 345px;
-  position: absolute;
-  top: -28px;
-  left: -10px;
-}
-
-.clash-card__level {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 3px;
-}
-
-.clash-card__level--barbarian {
-  color: #EC9B3B;
-}
-
-.clash-card__level--archer {
-  color: #EE5487;
-}
-
-.clash-card__level--giant {
-  color: #F6901A;
-}
-
-.clash-card__level--goblin {
-  color: #82BB30;
-}
-
-.clash-card__level--wizard {
-  color: #4FACFF;
-}
-
-.clash-card__unit-name {
-  font-size: 26px;
-  color: black;
-  font-weight: 900;
-  margin-bottom: 5px;
-}
-
-.clash-card__unit-description {
-  padding: 20px;
-  margin-bottom: 10px;
-}
-
-.clash-card__unit-stats--barbarian {
-  background: #EC9B3B;
-}
-.clash-card__unit-stats--barbarian .one-third {
-  border-right: 1px solid #BD7C2F;
-}
-
-.clash-card__unit-stats--archer {
-  background: #EE5487;
-}
-.clash-card__unit-stats--archer .one-third {
-  border-right: 1px solid #D04976;
-}
-
-.clash-card__unit-stats--giant {
-  background: #F6901A;
-}
-.clash-card__unit-stats--giant .one-third {
-  border-right: 1px solid #de7b09;
-}
-
-.clash-card__unit-stats--goblin {
-  background: #82BB30;
-}
-.clash-card__unit-stats--goblin .one-third {
-  border-right: 1px solid #71a32a;
-}
-
-.clash-card__unit-stats--wizard {
-  background: #4FACFF;
-}
-.clash-card__unit-stats--wizard .one-third {
-  border-right: 1px solid #309eff;
-}
-
-.clash-card__unit-stats {
-  color: white;
-  font-weight: 700;
-  border-bottom-left-radius: 14px;
-  border-bottom-right-radius: 14px;
-}
-.clash-card__unit-stats .one-third {
-  width: 33%;
-  float: left;
-  padding: 20px 15px;
-}
-.clash-card__unit-stats sup {
-  position: absolute;
-  bottom: 4px;
-  font-size: 45%;
-  margin-left: 2px;
-}
-.clash-card__unit-stats .stat {
-  position: relative;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-.clash-card__unit-stats .stat-value {
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 12px;
-}
-.clash-card__unit-stats .no-border {
-  border-right: none;
-}
-
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-
-.slick-prev {
-  left: 100px;
-  z-index: 999;
-}
-
-.slick-next {
-  right: 100px;
-  z-index: 999;
+  color: #8233C5;
 }
