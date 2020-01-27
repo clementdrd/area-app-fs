@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.google_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -143,11 +144,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userEmail.setText(mUserEmail);
     }
     public void openHomeFragment(String userName) {
-        HomeFragment fragment = HomeFragment.createInstance(userName);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-        mNavigationView.setCheckedItem(R.id.Office);
     }
 
     private void signIn() {
@@ -175,15 +171,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Log.w("ERR", "signInResult:failed code=" + account.getEmail());
+            SendThirdPartyToken(account.getIdToken() , "Google");
 
-            // Signed in successfully, show authenticated UI.
-            //updateUI(account);
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("ERR", "signInResult:failed code=" + e.getStatusCode());
-            //updateUI(null);
         }
     }
 
@@ -258,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .add("servicename", Service)
                 .add("value", token)
                 .build();
-
+        Log.d("test", token);
         Request request = new Request.Builder()
                 .url(Url+"addAccessToken")
                 .post(formBody)
@@ -271,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+            public void onResponse(okhttp3.Call call, final Response response) throws IOException {
                 final int RequestCode = response.code();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -282,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             openHomeFragment(mUserName);
                         }
                         else {
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.ConnectContainer), "Error please try again later", Snackbar.LENGTH_LONG);
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout), "Error cannot log to server", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
                         return;
