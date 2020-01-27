@@ -30,3 +30,12 @@ def home(request):
         'img_path': img_path,
         'searchID': searchID
     })
+
+def loading_page(request):
+    return render(request, 'loader.html')
+
+def login(request):
+    return render(request, 'login_page.html')
+
+def register(request):
+    return render(request, 'register_page.html')

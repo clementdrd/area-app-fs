@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="#style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+
+      <form action="Loader" class="login-form">
+
+        <style>
+
+
+
+
+    *{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    font-family: montserrat;
+    box-sizing: border-box;
+    }
+
+body{
+
+    min-height: 100vh;
+    background-image: linear-gradient(120deg, #FFA500, #FF7F50, #FF4500);
+
+}
+
+
+.login-form{
+
+width: 360px;
+background: #f1f1f1;
+height: 580px;
+padding: 80px 40px;
+border-radius: 10px;
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+
+}
+
+.login-form h1{
+text-align: center;
+margin-bottom: 60px;
+}
+
+    .login-form h2{
+font-size: 17px;
+    }
+
+.login-form imput{
+margin-bottom: px;
+
+}
+
+.txt{
+
+border-bottom: 2px solid #adadad;
+position: relative;
+margin: 30px 0;
+
+}
+
+input:focus, textarea:focus {
+    outline: none;
+}
+
+
+.txt input{
+
+text-shadow: 0 0 0 #2196f3;
+font-size: 15px;
+border: none;
+width: 100%;
+outline: none;
+background: none;
+padding: 0 5px;
+height: 50px;
+}
+
+    .txt span::before{
+
+  content: attr(data-placeholder);
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  z-index: -1;
+  transition: .5s;
+
+    }
+
+    .txt span::after{
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  transition: .5s;
+}
+
+.focus + span::before{
+  top: -5px;
+}
+.focus + span::after{
+  width: 100%;
+}
+
+
+
+.button {
+    margin-left: 6em;
+    background-image: linear-gradient(120deg, #FFA500, #FF7F50, #FF4500);
+    border: none;
+    color: white;
+    margin-top: 50px;
+    padding: 5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    background-size: 200%;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    transistion: .5s;
+border-radius : 5px 5px 5px 5px;
+}
+
+    .button: hover{
+    background-position: right;
+    }
+
+  </style>
+
+  <h1>Login</h1>
+
+
+  <div class="txt">
+    <input type="mail">
+    <span data-placeholder="Username"></span>
+    </div>
+  <div class="txt">
+    <input type="Password">
+    <span data-placeholder="Password"></span>
+  </div>
+
+  <div class="bottom-text">
+    <h2>Don't have account? <a href="Register">Sign up</a></h2>
+    </div>
+
+    <input type="submit" class="button" value="Submit">
+
+
+</form>
+
+<script type="text/javascript">
+      $(".txt input").on("focus",function(){
+        $(this).addClass("focus");
+      });
+
+      $(".txt input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+      });
+
+      </script>
+
+  </body>
+</html>
