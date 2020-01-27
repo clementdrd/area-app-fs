@@ -9,6 +9,7 @@ module.exports = function (app, db) {
             res.status(400).send("You can't send an empty field")
             return;
         }
+        console.log("Username = ", req.body.username)
         db.collection("users").find({username: req.body.username}).toArray(function(err, result) {
             if (result[0] === undefined) {
                 password = sha256(PREFIX_SALT + req.body.password + SUFFIX_SALT)
@@ -21,6 +22,7 @@ module.exports = function (app, db) {
                 }
                 db.collection("users").insertOne(insertion)
                 db.collection("tokens").insertOne({ userToken: userToken})
+                db.collection("Services").insertOne({ userToken: userToken })
                 res.set("UserToken", userToken)
                 res.status(200).send("User created")
             } else {

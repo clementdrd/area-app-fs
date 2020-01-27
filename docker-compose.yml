@@ -12,19 +12,6 @@ ClientWeb:
     networks:
       - client-server
 
-  
-  mongo:
-    image: mongo:latest
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: dashboard
-      MONGO_INITDB_ROOT_PASSWORD: pasdami
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./db:/data/db
-    networks: 
-      - server-db
 
   api:
     restart: always
@@ -36,11 +23,8 @@ ClientWeb:
     expose:
       - "8080"
     networks:
-      - server-db
       - client-server
 
 networks:
   client-server:
-    driver: bridge
-  server-db:
     driver: bridge
