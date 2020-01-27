@@ -35,7 +35,6 @@ module.exports = function (app, db) {
 
     app.post("/addAccessToken", (req, res) => {
         fct.addDeleteToken(req, res, "added", db)
-        // fct.addToken(req.headers.servicename, db, req.headers.value)
     })
 
     app.delete("/removeAccessToken", (req, res) => {

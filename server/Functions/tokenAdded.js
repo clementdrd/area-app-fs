@@ -26,7 +26,6 @@ function addDeleteToken(req, res, type, db) {
             callAsync()
         }
     }
-    return 1
 }
 
 async function insertInDb(userQuery, type, db, req, res, callback) {
