@@ -6,12 +6,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/Office"
-            android:icon="@drawable/office_logo_36x36"
-            android:title="Home" />
+            android:title="Office365" />
 
         <item
             android:id="@+id/Google"
-            android:icon="@drawable/google_logo_36x36"
-            android:title="Calendar" />
+            android:title="Google" />
     </group>
 </menu>

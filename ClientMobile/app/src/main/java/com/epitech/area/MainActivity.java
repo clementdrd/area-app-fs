@@ -1,5 +1,6 @@
 package com.epitech.area;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,15 +16,33 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.epitech.area.ui.home.HomeFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import android.util.Log;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.microsoft.identity.client.AuthenticationCallback;
 import com.microsoft.identity.client.IAuthenticationResult;
 import com.microsoft.identity.client.exception.MsalClientException;
 import com.microsoft.identity.client.exception.MsalException;
 import com.microsoft.identity.client.exception.MsalServiceException;
 import com.microsoft.identity.client.exception.MsalUiRequiredException;
+
+import java.io.IOException;
+
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static com.epitech.area.UserConnect.Connected;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawer;
@@ -33,12 +52,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String mUserName = null;
     private String mUserEmail = null;
     private AuthenticationHelper mAuthHelper = null;
+    private String Url = "https://area-rest-api-zuma.herokuapp.com/";
 
+    OkHttpClient httpClient = new OkHttpClient.Builder().build();
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Set the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,15 +95,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.Office:
                 signIn();
                 break;
-            /*case R.id.nav_calendar:
-                openCalendarFragment();
+            case R.id.Google:
+                signInGoogle();
                 break;
-            case R.id.nav_signin:
-                signIn();
-                break;
-            case R.id.nav_signout:
-                signOut();
-                break;*/
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -113,30 +133,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Update the menu and get the user's name and email
     private void setSignedInState(boolean isSignedIn) {
         mIsSignedIn = isSignedIn;
-
-        Menu menu = mNavigationView.getMenu();
-
-        // Hide/show the Sign in, Calendar, and Sign Out buttons
-        menu.findItem(R.id.Office).setVisible(!isSignedIn);
-
         // Set the user name and email in the nav drawer
         TextView userName = mHeaderView.findViewById(R.id.user_name);
         TextView userEmail = mHeaderView.findViewById(R.id.user_email);
+        mUserName = Connected.UserName;
+        mUserEmail = Connected.email;
 
-        if (isSignedIn) {
-            // For testing
-            mUserName = "Megan Bowen";
-            mUserEmail = "meganb@contoso.com";
-
-            userName.setText(mUserName);
-            userEmail.setText(mUserEmail);
-        } else {
-            mUserName = null;
-            mUserEmail = null;
-
-            userName.setText("Please sign in");
-            userEmail.setText("");
-        }
+        userName.setText(mUserName);
+        userEmail.setText(mUserEmail);
     }
     public void openHomeFragment(String userName) {
         HomeFragment fragment = HomeFragment.createInstance(userName);
@@ -146,20 +150,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavigationView.setCheckedItem(R.id.Office);
     }
 
-    // Load the "Calendar" fragment
-   /* private void openCalendarFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new CalendarFragment())
-                .commit();
-        mNavigationView.setCheckedItem(R.id.nav_calendar);
-    }*/
-
     private void signIn() {
         showProgressBar();
-        // Attempt silent sign in first
-        // if this fails, the callback will handle doing
-        // interactive sign in
         doSilentSignIn();
+    }
+
+    private void signInGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 1);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == 1) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Log.w("ERR", "signInResult:failed code=" + account.getEmail());
+
+            // Signed in successfully, show authenticated UI.
+            //updateUI(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("ERR", "signInResult:failed code=" + e.getStatusCode());
+            //updateUI(null);
+        }
     }
 
     private void signOut() {
@@ -170,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         openHomeFragment(mUserName);
     }
     // Silently sign in - used if there is already a
-// user account in the MSAL cache
+    // user account in the MSAL cache
     private void doSilentSignIn() {
         mAuthHelper.acquireTokenSilently(getAuthCallback());
     }
@@ -224,5 +249,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 hideProgressBar();
             }
         };
+    }
+
+    public void SendThirdPartyToken(String token, String Service)
+    {
+        RequestBody formBody = new FormBody.Builder()
+                .add("usertoken", Connected.Token)
+                .add("servicename", Service)
+                .add("value", token)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(Url+"addAccessToken")
+                .post(formBody)
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.e("ERR", "An error has occurred " + e);
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                final int RequestCode = response.code();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (RequestCode == 200) {
+                            hideProgressBar();
+                            setSignedInState(true);
+                            openHomeFragment(mUserName);
+                        }
+                        else {
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.ConnectContainer), "Error please try again later", Snackbar.LENGTH_LONG);
+                            snackbar.show();
+                        }
+                        return;
+                    }
+                });
+            }
+        });
     }
 }
