@@ -199,6 +199,11 @@ footer {
   flex-flow: wrap;
 }
 
+.link_image {
+  width: inherit;
+  height: inherit;
+}
+
 .cards-list {
   z-index: 0;
   width: 100%;

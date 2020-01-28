@@ -28,7 +28,8 @@ def home(request):
     return render(request, 'index.html', {
         'ip': geodata,
         'img_path': img_path,
-        'searchID': searchID
+        'searchID': searchID,
+        'nbOfImages': range(len(img_path))
     })
 
 def loading_page(request):

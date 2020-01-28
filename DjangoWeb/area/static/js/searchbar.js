@@ -1,22 +1,39 @@
-function myFunction() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  div = document.getElementsByClassName("cards")
-  console.log(div)
-  console.log("salut tout le monde")
-//   input = document.getElementById('myInput');
-//   filter = input.value.toUpperCase();
-//   ul = document.getElementById("myUL");
-//   li = ul.getElementsByTagName('li');
+function searchFunction(searchByClick) {
+  div = document.getElementsByClassName('cards')
+  input = document.getElementById('myInput');
+  filter = input.value.toLowerCase();
+  for (i = 0; i < div.length; i++) {
+    if (!searchByClick) {
+      if (div[i].id.search(filter) == -1) {
+        // div[i].style.display = "none"
+        $('#' + div[i].id).fadeOut(1000);
+      }
+      else {
+        $('#' + div[i].id).fadeIn();
+      }
+    }
+    else {
+      dict = {
+        'cloud': ['dropbox', 'google-drive'],
+        'mail': ['google-gmail', 'microsoft-outlook'],
+        'message': ['messenger', 'whatsapp'],
+        'socialNetwork': ['instagram', 'twitter', 'facebook'],
+        'streaming': ['youtube', 'twitch', 'spotify', 'soundcloud', 'netflix', 'deezer'],
+      }
+      console.log(searchByClick)
+      console.log(dict[searchByClick])
+      if (!dict[searchByClick].includes(div[i].id))
+        $('#' + div[i].id).fadeOut(1000);
+      else
+        $('#' + div[i].id).fadeIn();
+    }
+  }
+}
 
-//   // Loop through all list items, and hide those who don't match the search query
-//   for (i = 0; i < li.length; i++) {
-//     a = li[i].getElementsByTagName("a")[0];
-//     txtValue = a.textContent || a.innerText;
-//     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//       li[i].style.display = "";
-//     } else {
-//       li[i].style.display = "none";
-//     }
-//   }
+
+div = document.getElementsByClassName('cards')
+for (var i = 0; i < div.length; i++) {
+  service = div[i].id.split('/')
+  service = service[service.length - 1].replace('-icon.png', '')
+  div[i].id = service
 }

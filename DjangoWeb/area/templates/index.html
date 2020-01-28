@@ -23,18 +23,18 @@
 
 <body>
     <header>
-        <img class="logo" src="{% static 'images/Logo/Logo.png' %}" alt="logo">
+        <a href="{% url 'area:home' %}"><img class="logo" src="{% static 'images/Logo/Logo.png' %}" alt="logo"></a>
         <nav>
             <ul class="nav__links">
-                <li><a href="#">Calendrier</a></li>
-                <li><a href="#">Cloud</a></li>
-                <li><a href="#">Message</a></li>
-                <li><a href="#">Réseaux Sociaux</a></li>
-                <li><a href="#">Streaming</a></li>
+                <li><a onclick="searchFunction('cloud')">Cloud</a></li>
+                <li><a onclick="searchFunction('mail')">Mail</a></li>
+                <li><a onclick="searchFunction('message')">Message</a></li>
+                <li><a onclick="searchFunction('socialNetwork')">Réseaux Sociaux</a></li>
+                <li><a onclick="searchFunction('streaming')">Streaming</a></li>
             </ul>
         </nav>
         <div class="containerSearchBox">
-            <input id="myInput" placeholder='Search...' class='js-search' type="text" onkeyup="myFunction()">
+            <input id="myInput" placeholder='Search...' class='js-search' type="text" onkeyup="searchFunction()">
             <i class="fa fa-search"></i>
         </div>
         <nav id="log-in">
@@ -56,36 +56,32 @@
     <div class="container">
     {% for image in img_path %}
         <div class="cards" id="{% static image %}">
-            <div class="card_image"> <img src="{% static image %}" /> </div>
+            <div class="card_image"><a class="link_image" href="{% url 'area:home' %}"><img src="{% static image %}" /></a></div>
             <div class="card_title title-white">
-            <!-- <p>Card Title</p> -->
             </div>
         </div>
     {% endfor %}
     </div>
     <footer>
-        <img class="logo" src="{% static 'images/Logo/epitech-icon.png' %}" alt="logo">
+        <a href="https://www.epitech.eu/fr/"><img class="logo" src="{% static 'images/Logo/epitech-icon.png' %}" alt="logo"></a>
         <nav>
             <ul class="nav__links">
-                <li><a href="#">Axel Terrand</a></li>
-                <li><a href="#">Clément Durand</a></li>
-                <li><a href="#">Matthieu Correia Moreira</a></li>
-                <li><a href="#">Tom Robert</a></li>
-                <li><a href="#">Souhib Trabelsi</a></li>
+                <li><a href="https://www.linkedin.com/in/axel-terrand2018at/">Axel Terrand</a></li>
+                <li><a href="https://twitter.com/ClmentDurand11">Clément Durand</a></li>
+                <li><a href="https://www.linkedin.com/in/matthieu-correiam/">Matthieu Correia Moreira</a></li>
+                <li><a href="https://www.linkedin.com/in/tom-robert-800763155/">Tom Robert</a></li>
+                <li><a href="https://www.linkedin.com/in/souhib-trabelsi-2492a5163/">Souhib Trabelsi</a></li>
             </ul>
         </nav>
         <nav id="log-in">
             <ul class="nav__links">
-                <img class="logo" src="{% static 'images/Logo/Logo.png' %}" alt="logo">
+                <a href="{% url 'area:home' %}"><img class="logo" src="{% static 'images/Logo/Logo.png' %}" alt="logo"></a>
                 <!-- <li><a href="#">Se déconnecter</a></li> -->
             </ul>
         </nav>
     </footer>
 </body>
 
-{% for id in searchID %}
-    <p> {{ id }} </p>
-{% endfor %}
 <!-- <script src="{% static 'js/hamburger.js' %}"></script> -->
 <script src="{% static 'js/searchbar.js' %}"></script>
 
