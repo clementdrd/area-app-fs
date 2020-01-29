@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <title>Services</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-{% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/service_connection.css' %}">
+  <head>
+    <title>Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/service_connection.css' %}">
+  </head>
 
 <body>
 <h2>Services</h2>
@@ -18,5 +20,5 @@
   <p><div class="circle"></div><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_new_music'">Add new music</button></p>
 
 </div>
-
+<script src="{% static 'js/auth.js' %}"></script>
 </body>
