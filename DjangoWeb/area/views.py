@@ -21,12 +21,12 @@ def home(request):
         searchID.append(str(files).replace('-icon.png', ''))
     for index, elem in enumerate(img_path):
         img_path[index] += path + "\\" + elem
-    response = requests.get('https://area-rest-api-zuma.herokuapp.com/isonline')
-    geodata = response.text
+    # response = requests.get('https://area-rest-api-zuma.herokuapp.com/isonline')
+    # geodata = response.text
     # print(searchID)
     # print(img_path)
     return render(request, 'index.html', {
-        'ip': geodata,
+        # 'ip': geodata,
         'img_path': img_path,
         'searchID': searchID,
         'nbOfImages': range(len(img_path))

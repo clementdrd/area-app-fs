@@ -32,8 +32,14 @@ function searchFunction(searchByClick) {
 
 
 div = document.getElementsByClassName('cards')
+links = $('.link_image')
 for (var i = 0; i < div.length; i++) {
   service = div[i].id.split('/')
   service = service[service.length - 1].replace('-icon.png', '')
   div[i].id = service
+  $(links[i]).attr("href", ($(links[i]).attr("href") + "?service=" + service))
 }
+
+  // console.log($(this))
+  // $(this).attr("href", $(this).attr("href") + $(this).attr('id'))
+// });
