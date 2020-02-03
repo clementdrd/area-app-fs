@@ -11,5 +11,9 @@
         <item
             android:id="@+id/Google"
             android:title="Google" />
+
+        <item
+            android:id="@+id/Spotify"
+            android:title="Spotify" />
     </group>
 </menu>

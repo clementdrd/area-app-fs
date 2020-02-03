@@ -203,7 +203,7 @@ public class UserConnect extends AppCompatActivity {
                         snackbar.show();
 
                         if (RequestCode == 200) {
-                            Log.e("test", Integer.toString(RequestCode));
+                            Log.d("test", Integer.toString(RequestCode));
                             SwitchActivity();
                         }
                         return;

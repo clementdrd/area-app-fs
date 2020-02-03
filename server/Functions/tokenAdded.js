@@ -41,25 +41,29 @@ function addDeleteToken(req, res, type, db) {
 
 async function insertInDb(userQuery, type, db, req, res, callback) {
     db.collection("tokens").find(userQuery).toArray((err, result) => {
-        if (result[0] === undefined) {
+        console.log(userQuery)
+        if (result[0] === undefined && type != "added") {
             res.status(403).send("You are not allowed to do this request")
             callback(1)
         } else {
             let update;
             if (type === "added" || type === "updated") {
                 update = {
-                    $set: {
-                        [req.body.servicename]: req.body.value
+                    set: {
+                        [req.body.servicename]: req.body.value,
+                        ["userToken"]: req.body.usertoken
                     }
                 }
             } else {
+                console.log("bite")
                 update = {
                     $unset: {
                         [req.body.servicename]: ""
                     }
                 }
             }
-            db.collection("tokens").updateOne(userQuery, update)
+            console.log(update)
+            db.collection("tokens").insertOne(update)//updateOne(userQuery, update)
             res.status(200).send("Service " + req.body.servicename + " " + type)
             callback(0)
         }

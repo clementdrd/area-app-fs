@@ -1,10 +1,13 @@
 package com.epitech.area;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -14,8 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.epitech.area.ui.home.HomeFragment;
+import com.epitech.area.ui.home.GoogleFragment;
+import com.epitech.area.ui.home.OfficeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -24,6 +30,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.microsoft.identity.client.AuthenticationCallback;
@@ -34,6 +41,7 @@ import com.microsoft.identity.client.exception.MsalServiceException;
 import com.microsoft.identity.client.exception.MsalUiRequiredException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -44,7 +52,7 @@ import okhttp3.Response;
 
 import static com.epitech.area.UserConnect.Connected;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,MyRecyclerViewAdapter.ItemClickListener  {
     private DrawerLayout mDrawer;
     private NavigationView mNavigationView;
     private View mHeaderView;
@@ -52,7 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String mUserName = null;
     private String mUserEmail = null;
     private AuthenticationHelper mAuthHelper = null;
-    private String Url = "https://area-rest-api-zuma.herokuapp.com/";
+    public static String Url = "https://area-rest-api-zuma.herokuapp.com/";
+    private IsUserConnected ConnectionStatus = new IsUserConnected(Connected.Token);
+    MyRecyclerViewAdapter adapter;
+   public static DrawableRessources Ressource = new DrawableRessources();
+
 
     OkHttpClient httpClient = new OkHttpClient.Builder().build();
     GoogleSignInClient mGoogleSignInClient;
@@ -63,10 +75,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.google_client_id))
+                .requestServerAuthCode(getString(R.string.google_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        GetDrawabelRessources();
         // Set the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Listen for item select events on menu
         mNavigationView.setNavigationItemSelectedListener(this);
         mAuthHelper = AuthenticationHelper.getInstance(getApplicationContext());
+        createView();
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -99,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.Google:
                 signInGoogle();
                 break;
+            case R.id.Spotify:
+                signInSpotify();
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -113,6 +129,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void signInSpotify()
+    {
+        WebView myWebView = new WebView(this);
+        myWebView.clearCache(true);
+        setContentView(myWebView);
+        myWebView.getSettings().setJavaScriptEnabled(true);
+
+        myWebView.loadUrl("https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Farea%2Fcallback&scope=user-read-private%20user-read-email&response_type=token&state=123");
+
+        myWebView.setWebViewClient(new WebViewClient() {
+
+        });
     }
 
     public void showProgressBar()
@@ -144,6 +174,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userEmail.setText(mUserEmail);
     }
     public void openHomeFragment(String userName) {
+        OfficeFragment fragment = OfficeFragment.createInstance(userName);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+    public void openGoogleFragment(String userName) {
+        GoogleFragment fragment = GoogleFragment.createInstance((userName));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     private void signIn() {
@@ -171,20 +212,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            SendThirdPartyToken(account.getIdToken() , "Google");
+            SendThirdPartyToken(account.getServerAuthCode() , "Google");
 
         } catch (ApiException e) {
             Log.w("ERR", "signInResult:failed code=" + e.getStatusCode());
         }
     }
 
-    private void signOut() {
-
-        mAuthHelper.signOut();
-
-        setSignedInState(false);
-        openHomeFragment(mUserName);
-    }
     // Silently sign in - used if there is already a
     // user account in the MSAL cache
     private void doSilentSignIn() {
@@ -208,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 hideProgressBar();
 
                 setSignedInState(true);
-                openHomeFragment(mUserName);
             }
 
             @Override
@@ -270,16 +303,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (RequestCode == 200) {
                             hideProgressBar();
                             setSignedInState(true);
-                            openHomeFragment(mUserName);
                         }
                         else {
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout), "Error cannot log to server", Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            try {
+                                Snackbar snackbar = Snackbar.make(findViewById(R.id.drawer_layout), response.body().string(), Snackbar.LENGTH_LONG);
+                                snackbar.show();
+                            } catch (Exception e)
+                            {
+                            }
                         }
                         return;
                     }
                 });
             }
         });
+    }
+    void createView()
+    {
+        ArrayList<String> animalNames = new ArrayList<>();
+        animalNames.add("Google");
+        animalNames.add("Office");
+        RecyclerView recyclerView = findViewById(R.id.RowRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MyRecyclerViewAdapter(this, animalNames);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You tested " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        if (position == 0)
+            openGoogleFragment("test");
+        else
+            openHomeFragment("test");
+
+    }
+
+    void GetDrawabelRessources()
+    {
+        int id = getResources().getIdentifier("com.epitech.area:drawable/googlelogo_36" , null, null);
+        Ressource.GoogleId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/office_logo_36x36" , null, null);
+        Ressource.OfficeId = id;
     }
 }
