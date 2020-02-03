@@ -5,7 +5,7 @@ from django.http import HttpResponse
 import requests
 from django.conf import settings
 from django.conf.urls.static import static
-from .forms import forms, RegisterForm
+from .forms import forms, RegisterForm, LoginForm
 import requests 
 
 import os
@@ -36,6 +36,36 @@ def loading_page(request):
     return render(request, 'loader.html')
 
 def login(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = LoginForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            data = request.POST.copy()
+            userName = data.get('userName')
+            password = data.get('password')
+            url = 'http://localhost:8080/login'
+            myobj = {
+                'username': userName,
+                'password': password,
+            }
+            x = requests.post(url, data=myobj)
+            if x.status_code == 400:
+                print("GROSSE BITE DE NOIR")
+                form.add_error(forms.ValidationError((x.text)))
+                return render(request, 'register_page.html', {
+                    'form': form
+                })
+            else:
+                return redirect('/Home')
+        else:
+            return render(request, 'register_page.html', {
+                'form': form
+            })
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = LoginForm()
     return render(request, 'login_page.html')
 
 def register(request):
@@ -50,6 +80,8 @@ def register(request):
             email = data.get('email')
             password = data.get('password')
             passwordVerif = data.get('passwordVerif')
+            if password != passwordVerif:
+                form.add_error(forms.ValidationError(('Les deux mots de passes ne sont pas identiques')))
             url = 'http://localhost:8080/register'
             myobj = {
                 'username': userName,
@@ -58,7 +90,11 @@ def register(request):
             }
             x = requests.post(url, data = myobj)
             print(x.text)
-            return redirect('/Home')
+            return redirect('/Login')
+        else:
+            return render(request, 'register_page.html', {
+                'form': form
+            })
 
     # if a GET (or any other method) we'll create a blank form
     else:
