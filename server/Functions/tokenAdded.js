@@ -13,22 +13,22 @@ function addDeleteToken(req, res, type, db) {
         }
         res.status(400).send("You can't put an empty value for the Access Token")
     } else {
-        if (req.body.userToken === undefined || req.body.userToken === ""
-            || req.body.serviceName === undefined || req.body.serviceName === "") {
-            if (req.body.userToken === undefined || req.body.userToken === "") {
+        if (req.body.usertoken === undefined || req.body.usertoken === ""
+            || req.body.servicename === undefined || req.body.servicename === "") {
+            if (req.body.usertoken === undefined || req.body.usertoken === "") {
                 console.log("Empty Username")
             } else {
-                console.log("Empty serviceName")
+                console.log("Empty servicename")
             }
             res.status(400).send("You can't send an empty field")
         } else {
             let userQuery = {
-                userToken: req.body.userToken
+                userToken: req.body.usertoken
             }
             async function callAsync() {
                 await insertInDb(userQuery, type, db, req, res, (arg) => {
                     if (arg === 0) {
-                        tokenAdded(req.body.serviceName, db, req.body.value)
+                        tokenAdded(req.body.servicename, db, req.body.value)
                     }
                 })
             }
@@ -47,18 +47,18 @@ async function insertInDb(userQuery, type, db, req, res, callback) {
             if (type === "added" || type === "updated") {
                 update = {
                     $set: {
-                        [req.body.serviceName.toLowerCase()]: req.body.value
+                        [req.body.servicename.toLowerCase()]: req.body.value
                     }
                 }
             } else {
                 update = {
                     $unset: {
-                        [req.body.serviceName.toLowerCase()]: ""
+                        [req.body.servicename.toLowerCase()]: ""
                     }
                 }
             }
             db.collection("tokens").updateOne(userQuery, update)
-            res.status(200).send("Service " + req.body.serviceName + " " + type)
+            res.status(200).send("Service " + req.body.servicename + " " + type)
             callback(0)
         }
     })
