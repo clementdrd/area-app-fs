@@ -54,6 +54,12 @@ function change_logo() {
         case "youtube":
             v = "/static/images/icon/youtube-icon.png";
             break;
+        case "deezer":
+            v = "/static/images/icon/deezer-icon.png";
+            break;
+        case "dropbox":
+            v = "/static/images/icon/deezer-icon.png";
+            break;
 
         default:
 
