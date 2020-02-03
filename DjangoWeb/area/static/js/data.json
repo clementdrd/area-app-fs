@@ -3,3 +3,7 @@ youtube = '[{"name" : "Newest Videos", "state" : "false"},{"name" : "Most Viewed
 facebook = '[{"name" : "Most liked Page", "state" : "false"},{"name" : "Random Videos", "state" : "false"}]';
 whatsapp = '[{"name" : "Send Message", "state" : "false"},{"name" : "Make a call", "state" : "false"}]';
 amazon = '[{"name" : "Email Order Status", "state" : "false"},{"name" : "Email New Deals", "state" : "false"}]';
+netflix = '[{"name" : "News Movies Send By Mail", "state" : "false"},{"name" : "List All US Series", "state" : "false"}]';
+dropbox = '[{"name" : "Synchronize", "state" : "false"},{"name" : "Synchronize", "state" : "false"}]';
+deezer = '[{"name" : "Get All New French Music ", "state" : "false"},{"name" : "Send Your Playlist To Friends", "state" : "false"}]';
+gmail = '[{"name" : "Receive Mail from Calendar", "state" : "false"},{"name" : "Send Daily Nasa Photos", "state" : "false"}]';
