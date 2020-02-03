@@ -7,6 +7,8 @@
       <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
       <link rel="stylesheet" href="https://kit.fontawesome.com/c609fbac99.js" crossorigin="anonymous">
       <link rel="icon" type="image/png" href="{% static 'images/Logo/epitech-logo-signature-noir.png' %}" />
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
   </head>
   <body>
@@ -34,13 +36,26 @@
           <span data-placeholder="Password Verification"></span>
         </div>
 
-        <h2>Or Connect with the services below</h2>
+        {% if form.errors %}
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+        {% endif %}
 
-        <div class="s-m">
+        <!-- <div class="s-m">
           <a href="http://facebook.com"><i class="fab fa-google"></i></a>
           <a href="http://office.com"><i class="fab fa-facebook"></i></a>
           <a href="http://accounts.google.com"><i class="fab fa-microsoft"></i></a>
-        </div>
+        </div> -->
 
         <input type="submit" class="logbtn" value="Register" href="/">
 
