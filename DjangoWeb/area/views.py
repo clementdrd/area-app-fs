@@ -47,13 +47,13 @@ def login(request):
             url = 'http://localhost:8080/login'
             myobj = {
                 'username': userName,
-                'password': password,
+                'password': password
             }
             x = requests.post(url, data=myobj)
+            print(x.status_code)
             if x.status_code == 400:
-                print("GROSSE BITE DE NOIR")
-                form.add_error(forms.ValidationError((x.text)))
-                return render(request, 'register_page.html', {
+                form.add_error("password", forms.ValidationError((x.text)))
+                return render(request, 'login_page.html', {
                     'form': form
                 })
             else:
@@ -66,7 +66,9 @@ def login(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = LoginForm()
-    return render(request, 'login_page.html')
+    return render(request, 'login_page.html', {
+        'form': form
+    })
 
 def register(request):
     # if this is a POST request we need to process the form data
