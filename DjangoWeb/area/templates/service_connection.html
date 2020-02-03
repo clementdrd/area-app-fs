@@ -6,18 +6,20 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/service_connection.css' %}">
+    <script type="text/javascript" src="{% static 'js/service_connection.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/data.json' %}"></script>
   </head>
 
-<body>
-<h2>Services</h2>
+<body onload="change_logo()">
+<div class="image">
+<img src="/static/images/icon/amazon-icon.png">
+</div>
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
 <div class="w3-container">
-  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_Calendar_Alert'">Add Calendar Alert</button></p>
-  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_new_music'">Add new music</button></p>
-  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Follow_Back'">Follow Back</button></p>
-  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_Calendar'">Add Calendar</button></p>
-  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Check_Lastest'">Check Lastest</button></p>
-  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Follow_Back'">Follow Back</button></p>
-  <p><div class="circle"></div><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_new_music'">Add new music</button></p>
+  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_Calendar_Alert'" id="button1" >Add Calendar Alert</button></p>
+  <p><button class="w3-button w3-black" onclick="window.location.href='/Page?Add_new_music'" id="button2">Add new music</button></p>
 
 </div>
 
