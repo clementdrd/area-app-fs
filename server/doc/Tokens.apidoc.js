@@ -15,7 +15,7 @@
  *      headers: {
  *          serviceToken : <Access Token>
  *      }
- *      "Success"
+ *      "Token returned in the headers"
  *
  * @apiUse FalseToken
  * @apiUse EmptyField
@@ -53,9 +53,9 @@
  * @apiGroup AccessTokens
  *
  *
- * @apiParam (Request headers) {String} usertoken The token that belongs to the user
- * @apiParam (Request headers) {String} servicename The name of the service to get the associated Access Token
- * @apiParam (Request headers) {String} value The value of the Access Token
+ * @apiParam (Request body) {String} userToken The token that belongs to the user
+ * @apiParam (Request body) {String} serviceName The name of the service to get the associated Access Token
+ * @apiParam (Request body) {String} value The value of the Access Token
  *
  * @apiSuccessExample Token Added
  *     HTTP/1.1 200 OK
@@ -74,9 +74,9 @@
  * @apiGroup AccessTokens
  *
  *
- * @apiParam (Request headers) {String} usertoken The token that belongs to the user
- * @apiParam (Request headers) {String} servicename The name of the service to update
- * @apiParam (Request headers) {String} value The new value for the Access Token
+ * @apiParam (Request body) {String} userToken The token that belongs to the user
+ * @apiParam (Request body) {String} serviceName The name of the service to update
+ * @apiParam (Request body) {String} value The new value for the Access Token
  *
  * @apiSuccessExample Token Updated
  *     HTTP/1.1 200 OK
@@ -95,8 +95,8 @@
  * @apiGroup AccessTokens
  *
  *
- * @apiParam (Request headers) {String} usertoken The token that belongs to the user
- * @apiParam (Request headers) {String} servicename The name of the service to delete
+ * @apiParam (Request body) {String} userToken The token that belongs to the user
+ * @apiParam (Request body) {String} serviceName The name of the service to delete
  *
  * @apiSuccessExample Token Updated
  *     HTTP/1.1 200 OK

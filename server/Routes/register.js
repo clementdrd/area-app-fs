@@ -4,12 +4,10 @@ var sha256 = require('sha256');
 
 module.exports = function (app, db) {
     app.post("/register", function (req, res) {
-        // console.log(req.body)
         if (req.body.username === "" || req.body.password === "" || req.body.email === "") {
             res.status(400).send("You can't send an empty field")
             return;
         }
-        console.log("Username = ", req.body.username)
         db.collection("users").find({username: req.body.username}).toArray(function(err, result) {
             if (result[0] === undefined) {
                 password = sha256(PREFIX_SALT + req.body.password + SUFFIX_SALT)

@@ -16,7 +16,7 @@ module.exports = function (app, db) {
                         res.status(422).send("The service " + req.headers.servicename + " has not been initiated for this user")
                     } else {
                         res.set("serviceToken", result[0][req.headers.servicename])
-                        res.status(200).send("Success")
+                        res.status(200).send("Token returned in the headers")
                     }
                 }
             })
@@ -58,7 +58,6 @@ module.exports = function (app, db) {
                             service.push(serviceName)
                         }
                     }
-                    console.log(service)
                     res.status(200).send({ Service: service })
                 }
             })
