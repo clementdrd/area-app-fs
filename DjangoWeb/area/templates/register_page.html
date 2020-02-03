@@ -1,177 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://kit.fontawesome.com/c609fbac99.js" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+      <meta charset="utf-8">
+      <title>Register</title>
+      {% load static %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+      <link rel="stylesheet" href="https://kit.fontawesome.com/c609fbac99.js" crossorigin="anonymous">
+      <link rel="icon" type="image/png" href="{% static 'images/Logo/epitech-logo-signature-noir.png' %}" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
   </head>
   <body>
-      <form action="http://127.0.0.1:8000/" class="login-form">
-
-        <style>
-
-
-*{
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  font-family: montserrat;
-  box-sizing: border-box;
-}
-
-body{
-  min-height: 100vh;
-  background-image: linear-gradient(120deg,#3498db,#8e44ad);
-}
-
-.s-m{
-  position: absolute;
-  top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.s-m a{
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  background-image: linear-gradient(120deg,#3498db,#8e44ad);
-  color:white;
-  margin: 0 6px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  transition: 0.4s;
-  font-size: 24px;
-}
-
-.login-form h2{
-  font-size: 14px;
-}
-
-.s-m a:hover{
-  margin-bottom:10px;
-  background: #e67e22;
-}
-
-.s-m a i {
-  transition: 0.4s all;
-}
-
-.s-m a:hover > i{
-  transform: scale(1.6) rotate(25deg);
-}
-
-.login-form{
-  width: 360px;
-  background: #f1f1f1;
-  height: 620px;
-  padding: 80px 40px;
-  border-radius: 10px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-}
-
-.login-form h1{
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.txtb{
-  border-bottom: 2px solid #adadad;
-  position: relative;
-  margin: 30px 0;
-}
-
-.txtb input{
-  font-size: 15px;
-  color: #333;
-  border: none;
-  width: 100%;
-  outline: none;
-  background: none;
-  padding: 0 5px;
-  height: 40px;
-}
-
-.txtb span::before{
-  content: attr(data-placeholder);
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  color: #adadad;
-  transform: translateY(-50%);
-  z-index: -1;
-  transition: .5s;
-}
-
-.txtb span::after{
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  transition: .5s;
-}
-
-.focus + span::before{
-  top: -5px;
-}
-.focus + span::after{
-  width: 100%;
-}
-
-.logbtn{
-margin-left: 6em;
-background: linear-gradient(120deg,#3498db,#8e44ad,#3498db);
-border: none;
-color: white;
-margin-top:130px;
-padding: 5px 16px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-  background-size: 200%;
-  color: #fff;
-  outline: none;
-  cursor: pointer;
-transition: .5s;
-border-radius: 5px 5px 5px 5px;
-}
-
-.logbtn:hover{
-  background-position: right;
-}
-
-.bottom-text{
-  margin-top: 60px;
-  text-align: center;
-  font-size: 13px;
-}
-
-
-        </style>
-
-
+      <form class="login-form" method="post">
+        {% csrf_token %}
         <h1>Register</h1>
 
         <div class="txtb">
-          <input type="text">
+          {{ form.userName }}
           <span data-placeholder="Username"></span>
         </div>
 
         <div class="txtb">
-          <input type="password">
+          {{ form.email }}
+          <span data-placeholder="Email"></span>
+        </div>
+
+        <div class="txtb">
+          {{ form.password }}
           <span data-placeholder="Password"></span>
         </div>
 
         <div class="txtb">
-          <input type="password">
-          <span data-placeholder="Password"></span>
+          {{ form.passwordVerif }}
+          <span data-placeholder="Password Verification"></span>
         </div>
 
         <h2>Or Connect with the services below</h2>
@@ -185,19 +45,7 @@ border-radius: 5px 5px 5px 5px;
         <input type="submit" class="logbtn" value="Register" href="/">
 
       </form>
-
-      <script type="text/javascript">
-      $(".txtb input").on("focus",function(){
-        $(this).addClass("focus");
-      });
-
-      $(".txtb input").on("blur",function(){
-        if($(this).val() == "")
-        $(this).removeClass("focus");
-      });
-
-      </script>
-
-
+    
+    <script src="{% static 'js/register.js' %}"></script>
   </body>
 </html>

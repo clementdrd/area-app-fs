@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.template import loader
 from django.http import HttpResponse
 import requests
 from django.conf import settings
 from django.conf.urls.static import static
+from .forms import forms, RegisterForm
+import requests 
+
 import os
 
 # Create your views here.
@@ -14,9 +17,6 @@ def home(request):
     path = settings.STATICFILES_DIRS[0] + "\\images" + "\\icon"
     searchID = []
     for root, dirs, files in os.walk(path):
-        print(root)
-        print(dirs)
-        print(files)
         img_path = files
         searchID.append(str(files).replace('-icon.png', ''))
     for index, elem in enumerate(img_path):
@@ -39,7 +39,33 @@ def login(request):
     return render(request, 'login_page.html')
 
 def register(request):
-    return render(request, 'register_page.html')
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = RegisterForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            data = request.POST.copy()
+            userName = data.get('userName')
+            email = data.get('email')
+            password = data.get('password')
+            passwordVerif = data.get('passwordVerif')
+            url = 'http://localhost:8080/register'
+            myobj = {
+                'username': userName,
+                'password': password,
+                'email': email
+            }
+            x = requests.post(url, data = myobj)
+            print(x.text)
+            return redirect('/Home')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = RegisterForm()
+    return render(request, 'register_page.html', {
+        'form': form
+    })
 
 def service(request):
     return render(request, 'service_connection.html')

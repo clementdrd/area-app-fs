@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html>
-
-  <head>
-
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/page1.css' %}">
   <script type="text/javascript" src="{% static 'js/page1.js' %}"></script>
-  
+  <title>Document</title>
 </head>
 
 <body onload="Dynamic_Text()">
 
-<input type="button" class="Main_text" id="main_text"/>
+  <input type="button" class="Main_text" id="main_text"/>
 
-<label class="switch">
-  <input type="checkbox" class="checkbox" onclick="doOnClick();" />
-  <div class=""></div>
+  <label class="switch">
+    <input type="checkbox" class="checkbox" onclick="doOnClick();" />
+    <div class=""></div>
 
-</label>
+  </label>
   <input type="button" class="Switch_Text" value="Disconnected" id="switch_text" disabled/>
+
+  <!-- <script src="{% static 'js/auth.js' %}"></script> -->
 </body>
 
 </html>
