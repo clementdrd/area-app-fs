@@ -11,6 +11,14 @@ function init(app_name) {
         var mydata = JSON.parse(whatsapp);
     else if (app_name == "amazon")
         var mydata = JSON.parse(amazon);
+    else if (app_name == "netflix")
+        var mydata = JSON.parse(netflix);
+    else if (app_name == "deezer")
+        var mydata = JSON.parse(deezer);
+    else if (app_name == "gmail")
+        var mydata = JSON.parse(gmail);
+    else if (app_name == "dropbox")
+        var mydata = JSON.parse(dropbox);
 
     console.log(mydata[0].name);
     document.getElementById('button1').innerHTML = mydata[0].name;
@@ -53,6 +61,21 @@ function change_logo() {
             break;
         case "youtube":
             v = "/static/images/icon/youtube-icon.png";
+            break;
+        case "deezer":
+            v = "/static/images/icon/deezer-icon.png";
+            break;
+        case "dropbox":
+            v = "/static/images/icon/dropbox-icon.png";
+            break;
+        case "gmail":
+            v = "/static/images/icon/google-gmail-icon.png";
+            break;
+        case "netflix":
+            v = "/static/images/icon/netflix2-icon.png";
+            break;
+        case "weather":
+            v = "/static/images/icon/weather-icon.png";
             break;
 
         default:
