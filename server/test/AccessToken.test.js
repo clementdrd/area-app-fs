@@ -74,13 +74,13 @@ describe('/GET ACCESS TOKEN', () => {
         chai.request(app)
             .get('/getAccessToken')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .set('servicename', 'yolo')
+            .set('servicename', 'testService')
             .set('userToken', userToken)
             .end((err, res) => {
                 res.text.should.be.eql("Token returned in the headers")
                 res.should.have.status(200);
                 res.header.should.have.property("serviceToken")
-                res.header.serviceToken.should.be.eql("yoloStyle")
+                res.header.serviceToken.should.be.eql("The test is a lie")
                 done();
             });
     });
