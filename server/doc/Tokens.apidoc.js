@@ -8,12 +8,12 @@
  * @apiParam (Request headers) {String} usertoken The token that belongs to the user
  * @apiParam (Request headers) {String} servicename The name of the service to get the associated access token
  *
- * @apiSuccess (Response Headers) {String} serviceToken (Checker si la réponse contient un T majuscule) access token
+ * @apiSuccess (Response Headers) {String} servicetoken access token
  *
  * @apiSuccessExample GetToken
  *     HTTP/1.1 200 OK
  *      headers: {
- *          serviceToken : <Access Token>
+ *          servicetoken : <Access Token>
  *      }
  *      "Token returned in the headers"
  *

@@ -30,14 +30,14 @@ var userToken;
 describe('/POST register', () => {
     it('Can log as a user', (done) => {
         chai.request(app)
-            .post('/login')
+            .post('/register')
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "AccessTokensTestAccount", password: "toto" })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.header.should.have.property("usertoken")
                 userToken = res.header.usertoken
-                res.text.should.be.eql("User connected!")
+                res.text.should.be.eql("User created")
                 done();
             });
     });
@@ -48,19 +48,19 @@ describe('/ADD ACCESS TOKEN', () => {
         chai.request(app)
             .post('/addAccessToken')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ servicename: "testService", userToken: userToken, value: "The test is a lie" })
+            .send({ servicename: "testService", usertoken: userToken, value: "The test is a lie" })
             .end((err, res) => {
                 res.text.should.be.eql("Service testService added")
                 res.should.have.status(200);
                 done();
             });
-    }); 
-    
+    });
+
     it('The UserToken is not the right one', (done) => {
         chai.request(app)
             .post('/addAccessToken')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .send({ servicename: "testService", userToken: "toto", value: "The test is a lie" })
+            .send({ servicename: "testService", usertoken: "toto", value: "The test is a lie" })
             .end((err, res) => {
                 res.text.should.be.eql("You are not allowed to do this request")
                 res.should.have.status(403);
@@ -69,18 +69,19 @@ describe('/ADD ACCESS TOKEN', () => {
     });
 });
 
+
 describe('/GET ACCESS TOKEN', () => {
     it('Can get an Access Token', (done) => {
         chai.request(app)
             .get('/getAccessToken')
             .set('content-type', 'application/x-www-form-urlencoded')
-            .set('servicename', 'yolo')
+            .set('servicename', 'testService')
             .set('userToken', userToken)
             .end((err, res) => {
                 res.text.should.be.eql("Token returned in the headers")
                 res.should.have.status(200);
-                res.header.should.have.property("serviceToken")
-                res.header.serviceToken.should.be.eql("yoloStyle")
+                res.header.should.have.property("servicetoken")
+                res.header.servicetoken.should.be.eql("The test is a lie")
                 done();
             });
     });
@@ -93,7 +94,7 @@ describe('/DELETE deleteUser', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send({ username: "AccessTokensTestAccount", userToken: userToken })
             .end((err, res) => {
-                res.text.should.be.eql("User TestAccount deleted")
+                res.text.should.be.eql("User AccessTokensTestAccount deleted")
                 res.should.have.status(200);
                 done();
             });

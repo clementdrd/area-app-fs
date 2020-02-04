@@ -40,7 +40,7 @@ function addDeleteToken(req, res, type, db) {
 async function insertInDb(userQuery, type, db, req, res, callback) {
     db.collection("tokens").find(userQuery).toArray((err, result) => {
         console.log(userQuery)
-        if (result[0] === undefined && type != "added") {
+        if (result[0] === undefined || type != "added") {
             res.status(403).send("You are not allowed to do this request")
             callback(1)
         } else {
@@ -68,7 +68,6 @@ async function insertInDb(userQuery, type, db, req, res, callback) {
 }
 
 function tokenAdded(service, db, token) {
-    console.log("COUCOU")
     if (service === "twitch") {
         console.log("COUCOU TWITCH")
     }
