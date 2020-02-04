@@ -28,6 +28,543 @@
     "name": ""
   },
   {
+    "type": "POST",
+    "url": "/addAccessToken",
+    "title": "Add Access Token",
+    "description": "<p>Add an Access Token an his service</p>",
+    "name": "Add_Access_Token",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "servicename",
+            "description": "<p>The name of the service to get the associated Access Token</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>The value of the Access Token</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Token Added",
+          "content": "HTTP/1.1 200 OK\n \"Service <Service Name> added\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyAccessToken",
+            "description": "<p>The access token is empty or undefined</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Access Token",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't put an empty value for the Access Token\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/getAccessToken",
+    "title": "Get Access Token",
+    "description": "<p>Get the access token associated to a service</p>",
+    "name": "Get_Access_Token",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "servicename",
+            "description": "<p>The name of the service to get the associated access token</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Response Headers": [
+          {
+            "group": "Response Headers",
+            "type": "String",
+            "optional": false,
+            "field": "serviceToken",
+            "description": "<p>(Checker si la réponse contient un T majuscule) access token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "GetToken",
+          "content": "HTTP/1.1 200 OK\n headers: {\n     serviceToken : <Access Token>\n }\n \"Success\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/getAllServices",
+    "title": "Get service list",
+    "description": "<p>Get a list of all service, existing for this user</p>",
+    "name": "Get_Service_List",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "ServiceName",
+            "description": "<p>The name of the service</p>"
+          },
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Service",
+            "description": "<p>Each existing service is in the array</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "GetToken",
+          "content": "HTTP/1.1 200 OK\n{\n     Service: [<Service1>, <Service2>]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "DELETE",
+    "url": "/removeAccessToken",
+    "title": "Remove a Service",
+    "description": "<p>Remove a service and his Access Token</p>",
+    "name": "Remove_Access_Token",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "servicename",
+            "description": "<p>The name of the service to delete</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Token Updated",
+          "content": "HTTP/1.1 200 OK\n \"Service <Service Name> deleted\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "PUT",
+    "url": "/updateAccessToken",
+    "title": "Update Access Token",
+    "description": "<p>Update the Access Token associated to a service</p>",
+    "name": "Update_Access_Token",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "servicename",
+            "description": "<p>The name of the service to update</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "value",
+            "description": "<p>The new value for the Access Token</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Token Updated",
+          "content": "HTTP/1.1 200 OK\n \"Service <Service Name> updated\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyAccessToken",
+            "description": "<p>The access token is empty or undefined</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Access Token",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't put an empty value for the Access Token\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/deleteUser",
+    "title": "Delete user as admin",
+    "name": "Delete_User",
+    "group": "Admin_commands",
+    "parameter": {
+      "fields": {
+        "Request Body": [
+          {
+            "group": "Request Body",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>username of the admin account</p>"
+          },
+          {
+            "group": "Request Body",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Token admin</p>"
+          },
+          {
+            "group": "Request Body",
+            "type": "String",
+            "optional": false,
+            "field": "userToDelete",
+            "description": "<p>Username of the account to delete</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Online",
+          "content": "HTTP/1.1 200 OK\n \"User John deleted by admin\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Admin.apidoc.js",
+    "groupTitle": "Admin_commands",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
     "type": "get",
     "url": "/isonline",
     "title": "Check if API is up",
@@ -79,7 +616,7 @@
             "group": "Request Body",
             "type": "String",
             "optional": false,
-            "field": "token",
+            "field": "userToken",
             "description": "<p>Token of the account to delete</p>"
           },
           {
@@ -179,7 +716,7 @@
             "group": "Response Headers",
             "type": "String",
             "optional": false,
-            "field": "token",
+            "field": "userToken",
             "description": "<p>token for the authorization</p>"
           }
         ]
@@ -187,7 +724,7 @@
       "examples": [
         {
           "title": "User Loged",
-          "content": "HTTP/1.1 200 OK\nheaders : { token : <token> }\n\"User connected!\"",
+          "content": "HTTP/1.1 200 OK\nheaders : { userToken : <token> }\n\"User connected!\"",
           "type": "json"
         }
       ]
@@ -278,7 +815,7 @@
             "group": "Response Headers",
             "type": "String",
             "optional": false,
-            "field": "token",
+            "field": "userToken",
             "description": "<p>token for the authorization</p>"
           }
         ]
@@ -286,7 +823,7 @@
       "examples": [
         {
           "title": "Account created",
-          "content": "HTTP/1.1 200 OK\nheaders : { token : <token> }\n\"Account created\"",
+          "content": "HTTP/1.1 200 OK\nheaders : { userToken : <token> }\n\"Account created\"",
           "type": "String"
         }
       ]

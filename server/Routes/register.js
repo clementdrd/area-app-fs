@@ -4,7 +4,6 @@ var sha256 = require('sha256');
 
 module.exports = function (app, db) {
     app.post("/register", function (req, res) {
-        // console.log(req.body)
         if (req.body.username === "" || req.body.password === "" || req.body.email === "") {
             res.status(400).send("You can't send an empty field")
             return;
@@ -20,6 +19,8 @@ module.exports = function (app, db) {
                     userToken: userToken
                 }
                 db.collection("users").insertOne(insertion)
+                db.collection("tokens").insertOne({ userToken: userToken})
+                db.collection("Services").insertOne({ userToken: userToken })
                 res.set("UserToken", userToken)
                 res.status(200).send("User created")
             } else {

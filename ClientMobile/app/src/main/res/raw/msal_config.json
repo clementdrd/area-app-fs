@@ -1,0 +1,15 @@
+{
+  "client_id" : "298f4a89-6272-439f-9169-05f96f1ec830",
+  "redirect_uri" : "msauth://com.epitech.area/callback",
+  "broker_redirect_uri_registered": false,
+  "account_mode": "SINGLE",
+  "authorities" : [
+    {
+      "type": "AAD",
+      "audience": {
+        "type": "AzureADandPersonalMicrosoftAccount"
+      },
+      "default": true
+    }
+  ]
+}

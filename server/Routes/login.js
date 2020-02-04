@@ -9,6 +9,7 @@ module.exports = function (app, db) {
             res.status(400).send("You can't send an empty field")
             return;
         }
+        console.log("hello",req.body)
         db.collection("users").find({username: req.body.username}).toArray(function(err, result) {
             let password = sha256(PREFIX_SALT + req.body.password + SUFFIX_SALT)
             if (result[0] === undefined) {
@@ -23,9 +24,13 @@ module.exports = function (app, db) {
                     email: result[0].email,
                     userToken: userToken
                 }}
-                db.collection("users").updateOne({username : result[0].username}, insertion)
-                res.set("UserToken", userToken)
-                res.status(200).send("User connected!")
+                db.collection("users").updateOne({ username: result[0].username }, insertion)
+                db.collection("tokens").find({ userToken: result[0].userToken}).toArray((err, resultat) => {
+                    resultat = JSON.parse(JSON.stringify(resultat))
+                    db.collection("tokens").updateOne({ userToken: result[0].userToken }, {$set :{userToken: userToken}})
+                    res.set("UserToken", userToken)
+                    res.status(200).send("User connected!")
+                })
             }
         })
     })

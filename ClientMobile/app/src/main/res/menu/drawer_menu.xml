@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/Office"
+            android:title="Office365" />
+
+        <item
+            android:id="@+id/Google"
+            android:title="Google" />
+
+        <item
+            android:id="@+id/Spotify"
+            android:title="Spotify" />
+    </group>
+</menu>
