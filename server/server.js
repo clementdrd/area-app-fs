@@ -6,6 +6,7 @@ var cors = require("cors")
 var engine = require('consolidate');
 var router = express.Router()
 var token = require("./Routes/tokens")
+var google = require("googleapis");
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -35,6 +36,10 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/createAdmins")(app, db)
     require("./Routes/tokens")(app, db)
     require("./Routes/twitchFollowCallback")(app, db)
+
+    require("./Routes/calendar")(app, db)
+    require("./Routes/facebook")(app, db)
+
 
     app.get("/", (req, res) => {
         console.log(dirname + "/index.html")

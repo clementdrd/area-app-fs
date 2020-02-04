@@ -10,15 +10,14 @@ module.exports = function (app, db) {
                     res.status(403).send("You are not allowed to do this request")
                 } else if (result[0].admin === true) {
                     db.collection("users").find({username: req.body.userToDelete}).toArray(function(er, accountToDelete) {
-                        console.log(accountToDelete[0]._id)
                         db.collection("users").deleteOne({_id: accountToDelete[0]._id})
                     })
                     res.status(200).send("User " + req.body.userToDelete + " deleted by admin")
                 } else if (req.body.username === result[0].username) {
                     db.collection("users").deleteOne({_id: result[0]._id})
-                    res.status(200).send("You deleted your account")
+                    res.status(200).send("User " + req.body.username + " deleted")
                 } else {
-                    res.status(403).send("You are not allowed to do this request")
+                    res.status(403).send("You are not allowed to modify another user account")
                 }
         })
     })
