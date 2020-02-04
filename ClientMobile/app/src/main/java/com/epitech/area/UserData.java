@@ -1,8 +1,8 @@
 package com.epitech.area;
 
-class UserData {
-    String UserName;
-    String Password;
-    String Token;
-    String email;
+public class UserData {
+    public String UserName;
+    public String Password;
+    public String Token;
+    public String email;
 }

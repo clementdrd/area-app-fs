@@ -1,0 +1,20 @@
+var url ='https://example.com';
+var headers = {
+  "Content-Type": "application/json",
+  "client_id": "1001125",
+  "client_secret": "876JHG76UKFJYGVHf867rFUTFGHCJ8JHV"
+}
+var data = {
+  "name": "Wade Wilson",
+  "occupation": "Murderer",
+  "age": "30 (forever)"
+}
+fetch(url, { method: 'POST', headers: headers, body: data})
+  .then((res) => {
+     return res.json()
+})
+.then((json) => {
+  console.log(json);
+  // Do something with the returned data.
+});BQDXh_l5F-qDH2VOdfa9pu8AYgoOCuKX199lsO8XTFdznUJOy8NLyf1VGTSyOEVgPcDprAgKK35l0cnpOHsbh6IyKiMzIcQXFALix_w-JE92vNsisqOFD9lzvPGW2g6TuvG0E42zFxbZNK8xq3YIBd9N4w
+s

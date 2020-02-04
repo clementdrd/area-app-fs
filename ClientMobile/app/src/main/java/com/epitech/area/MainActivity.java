@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.epitech.area.ui.home.GoogleFragment;
 import com.epitech.area.ui.home.OfficeFragment;
+import com.epitech.area.ui.home.SpotifyFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String mUserName = null;
     private String mUserEmail = null;
     private AuthenticationHelper mAuthHelper = null;
-    public static String Url = "https://area-rest-api-zuma.herokuapp.com/";
+    public static String Url = "http://10.0.2.2:8080/";//"https://area-rest-api-zuma.herokuapp.com/";
     private IsUserConnected ConnectionStatus = new IsUserConnected(Connected.Token);
     MyRecyclerViewAdapter adapter;
    public static DrawableRessources Ressource = new DrawableRessources();
@@ -72,6 +73,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createViewtest();
+    }
+
+    void createViewtest()
+    {
         setContentView(R.layout.activity_main);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.google_client_id))
@@ -138,11 +144,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(myWebView);
         myWebView.getSettings().setJavaScriptEnabled(true);
 
-        myWebView.loadUrl("https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Farea%2Fcallback&scope=user-read-private%20user-read-email&response_type=token&state=123");
+        myWebView.loadUrl("https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Farea%2Fcallback&scope=user-read-currently-playing%20user-read-email&response_type=token&state=123");
 
         myWebView.setWebViewClient(new WebViewClient() {
-
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                if (url.toString().contains("access_token") == true) {
+                    TreatSpotifyConnect(url.toString());
+                    return true;
+                }
+                return false;
+            }
         });
+    }
+
+
+    public void TreatSpotifyConnect(String url)
+    {
+        Log.e("msg", url);
+        String token = url.split("=")[1];
+        token = token.split("&")[0];
+        SendThirdPartyToken( token, "Spotify");
+        createViewtest();
+        openSpotifyFragment("test");
     }
 
     public void showProgressBar()
@@ -182,6 +207,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void openGoogleFragment(String userName) {
         GoogleFragment fragment = GoogleFragment.createInstance((userName));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+    public void openSpotifyFragment(String userName) {
+        SpotifyFragment fragment = SpotifyFragment.createInstance((userName));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();

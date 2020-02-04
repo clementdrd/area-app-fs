@@ -37,7 +37,7 @@ public class UserConnect extends AppCompatActivity {
     private String returnValue = "test";
     private int RequestCode = 0 ;
     private boolean Register = false;
-    private String Url = "https://area-rest-api-zuma.herokuapp.com/";
+    private String Url = "http://10.0.2.2:8080/";
     private AuthenticationHelper mAuthHelper = null;
 
 
