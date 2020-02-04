@@ -25,11 +25,14 @@ def home(request):
     # geodata = response.text
     # print(searchID)
     # print(img_path)
+    userToken = request.COOKIES.get('userToken')
+    print(userToken)
     return render(request, 'index.html', {
         # 'ip': geodata,
         'img_path': img_path,
         'searchID': searchID,
-        'nbOfImages': range(len(img_path))
+        'nbOfImages': range(len(img_path)),
+        'userToken': userToken
     })
 
 def loading_page(request):
@@ -50,14 +53,15 @@ def login(request):
                 'password': password
             }
             x = requests.post(url, data=myobj)
-            print(x.status_code)
             if x.status_code == 400:
                 form.add_error("password", forms.ValidationError((x.text)))
                 return render(request, 'login_page.html', {
                     'form': form
                 })
             else:
-                return redirect('/Home')
+                response = redirect('/Home')
+                response.set_cookie('userToken', x.headers['userToken'])
+                return response
         else:
             return render(request, 'register_page.html', {
                 'form': form
@@ -92,7 +96,7 @@ def register(request):
             }
             x = requests.post(url, data = myobj)
             print(x.text)
-            return redirect('/Login')
+            return redirect('/')
         else:
             return render(request, 'register_page.html', {
                 'form': form

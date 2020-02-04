@@ -107,3 +107,7 @@ textarea:focus {
 .button: hover {
     background-position: right;
 }
+
+.alert {
+    margin-top: 1.5em;
+}
