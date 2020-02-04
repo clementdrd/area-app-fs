@@ -12,10 +12,12 @@ module.exports = function (app, db) {
                 if (result[0] === undefined) {
                     res.status(403).send("Could not find an account that matches the token")
                 } else {
-                    if (result[0][req.headers.servicename] === undefined) {
+                    console.log(result[0])
+                    let serviceValue = result[0][req.headers.servicename.toLowerCase()]
+                    if (serviceValue === undefined) {
                         res.status(422).send("The service " + req.headers.servicename + " has not been initiated for this user")
                     } else {
-                        res.set("serviceToken", result[0][req.headers.servicename])
+                        res.set("servicetoken", serviceValue)
                         res.status(200).send("Token returned in the headers")
                     }
                 }
