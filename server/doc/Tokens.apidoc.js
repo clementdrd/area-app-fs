@@ -15,7 +15,7 @@
  *      headers: {
  *          serviceToken : <Access Token>
  *      }
- *      "Success"
+ *      "Token returned in the headers"
  *
  * @apiUse FalseToken
  * @apiUse EmptyField

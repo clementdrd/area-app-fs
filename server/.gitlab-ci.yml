@@ -18,3 +18,10 @@ test_server_up:
     - cd server
     - npm install
     - npm run test
+
+AccessToken_Management:
+  image: node:latest
+  script:
+    - cd server
+    - npm install
+    - npm run tokenTest

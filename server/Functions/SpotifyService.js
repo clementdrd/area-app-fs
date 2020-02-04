@@ -21,6 +21,7 @@ function SpotifyHistory(usertoken, db)
         }
         fetch(url, { method: 'GET', headers: headers})
         .then((res) => {
+            
             res.json()
         })
         .then((json) => {
