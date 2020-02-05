@@ -21,9 +21,6 @@ app.set('view engine', 'html');
 
 const myUrl = 'mongodb+srv://AREA:AREA@users-uxyki.mongodb.net/test?retryWrites=true&w=majority';
 
-function hello() {
-    console.log("HELLO WORLD")
-}
 
 MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     db = db.db("AREA")
