@@ -6,6 +6,7 @@ var cors = require("cors")
 var engine = require('consolidate');
 var router = express.Router()
 var token = require("./Routes/tokens")
+const Mail  = require("./Functions/sendEmail")
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
