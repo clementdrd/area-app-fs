@@ -7,3 +7,4 @@ netflix = '[{"name" : "News Movies Send By Mail", "state" : "false"},{"name" : "
 dropbox = '[{"name" : "Synchronize", "state" : "false"},{"name" : "Synchronize", "state" : "false"}]';
 deezer = '[{"name" : "Get All New French Music ", "state" : "false"},{"name" : "Send Your Playlist To Friends", "state" : "false"}]';
 gmail = '[{"name" : "Receive Mail from Calendar", "state" : "false"},{"name" : "Send Daily Nasa Photos", "state" : "false"}]';
+spotify = '[{"name" : "Get random music each day", "state" : "false"},{"name" : "Send best music of the month", "state" : "false"}]';

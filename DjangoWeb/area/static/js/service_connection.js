@@ -19,8 +19,12 @@ function init(app_name) {
         var mydata = JSON.parse(gmail);
     else if (app_name == "dropbox")
         var mydata = JSON.parse(dropbox);
+    else if (app_name == "spotify")
+        var mydata = JSON.parse(spotify);
 
+    console.log("dsdsdsd");
     console.log(mydata[0].name);
+    console.log("AAAAAAAAAA");
     document.getElementById('button1').innerHTML = mydata[0].name;
     var goto_button1 = "window.location.href='/Page?" + (mydata[0].name).split(" ").join("_") + "'";
     var goto_button2 = "window.location.href='/Page?" + (mydata[1].name).split(" ").join("_") + "'";
@@ -77,8 +81,15 @@ function change_logo() {
         case "weather":
             v = "/static/images/icon/weather-icon.png";
             break;
+        case "spotify":
+            v = "/static/images/icon/spotify-icon.png";
 
         default:
+            var elem = document.getElementById('button1');
+            var elem2 = document.getElementById('button2');
+            elem.parentNode.removeChild(elem);
+            elem2.parentNode.removeChild(elem2);
+            document.write("Ooops there is an error go back to home page");
 
     }
 
