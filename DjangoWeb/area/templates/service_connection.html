@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/service_connection.css' %}">
-    <script type="text/javascript" src="{% static 'js/service_connection.js' %}"></script>
+    <link rel="icon" type="image/png" href="{% static 'images/Logo/epitech-logo-signature-noir.png' %}" />
     <script type="text/javascript" src="{% static 'js/data.json' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   </head>
 
-<body onload="change_logo()">
+<body>
 <div class="image">
 <img src="/static/images/icon/amazon-icon.png">
 </div>
@@ -23,4 +24,6 @@
 
 </div>
 
+<script type="text/javascript" src="{% static 'js/handleAuth.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/service_connection.js' %}"></script>
 </body>

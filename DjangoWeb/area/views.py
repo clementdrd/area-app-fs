@@ -47,7 +47,7 @@ def login(request):
             data = request.POST.copy()
             userName = data.get('userName')
             password = data.get('password')
-            url = 'http://localhost:8080/login'
+            url = 'https://area-rest-api-zuma.herokuapp.com/login'
             myobj = {
                 'username': userName,
                 'password': password
@@ -88,7 +88,7 @@ def register(request):
             passwordVerif = data.get('passwordVerif')
             if password != passwordVerif:
                 form.add_error(forms.ValidationError(('Les deux mots de passes ne sont pas identiques')))
-            url = 'http://localhost:8080/register'
+            url = 'https://area-rest-api-zuma.herokuapp.com/register'
             myobj = {
                 'username': userName,
                 'password': password,

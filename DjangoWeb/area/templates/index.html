@@ -7,16 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
-    <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="icon" type="image/png" href="{% static 'images/Logo/epitech-logo-signature-noir.png' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <!-- <script type="text/javascript" src="{% static 'js/navbar.js' %}"></script> -->
-    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"
+    <!-- <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
 
     <title>Area</title>
 </head>
@@ -39,7 +39,7 @@
         </div>
         <nav id="log-in">
             <ul class="nav__links">
-                <li><a href="/">Se déconnecter</a></li>
+                <li><a onclick="delete_cookie('userToken', '/', 'localhost')" href="/">Se déconnecter</a></li>
             </ul>
         </nav>
         <!-- <div>
@@ -85,5 +85,5 @@
 
 <!-- <script src="{% static 'js/hamburger.js' %}"></script> -->
 <script src="{% static 'js/searchbar.js' %}"></script>
-
+<!-- <script src="{% static 'js/handleAuth.js' %}"></script> -->
 </html>

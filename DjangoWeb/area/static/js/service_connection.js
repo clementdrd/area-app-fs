@@ -1,33 +1,35 @@
+const services = ["spotify", "weather", "netflix", "gmail",
+                  "dropbox", "deezer", "youtube", "whatsapp",
+                  "twitter", "facebook", "amazon", "google-calendar",
+                  "google-drive", "instagram", "messenger", "microsoft-outlook",
+                  "nasa", "souncloud", "twitch"]
+tab = {
+    "twitter": [{"name" : "Last Trend", "state" : "false"},{"name" : "Make a Tweet", "state" : "false"}],
+    "youtube": [{"name" : "Newest Videos", "state" : "false"},{"name" : "Most Viewed", "state" : "false"}],
+    "facebook": [{"name" : "Most liked Page", "state" : "false"},{"name" : "Random Videos", "state" : "false"}],
+    "whatsapp": [{"name" : "Send Message", "state" : "false"},{"name" : "Make a call", "state" : "false"}],
+    "amazon": [{"name" : "Email Order Status", "state" : "false"},{"name" : "Email New Deals", "state" : "false"}],
+    "netflix": [{"name" : "News Movies Send By Mail", "state" : "false"},{"name" : "List All US Series", "state" : "false"}],
+    "dropbox": [{"name" : "Synchronize", "state" : "false"},{"name" : "Synchronize", "state" : "false"}],
+    "deezer": [{"name" : "Get All New French Music ", "state" : "false"},{"name" : "Send Your Playlist To Friends", "state" : "false"}],
+    "gmail": [{"name" : "Receive Mail from Calendar", "state" : "false"},{"name" : "Send Daily Nasa Photos", "state" : "false"}],
+    "spotify": [{"name" : "Get random music each day", "state" : "false"},{"name" : "Send best music of the month", "state" : "false"}],
+}
+                  
+var mydata;
+
 function init(app_name) {
     console.log(app_name)
+    for (let i = 0; i != services.length; i++) {
+        if (services[i] === app_name) {
+            console.log(tab[services[i]])
+            mydata = tab[services[i]];
+        }
+    }
 
-    if (app_name == "youtube")
-        var mydata = JSON.parse(youtube);
-    else if (app_name == "facebook")
-        var mydata = JSON.parse(facebook);
-    else if (app_name == "twitter")
-        var mydata = JSON.parse(twitter);
-    else if (app_name == "whatsapp")
-        var mydata = JSON.parse(whatsapp);
-    else if (app_name == "amazon")
-        var mydata = JSON.parse(amazon);
-    else if (app_name == "netflix")
-        var mydata = JSON.parse(netflix);
-    else if (app_name == "deezer")
-        var mydata = JSON.parse(deezer);
-    else if (app_name == "gmail")
-        var mydata = JSON.parse(gmail);
-    else if (app_name == "dropbox")
-        var mydata = JSON.parse(dropbox);
-    else if (app_name == "spotify")
-        var mydata = JSON.parse(spotify);
-
-    console.log("dsdsdsd");
-    console.log(mydata[0].name);
-    console.log("AAAAAAAAAA");
-    document.getElementById('button1').innerHTML = mydata[0].name;
-    var goto_button1 = "window.location.href='/Page?" + (mydata[0].name).split(" ").join("_") + "'";
-    var goto_button2 = "window.location.href='/Page?" + (mydata[1].name).split(" ").join("_") + "'";
+    document.getElementById('button1').innerHTML = mydata[0]["name"];
+    var goto_button1 = "window.location.href='/Page?" + (mydata[0]["name"]).split(" ").join("_") + "'";
+    var goto_button2 = "window.location.href='/Page?" + (mydata[1]["name"]).split(" ").join("_") + "'";
 
     var foo = document.getElementById("button1");
     foo.setAttribute("onclick", goto_button1);
@@ -35,62 +37,21 @@ function init(app_name) {
     var foo = document.getElementById("button2");
     foo.setAttribute("onclick", goto_button2);
 
-    console.log(mydata[0].state);
-    console.log(mydata[1].name);
-    document.getElementById('button2').innerHTML = mydata[1].name;
-    console.log(mydata[1].state);
+    document.getElementById('button2').innerHTML = mydata[1]["name"];
 }
 
 function change_logo() {
     var href = window.location.href;
     var app_name = href.split('=');
-    console.log(app_name[1]);
+    // console.log(app_name[1]);
 
     var x = document.getElementsByTagName("img").item(0);
     var v = "";
 
-    switch (app_name[1]) {
-
-        case "amazon":
-            v = "/static/images/icon/amazon-icon.png";
-            break;
-        case "facebook":
-            v = "/static/images/icon/facebook-icon.png";
-            break;
-        case "twitter":
-            v = "/static/images/icon/twitter-icon.png";
-            break;
-        case "whatsapp":
-            v = "/static/images/icon/whatsapp-icon.png";
-            break;
-        case "youtube":
-            v = "/static/images/icon/youtube-icon.png";
-            break;
-        case "deezer":
-            v = "/static/images/icon/deezer-icon.png";
-            break;
-        case "dropbox":
-            v = "/static/images/icon/dropbox-icon.png";
-            break;
-        case "gmail":
-            v = "/static/images/icon/google-gmail-icon.png";
-            break;
-        case "netflix":
-            v = "/static/images/icon/netflix2-icon.png";
-            break;
-        case "weather":
-            v = "/static/images/icon/weather-icon.png";
-            break;
-        case "spotify":
-            v = "/static/images/icon/spotify-icon.png";
-
-        default:
-            var elem = document.getElementById('button1');
-            var elem2 = document.getElementById('button2');
-            elem.parentNode.removeChild(elem);
-            elem2.parentNode.removeChild(elem2);
-            document.write("Ooops there is an error go back to home page");
-
+    for (let i = 0; i != services.length; i++) {
+        if (href.includes(services[i])) {
+            v = "/static/images/icon/" + services[i] + "-icon.png";
+        }
     }
 
     x.setAttribute("src", v);
@@ -100,3 +61,5 @@ function change_logo() {
     init(app_name[1]);
 
 }
+
+change_logo()
