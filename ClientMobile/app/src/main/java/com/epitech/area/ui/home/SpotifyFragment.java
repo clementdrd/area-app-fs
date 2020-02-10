@@ -1,5 +1,6 @@
 package com.epitech.area.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,16 +64,18 @@ public class SpotifyFragment extends Fragment implements MyRecyclerViewAdapterSe
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = inflater.inflate(R.layout.fragment_office, container, false);
-
+        homeView = inflater.inflate(R.layout.fragment_spotify, container, false);
+        homeView.setBackgroundColor(Color.WHITE);
         createView();
         return homeView;
     }
     void createView()
     {
+
         ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("SpotifyHistory");
-        animalNames.add("SpotifyHistory");
+        animalNames.add("SpotifyLike");
+        animalNames.add("SpotifyFollow");
+        animalNames.add("SpotifyResume");
         RecyclerView recyclerView = homeView.findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new MyRecyclerViewAdapterService(getActivity(), animalNames);
@@ -84,14 +87,23 @@ public class SpotifyFragment extends Fragment implements MyRecyclerViewAdapterSe
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(getActivity(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-        RegisterApi();
+        if (position == 2)
+            SpotifyResume();
+        else
+            RegisterApi(position);
     }
 
-    public void RegisterApi()
+    public void RegisterApi(int position)
     {
+        String test;
+        if (position == 0)
+            test = "like";
+        else
+            test = "follow";
         Request request = new Request.Builder()
                 .url(Url+"spotifyhistory")
                 .addHeader("usertoken", Connected.Token)
+                .addHeader("mode", test )
                 .build();
 
         httpClient.newCall(request).enqueue(new Callback() {
@@ -105,6 +117,26 @@ public class SpotifyFragment extends Fragment implements MyRecyclerViewAdapterSe
                 Log.d("test", "onResponse: " + response.code());
                 //Toast.makeText(getActivity(), response.body().string(), Toast.LENGTH_SHORT).show();
 
+            }
+        });
+    }
+
+    public void SpotifyResume()
+    {
+        Request request = new Request.Builder()
+                .url(Url+"spotifyresume")
+                .addHeader("usertoken", Connected.Token)
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.e("ERR", "An error has occurred " + e);
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                Log.d("test", "onResponse: " + response.code());
             }
         });
     }

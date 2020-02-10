@@ -17,12 +17,6 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
         <Space
             android:layout_width="40dp"
             android:layout_height="10dp" />
@@ -30,16 +24,17 @@
         <TextView
             android:id="@+id/Card_Text"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:textColor="#FFFFFFFF"
             android:text="exemple"
             android:textAlignment="center"
+            android:textColor="#FFFFFFFF"
+            android:textSize="30sp"
             app:autoSizeTextType="uniform" />
 
         <Space
-            android:layout_width="70dp"
+            android:layout_width="40dp"
             android:layout_height="10dp" />
     </LinearLayout>
 

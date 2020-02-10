@@ -121,6 +121,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.Spotify:
                 signInSpotify();
+                break;
+            case R.id.Pinterest:
+                signInPinterest();
+                break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(myWebView);
         myWebView.getSettings().setJavaScriptEnabled(true);
 
-        myWebView.loadUrl("https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Farea%2Fcallback&scope=user-read-currently-playing%20user-read-email&response_type=token&state=123");
+        myWebView.loadUrl("https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Farea%2Fcallback&scope=user-read-currently-playing%20user-read-email%20user-top-read&response_type=token&state=123");
 
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -152,6 +156,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Uri url = request.getUrl();
                 if (url.toString().contains("access_token") == true) {
                     TreatSpotifyConnect(url.toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void signInPinterest()
+    {
+        WebView myWebView = new WebView(this);
+        myWebView.clearCache(true);
+        setContentView(myWebView);
+        myWebView.getSettings().setJavaScriptEnabled(true);
+
+        myWebView.loadUrl("https://api.pinterest.com/oauth/?" + "response_type=code&" +
+                "redirect_uri=https://area/callback/&" +
+                "client_id=5081137354220033854&" +
+                "scope=read_public,write_public&" +
+                "state=123");
+
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                Log.e("test", url.toString());
+                if (url.toString().contains("access_token") == true) {
+                    //TreatSpotifyConnect(url.toString());
                     return true;
                 }
                 return false;
@@ -366,9 +397,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You tested " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         if (position == 0)
-            openGoogleFragment("test");
+            signInGoogle();
         else
-            openHomeFragment("test");
+            signIn();
 
     }
 

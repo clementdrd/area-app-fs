@@ -1,5 +1,6 @@
 package com.epitech.area.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public class OfficeFragment extends Fragment implements MyRecyclerViewAdapterSer
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         homeView = inflater.inflate(R.layout.fragment_office, container, false);
-
+        homeView.setBackgroundColor(Color.WHITE);
         createView();
         return homeView;
     }
