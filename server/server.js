@@ -32,9 +32,10 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/deleteUser")(app, db)
     require("./Routes/createAdmins")(app, db)
     require("./Routes/tokens")(app, db)
+    require("./Routes/autologin")(app, db)
+    
     require("./Routes/twitchFollowCallback")(app, db)
     require("./Functions/SpotifyService")(app, db)
-
     require("./Routes/facebook")(app, db)
 
 
