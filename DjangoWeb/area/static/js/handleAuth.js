@@ -2,7 +2,8 @@ const usertoken = getCookie('userToken')
 
 const redirect_link = {
     "spotify": "https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Flocalhost:8000%2F&scope=user-read-currently-playing%20user-read-email&response_type=token&state=123",
-    "twitch": "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=r5m2lcovdhgyv84zmu82utry0jtn5i&redirect_uri=http:%2F%2Flocalhost:8000%2F",
+    "twitch": "https://id.twitch.tv/oauth2/authorize?client_id=5nnkmcrbqaxrv1irgdqpten4rcnhr2&redirect_uri=http:%2F%2Flocalhost:8000%2F&response_type=token&scope=user:edit",
+    "dropbox": "https://www.dropbox.com/oauth2/authorize?client_id=yp5wl24jy9d6l8l&response_type=code&redirect_uri=http:%2F%2Flocalhost:8000%2F",
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -19,7 +20,7 @@ function getCookie(cname) {
     for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
-        c = c.substring(1);
+            c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
         return c.substring(name.length, c.length);
@@ -40,16 +41,8 @@ function checkCookie() {
     }
 }
 
-function delete_cookie( name, path, domain ) {
-    console.log(getCookie('userToken'))
-    if (get_cookie('userToken')) {
-        document.cookie = name + "=" +
-        ((path) ? ";path="+path:"")+
-        ((domain)?";domain="+domain:"") +
-        ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
-    }
-    console.log(getCookie('userToken'))
-    console.log("salut les amis")
+function delete_cookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 function findGetParameter(parameterName) {
@@ -74,8 +67,11 @@ function checkService() {
             headers: {"usertoken": usertoken},
             success: function (result) {
                 console.log(result)
+                console.log(service)
                 try {
-                    result['service'].includes(service)
+                    if (!result['Service'].includes(service)) {
+                        Access_Token(redirect_link[service])                        
+                    }
                 }
                 catch {
                     Access_Token(redirect_link[service])
@@ -107,24 +103,23 @@ function Access_Token(lien) {
                     params[match[1]] = match[2];
                 }
                 if (params.access_token === undefined) {
+                    alert(params.code)
+                    spotify_auth.close()
+                    clearInterval(interval)
                 } else {
                     spotify_auth.close()
                     clearInterval(interval)
-                    $.ajax({
-                        url: "https://area-rest-api-zuma.herokuapp.com/addAccessToken",
-                        headers: {
-                            "usertoken": usertoken,
-                            "servicename": service,
-                            "value": params.access_token
-                        },
-                        success: function() {
-                            // spotify_auth.close()
-                            // clearInterval(interval)
-                        },
-                         error: function (error) {
-                             alert(error)
-                         }
-                    })
+                    let access_token = params.access_token
+                    console.log("usertoken: " + usertoken)
+                    console.log("servicename: " + service)
+                    console.log("value: " + params.access_token)
+                    $.post( "https://area-rest-api-zuma.herokuapp.com/addAccessToken", 
+                    {
+                        "usertoken": usertoken, "servicename": service, "value": params.access_token
+                    }).done(function(response) {
+                        console.log("salut les bitches")
+                        console.log(response)
+                    });
                 }
             }
         } catch (err) {

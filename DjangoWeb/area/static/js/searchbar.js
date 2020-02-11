@@ -40,6 +40,9 @@ for (var i = 0; i < div.length; i++) {
   $(links[i]).attr("href", ($(links[i]).attr("href") + "?service=" + service))
 }
 
+var el = document.getElementById("disconnect");
+el.addEventListener("click", deleteCookie, false);
+
   // console.log($(this))
   // $(this).attr("href", $(this).attr("href") + $(this).attr('id'))
 // });

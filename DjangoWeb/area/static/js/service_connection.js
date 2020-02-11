@@ -3,7 +3,7 @@ const services = ["spotify", "weather", "netflix", "gmail",
                   "twitter", "facebook", "amazon", "google-calendar",
                   "google-drive", "instagram", "messenger", "microsoft-outlook",
                   "nasa", "souncloud", "twitch"]
-tab = {
+const tab = {
     "twitter": [{"name" : "Last Trend", "state" : "false"},{"name" : "Make a Tweet", "state" : "false"}],
     "youtube": [{"name" : "Newest Videos", "state" : "false"},{"name" : "Most Viewed", "state" : "false"}],
     "facebook": [{"name" : "Most liked Page", "state" : "false"},{"name" : "Random Videos", "state" : "false"}],
@@ -14,15 +14,14 @@ tab = {
     "deezer": [{"name" : "Get All New French Music ", "state" : "false"},{"name" : "Send Your Playlist To Friends", "state" : "false"}],
     "gmail": [{"name" : "Receive Mail from Calendar", "state" : "false"},{"name" : "Send Daily Nasa Photos", "state" : "false"}],
     "spotify": [{"name" : "Get random music each day", "state" : "false"},{"name" : "Send best music of the month", "state" : "false"}],
+    "twitch": [{"name" : "Get random streamer", "state" : "false"},{"name" : "Send best streamer", "state" : "false"}],
 }
-                  
-var mydata;
+         
 
 function init(app_name) {
-    console.log(app_name)
+    var mydata;
     for (let i = 0; i != services.length; i++) {
         if (services[i] === app_name) {
-            console.log(tab[services[i]])
             mydata = tab[services[i]];
         }
     }
@@ -43,7 +42,6 @@ function init(app_name) {
 function change_logo() {
     var href = window.location.href;
     var app_name = href.split('=');
-    // console.log(app_name[1]);
 
     var x = document.getElementsByTagName("img").item(0);
     var v = "";
