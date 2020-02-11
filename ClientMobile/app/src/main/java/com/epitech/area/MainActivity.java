@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.Pinterest:
                 signInPinterest();
                 break;
+            case R.id.Nasa :
+                break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
