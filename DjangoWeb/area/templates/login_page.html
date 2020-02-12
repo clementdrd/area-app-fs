@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <link rel="stylesheet" href="#style.css"> -->
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login_page.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/Logo/epitech-logo-signature-noir.png' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+
+  </head>
+  <body>
+
+      <form method="POST" class="login-form">
+        {% csrf_token %}
+
+  <h1>Login</h1>
+
+
+  <div class="txt">
+    <!-- <input type="mail"> -->
+    {{ form.userName }}
+    <span data-placeholder="Username"></span>
+    </div>
+  <div class="txt">
+    <!-- <input type="Password"> -->
+    {{ form.password }}
+    <span data-placeholder="Password"></span>
+  </div>
+
+  <div class="bottom-text">
+    <h2>Don't have account? <a href="Register">Sign up</a></h2>
+    </div>
+
+    <input type="submit" class="button" value="Submit">
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+  {% endif %}
+
+
+</form>
+
+<script src="{% static 'js/login_page.js' %}"></script>
+
+  </body>
+</html>
