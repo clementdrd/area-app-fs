@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.epitech.area.ui.home.GoogleFragment;
+import com.epitech.area.ui.home.ImgurFragment;
+import com.epitech.area.ui.home.NasaFragment;
 import com.epitech.area.ui.home.OfficeFragment;
 import com.epitech.area.ui.home.SpotifyFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -126,12 +128,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 signInPinterest();
                 break;
             case R.id.Nasa :
+                OpenNasaFragment();
+                break;
+            case R.id.Imgur:
+                signInImgur();
                 break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    public void OpenNasaFragment()
+    {
+        NasaFragment fragment = NasaFragment.createInstance(("useless"));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 
     @Override
@@ -141,6 +155,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void signInImgur()
+    {
+        WebView myWebView = new WebView(this);
+        myWebView.clearCache(true);
+        setContentView(myWebView);
+        myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.loadUrl("https://api.imgur.com/oauth2/authorize?client_id=de77af01c452ff9&response_type=token&state=APPLICATION_STATE");
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                if (url.toString().contains("postman") == true) {
+                    TreatImgurConnect(url.toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void TreatImgurConnect(String url)
+    {
+        String[] tab = url.split("\\?");
+        tab = tab[1].split("#");
+        tab = tab[1].split("&");
+        String token = tab[0].split("=")[1];
+        SendThirdPartyToken( token, "Imgur");
+        createViewtest();
+        openImgurFragment("test");
     }
 
     public void signInSpotify()
@@ -246,6 +291,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void openSpotifyFragment(String userName) {
         SpotifyFragment fragment = SpotifyFragment.createInstance((userName));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+    public void openImgurFragment(String userName) {
+        ImgurFragment fragment = ImgurFragment.createInstance((userName));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();

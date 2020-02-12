@@ -112,9 +112,11 @@ function Resume(result, db)
 function PrepareMail(json, tokens, db)
 {
     let mail = new Mail
-    let test = "Your Top 10 most listened artists on spotify :\n"
+    let first = "Your Top 10 most listened artists on spotify :\n"
     db.collection("users").find({userToken: tokens[0].userToken}).toArray(function(err, result)
     {
-        mail.sendEmail(result[0].email, "Area Top 10 Artists Spotify",json.items.forEach(element => test = test + element.name + "\n" ));
+        let name = json.items.reduce((acc, cur)=> acc + cur.name + "\n", "")
+        //console.log(name)
+        mail.sendEmail(result[0].email, "Area Top 10 Artists Spotify", first + name);
     })
 }
