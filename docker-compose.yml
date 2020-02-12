@@ -1,19 +1,29 @@
 version: '3.1'
-ClientWeb:
-  server:
+services:
+
+  client_mobile:
+    restart: always
+    build:
+      context: ./ClientMobile
+      dockerfile: Dockerfile
+    volumes:
+      - 'myshare:/shared'
+
+  client_web:
     restart: always
     build:
       context: ./DjangoWeb
       dockerfile: Dockerfile
     ports:
-      - "8080:8081"
+      - "8081:8080"
     expose:
-      - "8080"
+      - "8081"
     networks:
       - client-server
+    volumes:
+      - 'myshare:/shared'
 
-
-  api:
+  server:
     restart: always
     build:
       context: ./server
@@ -28,3 +38,7 @@ ClientWeb:
 networks:
   client-server:
     driver: bridge
+
+volumes:
+  myshare:
+    driver: local 

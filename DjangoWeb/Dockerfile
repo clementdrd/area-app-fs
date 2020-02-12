@@ -1,5 +1,5 @@
-FROM node:8
-WORKDIR /server
+FROM python
+WORKDIR /
 COPY . .
-RUN npm install
-CMD ["npm", "start"]
+RUN pip install -r requirement.txt
+CMD ["python", "manage.py", "runserver","0.0.0.0:8080"]

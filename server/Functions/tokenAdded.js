@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 module.exports = {
     tokenAdded: tokenAdded,
     insertInDb: insertInDb,
@@ -26,6 +28,10 @@ function addDeleteToken(req, res, type, db) {
                 userToken: req.body.usertoken
             }
             async function callAsync() {
+                if (req.body.servicename.toLowerCase() === "google") {
+                    var value = TreatGoogle(req)
+                    req.body.value = value
+                }
                 await insertInDb(userQuery, type, db, req, res, (arg) => {
                     if (arg === 0) {
                         tokenAdded(req.body.servicename, db, req.body.value)
@@ -35,6 +41,27 @@ function addDeleteToken(req, res, type, db) {
             callAsync()
         }
     }
+}
+
+function TreatGoogle(req)
+{
+    var url = "https://oauth2.googleapis.com/token"
+   
+    var body =  JSON.stringify({ 
+        code:req.body.value,
+        client_id:"1053737486062-pdkrjca280v384pk79hv9vndr0df3kgl.apps.googleusercontent.com",
+        client_secret:"buBUasroJf0i4Sp3UnGGHUu7",
+        redirect_uri:"http://localhost:8080",
+        grant_type:"authorization_code"
+    })
+    return fetch(url, { method: 'POST', body: body})
+    .then(res => {
+        console.log(res);
+        return res.json()
+    })
+    .then((json) => {
+        return json
+    }).catch((err) => {console.log(err)});
 }
 
 async function insertInDb(userQuery, type, db, req, res, callback) {

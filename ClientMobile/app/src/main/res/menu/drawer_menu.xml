@@ -15,5 +15,12 @@
         <item
             android:id="@+id/Spotify"
             android:title="Spotify" />
+
+        <item
+            android:id="@+id/Pinterest"
+            android:title="Pinterest" />
+        <item
+            android:id="@+id/Nasa"
+            android:title="Nasa" />
     </group>
 </menu>

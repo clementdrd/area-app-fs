@@ -1,2 +1,2 @@
-include ':app', ':spotify-app-remote'
+include ':app'
 rootProject.name='area'

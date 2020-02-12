@@ -3,5 +3,5 @@
     "version": "0.0.1",
     "description": "REST api developped for the AREA, as an shool year end project",
     "title": "REST AREA",
-    "url" : "http://localhost:8080"
+    "url" : "https://area-rest-api-zuma.herokuapp.com/"
 }

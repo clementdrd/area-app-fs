@@ -9,7 +9,7 @@ module.exports = function (app, db) {
                 {
                     username: "admin",
                     password: sha256(PREFIX_SALT + "admin" + SUFFIX_SALT),
-                    email: "matthieu.correia-moreira@epitech.eu",
+                    email: "tom.robert@epitech.eu",
                     admin: true
                 })
         }
