@@ -37,6 +37,8 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/twitchFollowCallback")(app, db)
     require("./Functions/SpotifyService")(app, db)
     require("./Routes/facebook")(app, db)
+    require("./Functions/NasaService")(app,db)
+    require("./Functions/ImgurService")(app,db)
 
 
     app.get("/", (req, res) => {

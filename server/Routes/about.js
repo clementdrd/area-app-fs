@@ -8,8 +8,8 @@ module.exports = function (app, db) {
                     "name": "Listen Music",
                     "description ": "L'utilisateur ecoute une musique"
                 }, {
-                    "name": "new_message_inbox",
-                    "description ": "A new  private  message  is  received  by the  user"
+                    "name": "Weekly Check",
+                    "description ": "Do something weekly"
                 }, {
                     "name": "new_like",
                     "description ": "The  user  gains a like  from  one of their  messages"
@@ -17,8 +17,37 @@ module.exports = function (app, db) {
                 "reactions ": [{
                     "name": "Like Music",
                     "description ": "The music is added to like list"
-                }]
-            }
+                },{
+                    "name": "Follow Artist",
+                    "description ": "Follow the artist"
+                },
+                {
+                    "name": "Send a resume",
+                    "description ": "send the top ten artist of the user"
+                }
+            ]},
+            {
+                "name": "Imgur",
+                "actions ": [{
+                    "name": "Daily",
+                    "description ": "Do something Daily"
+                }],
+                "reactions ": [{
+                    "name": "Post Nasa Picture of the day",
+                    "description ": "Post on the account the nasa pic of the day"
+                }
+            ]},
+            {
+                "name": "Nasa",
+                "actions ": [{
+                    "name": "Daily",
+                    "description ": "Do something Daily"
+                }],
+                "reactions ": [{
+                    "name": "Send Email",
+                    "description ": "Send Nasa pic of the day by email"
+                }
+            ]}
         ]
         res.set("Content-Type", "application/json")
         res.send({
