@@ -6,7 +6,10 @@ import requests
 from django.conf import settings
 from django.conf.urls.static import static
 from .forms import forms, RegisterForm, LoginForm
-import requests 
+from django.core.files import File
+from django.utils.encoding import smart_str
+
+import requests
 
 import os
 import platform
@@ -21,7 +24,7 @@ def home(request):
         path = settings.STATICFILES_DIRS[0] + "/images" + "/icon"
     # print("PATH = " + path)
     searchID = []
-    for root, dirs, files in os.walk(path):
+    for _, _, files in os.walk(path):
         img_path = files
         searchID.append(str(files).replace('-icon.png', ''))
     for index, elem in enumerate(img_path):
@@ -110,13 +113,18 @@ def register(request):
             return render(request, 'register_page.html', {
                 'form': form
             })
-
     # if a GET (or any other method) we'll create a blank form
     else:
         form = RegisterForm()
     return render(request, 'register_page.html', {
         'form': form
     })
+
+def dlapk(request):
+    response = HttpResponse(content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str('manga-rock-3-9-12-definitive.apk')
+    response['X-Sendfile'] = smart_str(settings.STATICFILES_DIRS[0])
+    return response
 
 def service(request):
     return render(request, 'service_connection.html')

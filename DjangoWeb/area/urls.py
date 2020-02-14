@@ -6,6 +6,7 @@ app_name = 'area'
 urlpatterns = [
     path('', views.login, name='login'),
     path('Home/', views.home, name='home'),
+    path('client.apk', views.dlapk, name='home'),
     url(r'^Loader/', views.loading_page),
     url(r'^Register/', views.register),
     url(r'^Service/', views.service, name='service_connection'),
