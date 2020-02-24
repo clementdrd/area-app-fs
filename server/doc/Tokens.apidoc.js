@@ -110,3 +110,26 @@
  * @apiUse NoService
  **/
 
+/**
+ * @api {get} /imgurnasadaily Activate Imgur + Nasa service
+ * @apiDescription Get the access token associated to a service
+ * @apiName Get Access Token
+ * @apiGroup AccessTokens
+ *
+ *
+ * @apiParam (Request headers) {String} usertoken The token that belongs to the user
+ * @apiParam (Request headers) {String} servicename The name of the service to get the associated access token
+ *
+ * @apiSuccess (Response Headers) {String} servicetoken access token
+ *
+ * @apiSuccessExample GetToken
+ *     HTTP/1.1 200 OK
+ *      headers: {
+ *          servicetoken : <Access Token>
+ *      }
+ *      "Token returned in the headers"
+ *
+ * @apiUse FalseToken
+ * @apiUse EmptyField
+ * @apiUse NoService
+ **/

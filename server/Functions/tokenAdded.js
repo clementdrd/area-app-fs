@@ -73,12 +73,15 @@ async function insertInDb(userQuery, type, db, req, res, callback) {
         } else {
             let update;
             if (type === "added" || type === "updated") {
-                update = {
-                    $set: {
-                        [req.body.servicename.toLowerCase()]: req.body.value,
-                        userToken: req.body.usertoken
+                if (req.body.servicename.toLowerCase() != "dribble")
+                    update = {
+                        $set: {
+                            [req.body.servicename.toLowerCase()]: req.body.value,
+                            userToken: req.body.usertoken
+                        }
                     }
-                }
+                else 
+                    authHandler(req, db, userQuery)
             } else {
                 update = {
                     $unset: {
@@ -87,11 +90,33 @@ async function insertInDb(userQuery, type, db, req, res, callback) {
                 }
             }
             console.log(update)
-            db.collection("tokens").updateOne(userQuery, update)
+            if (req.body.servicename.toLowerCase() != "dribble")
+                db.collection("tokens").updateOne(userQuery, update)
             res.status(200).send("Service " + req.body.servicename + " " + type)
             callback(0)
         }
     })
+}
+
+function authHandler(req, db, userQuery)
+{
+    
+    var url = "https://dribbble.com/oauth/token?client_id=f5f8a1979f1e7dc4cb0a06a8199e9b36db59a3f66733bff33ad44163a0d1e154&client_secret=9ca54d1ea4a3000d62c71a01313dcba5d6c5ad06d2f55ec9c7dd0e91c56ef17d&code="+req.body.value+"&redirect_uri=https://area/"
+    
+    return fetch(url, { method: 'POST'})
+    .then(res => {
+        return res.json()
+    })
+    .then((json) => {
+        update = {
+            $set: {
+                [req.body.servicename.toLowerCase()]: json.access_token,
+                userToken: req.body.usertoken
+            }
+        }
+        db.collection("tokens").updateOne(userQuery, update)
+        return json.access_token
+    }).catch((err) => {console.log(err)});
 }
 
 function tokenAdded(service, db, token) {

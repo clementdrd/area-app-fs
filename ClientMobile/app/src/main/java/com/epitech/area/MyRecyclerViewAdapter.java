@@ -48,6 +48,18 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             case "Office":
                 holder.myImageView.setImageResource(Ressource.OfficeId);
                 break;
+            case "Spotify" :
+                holder.myImageView.setImageResource(Ressource.SpotifyId);
+                break;
+            case "Imgur" :
+                holder.myImageView.setImageResource(Ressource.ImgurId);
+                break;
+            case "Nasa" :
+                holder.myImageView.setImageResource(Ressource.NasaId);
+                break;
+            case "Dribble" :
+                holder.myImageView.setImageResource(Ressource.DribbleId);
+                break;
         }
     }
     // total number of rows

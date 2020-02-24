@@ -1,5 +1,6 @@
 package com.epitech.area.ui.home;
 
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,22 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.epitech.area.MyRecyclerViewAdapterService;
 import com.epitech.area.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static com.epitech.area.MainActivity.Url;
 import static com.epitech.area.UserConnect.Connected;
 
-public class SpotifyFragment extends Fragment implements MyRecyclerViewAdapterService.ItemClickListener {
+public class RedditFragment extends Fragment implements MyRecyclerViewAdapterService.ItemClickListener {
     private static final String USER_NAME = "userName";
     private MyRecyclerViewAdapterService adapter;
     View homeView;
@@ -39,12 +37,12 @@ public class SpotifyFragment extends Fragment implements MyRecyclerViewAdapterSe
     OkHttpClient httpClient = new OkHttpClient.Builder().build();
 
 
-    public SpotifyFragment() {
+    public RedditFragment() {
 
     }
 
-    public static SpotifyFragment createInstance(String userName) {
-        SpotifyFragment fragment = new SpotifyFragment();
+    public static RedditFragment createInstance(String userName) {
+        RedditFragment fragment = new RedditFragment();
 
         // Add the provided username to the fragment's arguments
         Bundle args = new Bundle();
@@ -64,71 +62,34 @@ public class SpotifyFragment extends Fragment implements MyRecyclerViewAdapterSe
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        homeView = inflater.inflate(R.layout.fragment_spotify, container, false);
+        homeView = inflater.inflate(R.layout.fragment_nasa, container, false);
         homeView.setBackgroundColor(Color.WHITE);
         createView();
         return homeView;
     }
     void createView()
     {
-
         ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("SpotifyLike");
-        animalNames.add("SpotifyFollow");
-        animalNames.add("SpotifyResume");
-        animalNames.add("Find Concert");
+        animalNames.add("Picture Of The Day");
+
         RecyclerView recyclerView = homeView.findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new MyRecyclerViewAdapterService(getActivity(), animalNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(getActivity(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
-        if (position == 2)
-            SpotifyResume();
-        else
-            RegisterApi(position);
-    }
-
-    public void RegisterApi(int position)
-    {
-        String test;
+        Toast.makeText(getActivity(), "You reddit " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         if (position == 0)
-            test = "like";
-        else if (position == 3)
-            test = "concert";
-        else
-            test = "follow";
-
-        Request request = new Request.Builder()
-                .url(Url+"spotifyhistory")
-                .addHeader("usertoken", Connected.Token)
-                .addHeader("mode", test )
-                .build();
-
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                Log.e("ERR", "An error has occurred " + e);
-            }
-
-            @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
-                Log.d("test", "onResponse: " + response.code());
-                //Toast.makeText(getActivity(), response.body().string(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
+            dribblePost();
     }
 
-    public void SpotifyResume()
+    public void dribblePost()
     {
         Request request = new Request.Builder()
-                .url(Url+"spotifyresume")
+                .url(Url+"dribblepost")
                 .addHeader("usertoken", Connected.Token)
                 .build();
 

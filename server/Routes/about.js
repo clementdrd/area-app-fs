@@ -24,6 +24,9 @@ module.exports = function (app, db) {
                 {
                     "name": "Send a resume",
                     "description ": "send the top ten artist of the user"
+                },{
+                    "name":"search concerts",
+                    "description" : "search concerts of an artist and send it via email"
                 }
             ]},
             {

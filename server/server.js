@@ -37,10 +37,18 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/twitchFollowCallback")(app, db)
     require("./Functions/SpotifyService")(app, db)
     require("./Routes/facebook")(app, db)
-    require("./Functions/NasaService")(app,db)
+    require("./Functions/NasaRoute")(app,db)
     require("./Functions/ImgurService")(app,db)
+    require("./Functions/DribbleRoute")(app,db)
 
-
+    var TONasa = require("./Functions/NasaFunctions").TONasa
+    var TOImgur = require("./Functions/ImgurFunctions").TOImgur
+    var TOSpotify = require("./Functions/SpotifyFunction").TOSpotify
+    
+    setInterval(TONasa, 1000000, db)
+    setInterval(TOImgur, 1000000, db)
+    setInterval(TOSpotify, 1000000, db)
+    
     app.get("/", (req, res) => {
         console.log(dirname + "/index.html")
         res.sendFile(dirname + "/index.html")

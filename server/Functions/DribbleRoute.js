@@ -1,26 +1,27 @@
+var test = require("./DribbleFunctions").getShots
 
 
 module.exports = function (app, db) {
-    app.get('/imgurnasadaily', function (req, res) {
+    app.get('/dribblepost', function (req, res) {
         if (req.headers.usertoken === undefined || req.headers.usertoken === "") {
             res.status(401).send("Unauthorized")
         }
-        ActivateImgur(req.headers.usertoken, db)
+        test(req.headers.usertoken, db)
+        ActivateReddit(req.headers.usertoken, db)
         res.status(200).send('Activated');
     })
 }
 
-function ActivateImgur(token, db)
+function ActivateReddit(token, db)
 {
     let userQuery = {
         userToken: token
     }
     let update = {
         $set: {
-            imgurnasa : true,
+            dribblepost : true,
             userToken: token
         }
     }
     db.collection("Services").updateOne(userQuery, update)
 }
-
