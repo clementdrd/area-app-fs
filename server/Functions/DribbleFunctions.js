@@ -2,7 +2,8 @@ const fetch = require("node-fetch");
 const FormData = require("form-data")
 
 module.exports = {
-    getShots: getShots
+    getShots: getShots,
+    TODribble : TODribble
 }
 
 function getShots(token, db)
@@ -54,4 +55,22 @@ function ImgurPost(token, db, nasaPic)
             }
         })
     })
+}
+
+function TODribble(db)
+{
+    db.collection("users").find({}).toArray(function(err, result) {
+        result.forEach(element => {
+            db.collection("Services").find({userToken: element.userToken}).toArray(function(err, test) {
+                
+                if (test[0] != undefined) {
+                    
+                    if (test[0].dribble == true) {
+                        console.log("name" + element.email)
+                        getShots(element, db);
+                    }
+                }
+            })
+        });
+    });
 }
