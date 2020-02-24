@@ -9,18 +9,27 @@ from .forms import forms, RegisterForm, LoginForm
 import requests 
 
 import os
+import platform
 
 # Create your views here.
 
 def home(request):
     img_path = []
-    path = settings.STATICFILES_DIRS[0] + "\\images" + "\\icon"
+    if platform.system() == "Windows":
+        path = settings.STATICFILES_DIRS[0] + "\\images" + "\\icon"
+    else:
+        path = settings.STATICFILES_DIRS[0] + "/images" + "/icon"
+    # print("PATH = " + path)
     searchID = []
     for root, dirs, files in os.walk(path):
         img_path = files
         searchID.append(str(files).replace('-icon.png', ''))
     for index, elem in enumerate(img_path):
-        img_path[index] += path + "\\" + elem
+        if platform.system() == "Windows":
+            img_path[index] += path + "\\" + elem
+        else:
+            print("PATH " + path + "/" + elem)
+            img_path[index] = "/images/icon/" + elem
     # response = requests.get('https://area-rest-api-zuma.herokuapp.com/isonline')
     # geodata = response.text
     # print(searchID)
