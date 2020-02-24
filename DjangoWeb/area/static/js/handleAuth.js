@@ -3,7 +3,7 @@ const usertoken = getCookie('userToken')
 const redirect_link = {
     "spotify": "https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Flocalhost:8000%2F&scope=user-read-currently-playing%20user-read-email&response_type=token&state=123",
     "twitch": "https://id.twitch.tv/oauth2/authorize?client_id=5nnkmcrbqaxrv1irgdqpten4rcnhr2&redirect_uri=http:%2F%2Flocalhost:8000%2F&response_type=token&scope=user:edit",
-    "dropbox": "https://www.dropbox.com/oauth2/authorize?client_id=yp5wl24jy9d6l8l&response_type=code&redirect_uri=http:%2F%2Flocalhost:8000%2F",
+    "dropbox": "https://www.dropbox.com/oauth2/authorize?client_id=yp5wl24jy9d6l8l&response_type=token&redirect_uri=http:%2F%2Flocalhost:8000%2F",
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -59,8 +59,8 @@ function findGetParameter(parameterName) {
 }
 
 function checkService() {
-    console.log(usertoken)
     if (usertoken) {
+        console.log(usertoken)
         service = findGetParameter('service')
         $.ajax({
             url: "https://area-rest-api-zuma.herokuapp.com/getAllServices",
@@ -86,6 +86,7 @@ function checkService() {
 
 function Access_Token(lien) {
     service = findGetParameter('service')
+    let access_token
     let spotify_auth = window.open(
         lien,
         service + " auth",
@@ -102,27 +103,28 @@ function Access_Token(lien) {
                 while (match = regex.exec(spotify_auth.location)) {
                     params[match[1]] = match[2];
                 }
-                if (params.access_token === undefined) {
-                    alert(params.code)
-                    spotify_auth.close()
-                    clearInterval(interval)
+                if (params.access_token === undefined && params.code === undefined){
+                    if ((service === "dropbox" && params.code === undefined) || service !== "dropbox") {
+                        spotify_auth.close()
+                        clearInterval(interval)
+                    }
                 } else {
                     spotify_auth.close()
                     clearInterval(interval)
-                    let access_token = params.access_token
+                    access_token = params.access_token
                     console.log("usertoken: " + usertoken)
                     console.log("servicename: " + service)
-                    console.log("value: " + params.access_token)
+                    console.log("value: " + access_token)
                     $.post( "https://area-rest-api-zuma.herokuapp.com/addAccessToken", 
                     {
-                        "usertoken": usertoken, "servicename": service, "value": params.access_token
+                        "usertoken": usertoken, "servicename": service, "value": access_token
                     }).done(function(response) {
-                        console.log("salut les bitches")
                         console.log(response)
                     });
                 }
             }
         } catch (err) {
+            console.log(params)
             console.log(err);
         }
     }, 1000)

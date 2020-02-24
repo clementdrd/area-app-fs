@@ -42,7 +42,7 @@ function doOnClick() {
 
     if (i == 0) {
         document.getElementById('switch_text').value = 'Connected';
-        i = i + 1;
+        i = 1;
         set_connected()
 
 

@@ -22,6 +22,7 @@
     "chai-http": "^4.3.0",
     "consolidate": "^0.15.1",
     "cors": "^2.8.5",
+    "dropbox-v2-api": "^2.4.12",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "googleapis": "^47.0.0",
