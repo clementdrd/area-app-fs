@@ -24,6 +24,7 @@ import com.epitech.area.ui.home.GoogleFragment;
 import com.epitech.area.ui.home.ImgurFragment;
 import com.epitech.area.ui.home.NasaFragment;
 import com.epitech.area.ui.home.OfficeFragment;
+import com.epitech.area.ui.home.RedditFragment;
 import com.epitech.area.ui.home.SpotifyFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -133,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.Imgur:
                 signInImgur();
                 break;
+            case R.id.Reddit:
+                signInReddit();
+                break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -155,6 +159,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+    public void signInReddit()
+    {
+        WebView myWebView = new WebView(this);
+        myWebView.clearCache(true);
+        setContentView(myWebView);
+        myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.loadUrl("https://dribbble.com/oauth/authorize?client_id=f5f8a1979f1e7dc4cb0a06a8199e9b36db59a3f66733bff33ad44163a0d1e154&redirect_uri=https://area/&scope=public+upload&state=123");
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                if (url.toString().contains("https://area/?code=") == true) {
+                    TreatDriblleConnect(url.toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void TreatDriblleConnect(String url)
+    {
+        String[] tab = url.split("=");
+        String token = tab[1].split("&")[0];
+        SendThirdPartyToken( token, "Dribble");
+        createViewtest();
+        openRedditFragment();
     }
 
     public void signInImgur()
@@ -303,6 +335,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 
+    public void openRedditFragment()
+    {
+        RedditFragment fragment = RedditFragment.createInstance(("user"));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
     private void signIn() {
         showProgressBar();
         doSilentSignIn();
@@ -439,6 +479,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Google");
         animalNames.add("Office");
+        animalNames.add("Imgur");
+        animalNames.add("Spotify");
+        animalNames.add("Nasa");
+        animalNames.add("Dribble");
         RecyclerView recyclerView = findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyRecyclerViewAdapter(this, animalNames);
@@ -452,9 +496,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, "You tested " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         if (position == 0)
             signInGoogle();
-        else
+        else if (position == 1)
             signIn();
-
+        else if (position == 2)
+            signInImgur();
+        else if (position == 3)
+            signInSpotify();
+        else if (position == 4)
+            OpenNasaFragment();
+        else if (position == 5)
+            signInReddit();
     }
 
     void GetDrawabelRessources()
@@ -463,5 +514,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Ressource.GoogleId = id;
         id = getResources().getIdentifier("com.epitech.area:drawable/office_logo_36x36" , null, null);
         Ressource.OfficeId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/spotify_36" , null, null);
+        Ressource.SpotifyId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/nasa_36" , null, null);
+        Ressource.NasaId = id;
     }
 }

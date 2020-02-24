@@ -25,5 +25,9 @@
         <item
             android:id="@+id/Imgur"
             android:title="Imgur" />
+        <item
+            android:id="@+id/Reddit"
+            android:title="Reddit" />
+
     </group>
 </menu>
