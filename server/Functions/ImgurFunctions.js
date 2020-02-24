@@ -3,7 +3,8 @@ const FormData = require("form-data")
 
 
 module.exports = {
-    TOImgur :TOImgur
+    TOImgur :TOImgur,
+    TOCommentImgur : TOCommentImgur
 }
 
 function TOImgur(db)
@@ -16,7 +17,25 @@ function TOImgur(db)
                     
                     if (test[0].imgurnasa == true) {
                         console.log("name" + element.email)
-                        getNasa(element.imgur, db);
+                        getNasa(element.userToken, db);
+                    }
+                }
+            })
+        });
+    });
+}
+
+function TOCommentImgur()
+{
+    db.collection("users").find({}).toArray(function(err, result) {
+        result.forEach(element => {
+            db.collection("Services").find({userToken: element.userToken}).toArray(function(err, test) {
+                
+                if (test[0] != undefined) {
+                    
+                    if (test[0].imgurComment == true) {
+                        console.log("name" + element.email)
+                        handleCommentImgur(element.userToken, db);
                     }
                 }
             })
@@ -62,4 +81,53 @@ function getNasa(token, db)
     .then((json) => {
         ImgurPostNasa(token, db, json.url)
     }).catch((err) => {console.log(err)});
+}
+
+function handleCommentImgur(buffer, db)
+{
+        var headers = {
+            'Authorization' : 'Bearer ' + buffer
+        }
+        getContentFromImgur(headers, resu[0].userToken, db)
+}
+
+function getContentFromImgur(headers, usertoken, db) {
+    //console.log(usertoken)
+    var url = 'https://api.imgur.com/3/account/me/favorites';
+
+    fetch(url, {method : "GET", headers: headers})
+    .then((res) => 
+        res.json()
+    ).then((res) => {
+        console.log(res)
+        let ids = []
+        res.data.forEach(element => {
+            ids.push(element.id)
+        });
+        console.log("UserFavorites = " + ids);
+        db.collection("users").find({userToken: usertoken}).toArray(function(er, resu) {
+            var actualFavorites = ids.length;
+            
+            if (actualFavorites > resu[0].favoriteimgur) {
+                commentFavoriteImage(headers, ids);
+                db.collection("users").updateOne({favoriteimgur: resu[0].favoriteimgur}, { $set: {favoriteimgur: actualFavorites } });
+            }
+        })
+    })
+}
+
+function commentFavoriteImage(headers, ids) {
+    var url = "https://api.imgur.com/3/comment";
+    let formData = new FormData();
+    formData.append("image_id", ids[0]);
+    formData.append("comment", "I love this image!");
+        
+    fetch(url, {method : "POST", headers: headers, body: formData})
+    .then((res) => {
+        if (res.status === 200) {
+            return res;
+        } else {
+            console.log(res.error.status, res.error.message)
+        }
+    })
 }
