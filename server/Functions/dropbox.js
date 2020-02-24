@@ -56,14 +56,4 @@ function SendPictureToDropbox(json, usertoken, access_token)
         body: dataString
     };
     request(options, callback);
-    // dropbox({
-    //     resource: 'files/upload',
-    //     parameters: {
-    //         path: json.url
-    //     },
-    //     readStream: fs.createReadStream(json.url)
-    // }, (err, result, response) => {
-    //     if (err) { return console.log(err); }
-    //     console.log(result);
-    // });
 }
