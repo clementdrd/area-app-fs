@@ -34,3 +34,5 @@ function EnableService(db, service, usertoken)
     }
     db.collection("Services").updateOne(userQuery, update)
 }
+
+

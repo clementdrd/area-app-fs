@@ -3,6 +3,7 @@ package com.epitech.area;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebResourceRequest;
@@ -26,6 +27,7 @@ import com.epitech.area.ui.home.NasaFragment;
 import com.epitech.area.ui.home.OfficeFragment;
 import com.epitech.area.ui.home.RedditFragment;
 import com.epitech.area.ui.home.SpotifyFragment;
+import com.epitech.area.ui.home.TrelloFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -160,6 +162,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
+    public void signInTrello()
+    {
+        WebView myWebView = new WebView(this);
+        myWebView.clearCache(true);
+        setContentView(myWebView);
+        myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.loadUrl("https://trello.com/1/authorize/?key=51fa8f3fa712867ca344ee0bb04b1de0&name=area&response_type=token&expiration=never&callback_method=fragment&return_url=https://area/&scope=read,write");
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                Log.e("test", url.toString());
+                if (url.toString().contains("https://area/#token") == true) {
+                    TreatTrelloConnect(url.toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void TreatTrelloConnect(String url)
+    {
+        String[] tab = url.split("=");
+        Log.e("test", tab[1]);
+        //tab = tab[1].split("#");
+        //tab = tab[1].split("&");
+        //String token = tab[0].split("=")[1];
+        SendThirdPartyToken( tab[1], "Trello");
+        createViewtest();
+        openTrelloFragment("test");
+    }
+
     public void signInReddit()
     {
         WebView myWebView = new WebView(this);
@@ -317,6 +353,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void openGoogleFragment(String userName) {
         GoogleFragment fragment = GoogleFragment.createInstance((userName));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+    public void openTrelloFragment(String userName) {
+        TrelloFragment fragment = TrelloFragment.createInstance((userName));
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
@@ -483,6 +525,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         animalNames.add("Spotify");
         animalNames.add("Nasa");
         animalNames.add("Dribble");
+        animalNames.add("Trello");
         RecyclerView recyclerView = findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyRecyclerViewAdapter(this, animalNames);
@@ -506,6 +549,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             OpenNasaFragment();
         else if (position == 5)
             signInReddit();
+        else if (position == 6)
+            signInTrello();
     }
 
     void GetDrawabelRessources()
