@@ -41,6 +41,7 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Functions/ImgurService")(app,db)
     require("./Functions/DribbleRoute")(app,db)
     require("./Functions/dropbox")(app,db)
+    require("./Functions/TrelloRoute")(app,db)
 
     var TONasa = require("./Functions/NasaFunctions").TONasa
     var TOImgur = require("./Functions/ImgurFunctions").TOImgur

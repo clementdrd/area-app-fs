@@ -50,6 +50,28 @@ module.exports = function (app, db) {
                     "name": "Send Email",
                     "description ": "Send Nasa pic of the day by email"
                 }
+            ]},
+            {
+                "name": "Trello",
+                "actions ": [{
+                    "name": "Create Board",
+                    "description ": "Trigger when creating a board"
+                }],
+                "reactions ": [{
+                    "name": "Create Board",
+                    "description ": "Create a board"
+                }
+            ]},
+            {
+                "name": "Gitlab",
+                "actions ": [{
+                    "name": "Create Project",
+                    "description ": "Trigger when creating a Project"
+                }],
+                "reactions ": [{
+                    "name": "Create Project",
+                    "description ": "Create a Project"
+                }
             ]}
         ]
         res.set("Content-Type", "application/json")

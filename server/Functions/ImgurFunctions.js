@@ -25,7 +25,7 @@ function TOImgur(db)
     });
 }
 
-function TOCommentImgur()
+function TOCommentImgur(db)
 {
     db.collection("users").find({}).toArray(function(err, result) {
         result.forEach(element => {

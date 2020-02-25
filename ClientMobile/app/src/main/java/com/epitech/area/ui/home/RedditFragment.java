@@ -70,7 +70,7 @@ public class RedditFragment extends Fragment implements MyRecyclerViewAdapterSer
     void createView()
     {
         ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Picture Of The Day");
+        animalNames.add("Post Shots to IMGUR");
 
         RecyclerView recyclerView = homeView.findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
