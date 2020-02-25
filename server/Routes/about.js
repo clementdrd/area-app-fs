@@ -49,6 +49,10 @@ module.exports = function (app, db) {
                 "reactions ": [{
                     "name": "Send Email",
                     "description ": "Send Nasa pic of the day by email"
+                },
+                {
+                    "name": "Upload File",
+                    "description ": "Upload Nasa pic of the day"
                 }
             ]},
             {
@@ -71,6 +75,17 @@ module.exports = function (app, db) {
                 "reactions ": [{
                     "name": "Create Project",
                     "description ": "Create a Project"
+                }
+            ]},
+            {
+                "name": "Dropbox",
+                "actions ": [{
+                    "name": "Create a picture to the root",
+                    "description ": "Trigger when creating a picture to the root"
+                }],
+                "reactions ": [{
+                    "name": "Create a picture to the root",
+                    "description ": "Create a picture to the root"
                 }
             ]}
         ]
