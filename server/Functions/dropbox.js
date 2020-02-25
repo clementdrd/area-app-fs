@@ -17,11 +17,43 @@ module.exports = function (app, db) {
             res.status(200).send('Activated');
         }
     })
+    app.get('/send_best_img_pic_to_dropbox', function (req, res) {
+        if (req.headers.usertoken == undefined || req.headers.usertoken == "") {
+            res.status(401).send("Unauthorized")
+        }
+        else {
+            db.collection("tokens").find({userToken: req.headers.usertoken}).toArray((err, result) => {
+                ImgurBestImage(result[0].dropbox)
+            })
+            res.status(200).send('Activated');
+        }
+    })
+}
+
+function ImgurBestImage(access_token)
+{
+    var url = "https://api.imgur.com/3/gallery/search/hot/week?q=ext: gif"
+    var myHeaders = {
+        "Authorization": 'Client-ID 832c0fa8c4eb16e'
+    };
+    var myInit = { method: 'GET',
+               headers: myHeaders,
+               mode: 'cors',
+               cache: 'default' 
+            };
+    fetch(url, myInit)
+    .then(res => {
+        return res.json()
+    })
+    .then((json) => {
+        console.log(json.data[0]["images"][0]['link'])
+        SendGifToDropbox(json.data[0]["images"][0]['link'], access_token);
+    })
+    .catch((err) => {console.log(err)});
 }
 
 function NasaFileHistory(access_token)
 {
-    console.log(access_token)
     var url = "https://api.nasa.gov/planetary/apod?api_key=6MpjO3T3rsOcQTm1JX8ah4JtL23PEVhfJW1t6PXG"
     
     fetch(url, { method: 'GET'})
@@ -31,13 +63,32 @@ function NasaFileHistory(access_token)
     .then((json) => {
         console.log(json.url)
         SendPictureToDropbox(json, access_token);
-    }).catch((err) => {console.log(err)});
+    })
+    .catch((err) => {console.log(err)});
 }
 
 function callback(error, response, body) {
     if (!error && response.statusCode == 200) {
         console.log(body);
     }
+}
+
+function SendGifToDropbox(json, access_token)
+{
+    var headers = {
+        'Authorization': 'Bearer ' + access_token,
+        'Content-Type': 'application/json'
+    };
+    var dataString = '{"path": "/gif_of_the_week.gif","url": "' + json + '"}';
+    console.log(dataString)
+    
+    var options = {
+        url: 'https://api.dropboxapi.com/2/files/save_url',
+        method: 'POST',
+        headers: headers,
+        body: dataString
+    };
+    request(options, callback);
 }
 
 function SendPictureToDropbox(json, usertoken, access_token)
