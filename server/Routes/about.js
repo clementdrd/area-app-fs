@@ -87,6 +87,15 @@ module.exports = function (app, db) {
                     "name": "Create a picture to the root",
                     "description ": "Create a picture to the root"
                 }
+            ]},
+            {
+                "name": "Dribble",
+                "actions ": [{
+                    "name": "Upload shots",
+                    "description ": "Trigger when uploading shots to dribble"
+                }],
+                "reactions ": [{
+                }
             ]}
         ]
         res.set("Content-Type", "application/json")

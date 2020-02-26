@@ -16,6 +16,7 @@ module.exports = function (app, db) {
                     username: req.body.username,
                     password: password,
                     email: req.body.email,
+                    telephone: req.body.telephone,
                     userToken: userToken
                 }
                 db.collection("users").insertOne(insertion)
