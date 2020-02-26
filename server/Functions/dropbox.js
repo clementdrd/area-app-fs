@@ -9,7 +9,6 @@ module.exports = function (app, db) {
         else {
             // let token = new Token(db)
             db.collection("tokens").find({userToken: req.headers.usertoken}).toArray((err, result) => {
-                NasaFileHistory(result[0].dropbox)
                 ActivateDropbox(req.headers.usertoken, db, "Nasafilehistory")
             })
             res.status(200).send('Activated');
@@ -22,7 +21,6 @@ module.exports = function (app, db) {
         else {
             db.collection("tokens").find({userToken: req.headers.usertoken}).toArray((err, result) => {
                 ActivateDropbox(req.headers.usertoken, db, "dropboxbestimage")
-                ImgurBestImage(result[0].dropbox)
             })
             res.status(200).send('Activated');
         }
