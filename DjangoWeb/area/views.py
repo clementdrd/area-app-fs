@@ -98,13 +98,15 @@ def register(request):
             email = data.get('email')
             password = data.get('password')
             passwordVerif = data.get('passwordVerif')
+            telephone = data.get('telephone')
             if password != passwordVerif:
                 form.add_error(forms.ValidationError(('Les deux mots de passes ne sont pas identiques')))
             url = 'https://area-rest-api-zuma.herokuapp.com/register'
             myobj = {
                 'username': userName,
                 'password': password,
-                'email': email
+                'email': email,
+                'telephone': telephone
             }
             x = requests.post(url, data = myobj)
             print(x.text)

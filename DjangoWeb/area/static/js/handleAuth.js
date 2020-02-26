@@ -4,6 +4,7 @@ const redirect_link = {
     "spotify": "https://accounts.spotify.com/authorize?client_id=f6349b82adab4d12a42520ae5f530830&redirect_uri=http:%2F%2Flocalhost:8000%2F&scope=user-read-currently-playing%20user-read-email&response_type=token&state=123",
     "twitch": "https://id.twitch.tv/oauth2/authorize?client_id=5nnkmcrbqaxrv1irgdqpten4rcnhr2&redirect_uri=http:%2F%2Flocalhost:8000%2F&response_type=token&scope=user:edit",
     "dropbox": "https://www.dropbox.com/oauth2/authorize?client_id=yp5wl24jy9d6l8l&response_type=token&redirect_uri=http:%2F%2Flocalhost:8000%2F",
+    "pushbullet": "https://www.pushbullet.com/authorize?client_id=R3ame1lmBzYYVzkQ9IvaVhF1XtRucYJQ&redirect_uri=http%3A%2F%2Flocalhost%3A8000&response_type=token&scope=everything"
 }
 
 function setCookie(cname, cvalue, exdays) {

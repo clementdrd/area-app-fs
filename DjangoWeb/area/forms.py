@@ -1,5 +1,6 @@
 from django import forms
 import re 
+from phonenumber_field.modelfields import PhoneNumberField
 
 class RegisterForm(forms.Form):
     def clean_email(self):
@@ -12,6 +13,7 @@ class RegisterForm(forms.Form):
 
     userName = forms.CharField(label='Username', max_length=100, required=True)
     email = forms.EmailField(label='Email', max_length=100, required=True)
+    telephone = forms.CharField(label='Telephone',  max_length=100, required=True)
     password = forms.CharField(widget=forms.PasswordInput, label='Password', max_length=100, required=True)
     passwordVerif = forms.CharField(widget=forms.PasswordInput, label='Password', max_length=100, required=True)
 

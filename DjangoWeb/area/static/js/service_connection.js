@@ -2,7 +2,7 @@ const services = ["spotify", "weather", "netflix", "gmail",
                   "dropbox", "deezer",
                   "twitter", "facebook", "amazon", "google-calendar",
                   "google-drive", "instagram", "messenger", "microsoft-outlook",
-                  "nasa", "souncloud", "twitch", "trello", "imgur", "football"]
+                  "nasa", "souncloud", "twitch", "trello", "pushbullet", "imgur", "football"]
 const tab = {
     "dropbox": [{"name" : "Dropbox + TOTO", "state" : "false"},{"name" : "Dropbox + TOTO", "state" : "false"}],
     "spotify": [{"name" : "Spotify + TOTO", "state" : "false"},{"name" : "Spotify + TOTO", "state" : "false"}],
@@ -10,6 +10,7 @@ const tab = {
     "imgur": [{"name" : "Imgur + TOTO", "state" : "false"},{"name" : "Imgur + TOTO", "state" : "false"}],
     "nasa": [{"name" : "Nasa + TOTO", "state" : "false"},{"name" : "Nasa + TOTO", "state" : "false"}],
     "football": [{"name" : "Football + TOTO", "state" : "false"},{"name" : "Football + TOTO", "state" : "false"}],
+    "pushbullet": [{"name" : "Football + TOTO", "state" : "false"},{"name" : "Football + TOTO", "state" : "false"}],
 }
 
 function init(app_name) {

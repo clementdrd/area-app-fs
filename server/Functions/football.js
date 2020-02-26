@@ -7,13 +7,13 @@ module.exports = function (app, db) {
             res.status(401).send("Unauthorized")
         }
         else {
-            get_premier_league_standing()
+            get_premier_league_standing(req.headers.usertoken, db)
             res.status(200).send('Activated');
         }
     })
 }
 
-function get_premier_league_standing()
+function get_premier_league_standing(usertoken, db)
 {
     var standings = []
     var url = "https://api.football-data.org/v2/competitions/2021/standings?standingType=HOME"
@@ -31,19 +31,60 @@ function get_premier_league_standing()
     })
     .then((json) => {
         for (i = 0; i != json.standings[0].table.length; i++) {
-            // console.log(json.standings[0].table[i].position + ": " + json.standings[0].table[i].team['name'])
             standings.push(json.standings[0].table[i].position + ": " + json.standings[0].table[i].team['name'])
-            // console.log(json.standings[0].table[i].team['name'])
         }
         return standings
-        // SendGifToDropbox(json.data[0]["images"][0]['link'], access_token);
     })
     .then((standings) => {
-        console.log(standings)
+        sendSMS(usertoken, standings, db)
     })
 }
 
-function sendSMS(standings)
+function sendSMS(usertoken, standings, db)
 {
-    
+    // var me = "o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD"
+    var url = 'https://api.pushbullet.com/v2/users/me'
+    var myHeaders = {
+        'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD'
+    };
+    var myInit = { method: 'GET',
+               headers: myHeaders,
+               mode: 'cors',
+               cache: 'default' 
+            };
+    fetch(url, myInit)
+    .then((res) => {
+        return res.json()
+    })
+    .then((res) => {
+        console.log(res.iden)
+        var options = {
+            'method': 'POST',
+            'url': 'https://api.pushbullet.com/v2/ephemerals',
+            'headers': {
+              'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"push":{"conversation_iden":"+33643142020","message":standings.join('\n'),"package_name":"com.pushbullet.android","source_user_iden":"ujAlU1gnioK","target_device_iden":"ujAlU1gnioKsjEw79BBUv6","type":"messaging_extension_reply"},"type":"push"})
+          };
+          request(options, function (error, response) { 
+            if (error) throw new Error(error);
+            console.log(response.body);
+          });
+          
+    });
+    // var options = {
+    //     'method': 'GET',
+    //     'url': 'https://api.pushbullet.com/v2/users/me',
+    //     'headers': {
+    //       'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD'
+    //     }
+    //   };
+    //   request(options, function (error, response) {
+    //     if (error) throw new Error(error);
+    //         console.log(response.body.iden);
+    //         db.collection("tokens").find({userToken: element.usertoken}).toArray((err, result2) => {
+    //             console.log(result2[0].pushbullet)
+    //         })
+    //   })
 }
