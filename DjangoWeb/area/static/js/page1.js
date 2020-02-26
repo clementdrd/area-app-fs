@@ -4,8 +4,15 @@ function Dynamic_Text() {
     var href = window.location.href;
     var toto = href.split('?')
     var tata = toto[1].split('_').join(' ')
+    var tutu = toto[2].split('_').join(' ')
+    console.log(tutu);
+    console.log("limite");
     console.log(tata);
-    document.getElementById('main_text').value = tata;
+    var frst_service = tutu.split("=") ;
+    var scnd_service = tata.split("=");
+    console.log(frst_service)
+    console.log(scnd_service)
+    document.getElementById('main_text').value = scnd_service[1] + ' + ' + frst_service[1];
 
     return false;
 }

@@ -1,22 +1,16 @@
 const services = ["spotify", "weather", "netflix", "gmail",
-                  "dropbox", "deezer", "youtube", "whatsapp",
+                  "dropbox", "deezer",
                   "twitter", "facebook", "amazon", "google-calendar",
                   "google-drive", "instagram", "messenger", "microsoft-outlook",
-                  "nasa", "souncloud", "twitch"]
+                  "nasa", "souncloud", "twitch", "trello", "imgur", "football"]
 const tab = {
-    "twitter": [{"name" : "Last Trend", "state" : "false"},{"name" : "Make a Tweet", "state" : "false"}],
-    "youtube": [{"name" : "Newest Videos", "state" : "false"},{"name" : "Most Viewed", "state" : "false"}],
-    "facebook": [{"name" : "Most liked Page", "state" : "false"},{"name" : "Random Videos", "state" : "false"}],
-    "whatsapp": [{"name" : "Send Message", "state" : "false"},{"name" : "Make a call", "state" : "false"}],
-    "amazon": [{"name" : "Email Order Status", "state" : "false"},{"name" : "Email New Deals", "state" : "false"}],
-    "netflix": [{"name" : "News Movies Send By Mail", "state" : "false"},{"name" : "List All US Series", "state" : "false"}],
-    "dropbox": [{"name" : "Synchronize", "state" : "false"},{"name" : "Synchronize", "state" : "false"}],
-    "deezer": [{"name" : "Get All New French Music ", "state" : "false"},{"name" : "Send Your Playlist To Friends", "state" : "false"}],
-    "gmail": [{"name" : "Receive Mail from Calendar", "state" : "false"},{"name" : "Send Daily Nasa Photos", "state" : "false"}],
-    "spotify": [{"name" : "Get random music each day", "state" : "false"},{"name" : "Send best music of the month", "state" : "false"}],
-    "twitch": [{"name" : "Get random streamer", "state" : "false"},{"name" : "Send best streamer", "state" : "false"}],
+    "dropbox": [{"name" : "Dropbox + TOTO", "state" : "false"},{"name" : "Dropbox + TOTO", "state" : "false"}],
+    "spotify": [{"name" : "Spotify + TOTO", "state" : "false"},{"name" : "Spotify + TOTO", "state" : "false"}],
+    "trello": [{"name" : "Trello + TOTO", "state" : "false"},{"name" : "Trello + TOTO", "state" : "false"}],
+    "imgur": [{"name" : "Imgur + TOTO", "state" : "false"},{"name" : "Imgur + TOTO", "state" : "false"}],
+    "nasa": [{"name" : "Nasa + TOTO", "state" : "false"},{"name" : "Nasa + TOTO", "state" : "false"}],
+    "football": [{"name" : "Football + TOTO", "state" : "false"},{"name" : "Football + TOTO", "state" : "false"}],
 }
-         
 
 function init(app_name) {
     var mydata;
@@ -25,10 +19,18 @@ function init(app_name) {
             mydata = tab[services[i]];
         }
     }
-
+    console.log(mydata[0])
     document.getElementById('button1').innerHTML = mydata[0]["name"];
-    var goto_button1 = "window.location.href='/Page?" + (mydata[0]["name"]).split(" ").join("_") + "'";
-    var goto_button2 = "window.location.href='/Page?" + (mydata[1]["name"]).split(" ").join("_") + "'";
+    
+    var button_1_url = (mydata[0]["name"]).split(" ").join("_");
+    var button_2_url = (mydata[1]["name"]).split(" ").join("_");
+
+    var url1 = button_1_url.split("_+_");
+    var url2 = button_2_url.split("_+_");
+
+
+    var goto_button1 = "window.location.href='/Page?" + "service=" + url1[0] + "?service2=" + url1[1] + "'";
+    var goto_button2 = "window.location.href='/Page?" + "service=" + url2[0] + "?service2=" + url2[1] + "'";
 
     var foo = document.getElementById("button1");
     foo.setAttribute("onclick", goto_button1);
