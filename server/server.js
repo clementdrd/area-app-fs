@@ -48,12 +48,16 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     var TOSpotify = require("./Functions/SpotifyFunction").TOSpotify
     var TODribble = require("./Functions/DribbleFunctions").TODribble
     var TOImgurComment = require("./Functions/ImgurFunctions").TOCommentImgur
-    
+    var TODropbox = require("./Functions/DropboxFunction").TODropbox
+    var TOTrello = require("./Functions/TrelloFunction").TOTrello
+
     setInterval(TONasa, 1000000, db)
     setInterval(TOImgur, 1000000, db)
     setInterval(TOSpotify, 1000000, db)
     setInterval(TODribble, 1000000, db)
     setInterval(TOImgurComment, 1000000, db)
+    setInterval(TODropbox, 86400000, db)
+    setInterval(TOTrello,1000000, db)
     
     app.get("/", (req, res) => {
         console.log(dirname + "/index.html")
