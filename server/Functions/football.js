@@ -11,6 +11,34 @@ module.exports = function (app, db) {
             res.status(200).send('Activated');
         }
     })
+    app.get('/upcoming_match', function (req, res) {
+        if (req.headers.usertoken == undefined || req.headers.usertoken == "") {
+            res.status(401).send("Unauthorized")
+        }
+        else {
+            get_upcoming_match(req.headers.usertoken, db)
+            res.status(200).send('Activated');
+        }
+    })
+}
+
+function get_upcoming_match()
+{
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var date = new Date();
+    date.setDate(date.getDate() + 7);
+    var dd7 = String(date.getDate()).padStart(2, '0');
+    var mm7 = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy7 = date.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    nextWeek = yyyy7 + '-' + mm7 + '-' + dd7;
+    console.log(today)
+    console.log(nextWeek)
 }
 
 function get_premier_league_standing(usertoken, db)
@@ -73,18 +101,4 @@ function sendSMS(usertoken, standings, db)
           });
           
     });
-    // var options = {
-    //     'method': 'GET',
-    //     'url': 'https://api.pushbullet.com/v2/users/me',
-    //     'headers': {
-    //       'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD'
-    //     }
-    //   };
-    //   request(options, function (error, response) {
-    //     if (error) throw new Error(error);
-    //         console.log(response.body.iden);
-    //         db.collection("tokens").find({userToken: element.usertoken}).toArray((err, result2) => {
-    //             console.log(result2[0].pushbullet)
-    //         })
-    //   })
 }
