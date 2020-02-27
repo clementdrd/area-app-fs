@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.epitech.area.ContactApi;
 import com.epitech.area.MyRecyclerViewAdapterService;
 import com.epitech.area.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -85,6 +86,8 @@ public class TrelloFragment extends Fragment implements MyRecyclerViewAdapterSer
         ArrayList<String> animalNames = new ArrayList<>();
         animalNames.add("Create board on project creation");
         animalNames.add("Create project on board creation");
+        animalNames.add("Create Organization on group creation");
+        animalNames.add("Create group on organization creation");
 
         RecyclerView recyclerView = homeView.findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -98,8 +101,33 @@ public class TrelloFragment extends Fragment implements MyRecyclerViewAdapterSer
         Toast.makeText(getActivity(), "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
         if (position == 0)
             ConnectGitlab("trello");
-        else
+        else if (position == 1)
             ConnectGitlab("gitlab");
+        else if (position == 2)
+            ConnectGitlab("trelloGitlabOrga");
+        else
+            ConnectGitlab("gitlabTrelloOrga");
+
+    }
+
+    public void SendOrga(String req)
+    {
+        Request request = new Request.Builder()
+                .url(Url+req)
+                .addHeader("usertoken", Connected.Token)
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                Log.e("ERR", "An error has occurred " + e);
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                Log.d("test", "onResponse: " + response.code());
+            }
+        });
     }
 
     public void TrelloGitlab()
@@ -222,8 +250,10 @@ public class TrelloFragment extends Fragment implements MyRecyclerViewAdapterSer
                 Log.d("Log", response.message());
                 if (mode == "trello")
                     TrelloGitlab();
-                else
+                else if (mode == "gitlab")
                     GitlabTrello();
+                else
+                    SendOrga(mode);
                 openTrelloFragment("test");
             }
         });
