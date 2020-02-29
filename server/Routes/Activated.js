@@ -1,6 +1,6 @@
 module.exports = function (app, db) {
     app.get("/isActivated", (req, res) => {
-        if (!req.headers.usertoken && req.headers.servicename) {
+        if (!req.headers.usertoken) {
             db.collection("users").find({
                 userToken: req.body.userToken
             }).toArray((err, result) => {
