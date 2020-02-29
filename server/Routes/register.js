@@ -21,7 +21,26 @@ module.exports = function (app, db) {
                 }
                 db.collection("users").insertOne(insertion)
                 db.collection("tokens").insertOne({ userToken: userToken})
-                db.collection("Services").insertOne({ userToken: userToken })
+                db.collection("Services").insertOne({ 
+                    userToken: userToken,
+                    nasa : false,
+                    imgurnasa : false,
+                    imgurComment : false,
+                    spotifylike : false,
+                    spotifyresume : false,
+                    spotifyconcert : false,
+                    spotifyfollow : false,
+                    redditquote : false,
+                    dribblepost : false,
+                    trellogitlab : false,
+                    gitlabtrello : false,
+                    nasafilehistory : false,
+                    dropboxbestimage : false,
+                    gitlabtrelloOrga : false,
+                    trellogitlabOrga : false,
+                    premiereleague : false,
+                    upcomingmatch : false
+                })
                 res.set("UserToken", userToken)
                 res.status(200).send("User created")
             } else {

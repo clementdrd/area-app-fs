@@ -1,15 +1,31 @@
+const usertoken = getCookie('userToken')
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function Dynamic_Text() {
 
 
     var href = window.location.href;
     var toto = href.split('?')
-    var tata = toto[1].split('_').join(' ')
-    var tutu = toto[2].split('_').join(' ')
-    console.log(tutu);
-    console.log("limite");
-    console.log(tata);
-    var frst_service = tutu.split("=") ;
-    var scnd_service = tata.split("=");
+    console.log(href)
+    console.log(toto)
+    toto = toto[1].split('&')
+    var frst_service = toto[0].split("=") ;
+    var scnd_service = toto[1].split("=");
     console.log(frst_service)
     console.log(scnd_service)
     document.getElementById('main_text').value = scnd_service[1] + ' + ' + frst_service[1];
@@ -19,15 +35,12 @@ function Dynamic_Text() {
 
 function set_connected() {
     var mydata = JSON.parse(youtube);
-    //console.log(mydata[0].state);
     var href = window.location.href;
     var splited = href.split('?')
     var service_name = splited[1].split("_").join(" ");
     console.log("recup service name" + service_name);
     console.log("mydata[0].name" + mydata[0].name);
     console.log("mydata[1].name" + mydata[1].name);
-
-    // A FAIRE : UPDATE LE STATE DANS LE FICHIER DATA.JSON EN TRUE QUAND ON APPUIE SUR LE BOUTON 
 
     if (service_name == mydata[0].name) {
         mydata[0].state = 'true';
@@ -61,3 +74,5 @@ function doOnClick() {
     return false;
 
 }
+
+Dynamic_Text()

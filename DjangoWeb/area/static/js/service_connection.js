@@ -4,13 +4,13 @@ const services = ["spotify", "weather", "netflix", "gmail",
                   "google-drive", "instagram", "messenger", "microsoft-outlook",
                   "nasa", "souncloud", "twitch", "trello", "pushbullet", "imgur", "football"]
 const tab = {
-    "dropbox": [{"name" : "dropbox + TOTO", "state" : "false"},{"name" : "dropbox + TOTO", "state" : "false"}],
-    "spotify": [{"name" : "spotify + TOTO", "state" : "false"},{"name" : "spotify + TOTO", "state" : "false"}],
-    "trello": [{"name" : "trello + TOTO", "state" : "false"},{"name" : "trello + TOTO", "state" : "false"}],
-    "imgur": [{"name" : "imgur + TOTO", "state" : "false"},{"name" : "imgur + TOTO", "state" : "false"}],
-    "nasa": [{"name" : "nasa + TOTO", "state" : "false"},{"name" : "nasa + TOTO", "state" : "false"}],
-    "football": [{"name" : "football + TOTO", "state" : "false"},{"name" : "football + TOTO", "state" : "false"}],
-    "pushbullet": [{"name" : "football + TOTO", "state" : "false"},{"name" : "football + TOTO", "state" : "false"}],
+    "dropbox": [{"name" : "dropbox + nasa", "state" : "false"},{"name" : "dropbox + imgur", "state" : "false"}],
+    "spotify": [{"name" : "spotify + mail", "state" : "false"},{"name" : "spotify + spotify", "state" : "false"}],
+    "trello": [{"name" : "trello + gitlab", "state" : "false"}],
+    "imgur": [{"name" : "imgur + dropbox", "state" : "false"},{"name" : "imgur + TOTO", "state" : "false"}],
+    "nasa": [{"name" : "nasa + dropbox", "state" : "false"},{"name" : "nasa + mail", "state" : "false"}, {"name" : "nasa + imgur", "state" : "false"}],
+    "football": [{"name" : "football + pushbullet", "state" : "false"},{"name" : "football + pushbullet", "state" : "false"}],
+    "pushbullet": [{"name" : "pushbullet + football", "state" : "false"},{"name" : "pushbullet + football", "state" : "false"}],
 }
 
 function init(app_name) {
