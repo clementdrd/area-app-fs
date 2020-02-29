@@ -22,8 +22,9 @@ module.exports = function (app, db) {
     })
 }
 
-function get_upcoming_match()
+function get_upcoming_match(usertoken, db)
 {
+    var matches = []
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -37,8 +38,38 @@ function get_upcoming_match()
 
     today = yyyy + '-' + mm + '-' + dd;
     nextWeek = yyyy7 + '-' + mm7 + '-' + dd7;
-    console.log(today)
-    console.log(nextWeek)
+
+    var url = 'https://api.football-data.org/v2/competitions/PL/matches?status=SCHEDULED&dateFrom=' + today + '&dateTo=' + nextWeek
+    var myHeaders = {
+        'X-Auth-Token': '75c608bc71f44857973e61ebd74989f3'
+    };
+    var myInit = { method: 'GET',
+               headers: myHeaders,
+               mode: 'cors',
+               cache: 'default' 
+            };
+    fetch(url, myInit)
+    .then(res => {
+        return res.json()
+    })
+    .then(json => {
+        for (let i = 0; i < json.matches.length; i++) {
+            var date = new Date(json.matches[i].utcDate);
+            var dt = date.getDate();
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            if (dt < 10) {
+                dt = '0' + dt;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+            matches.push(json.matches[i].homeTeam.name + " vs " + json.matches[i].awayTeam.name)
+            matches.push("date: " + dt + "/" + month + "/" + year)
+        }
+        console.log(matches)
+    })
+    sendSMS(usertoken, matches, db)
 }
 
 function get_premier_league_standing(usertoken, db)
@@ -70,35 +101,38 @@ function get_premier_league_standing(usertoken, db)
 
 function sendSMS(usertoken, standings, db)
 {
-    // var me = "o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD"
-    var url = 'https://api.pushbullet.com/v2/users/me'
-    var myHeaders = {
-        'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD'
-    };
-    var myInit = { method: 'GET',
-               headers: myHeaders,
-               mode: 'cors',
-               cache: 'default' 
-            };
-    fetch(url, myInit)
-    .then((res) => {
-        return res.json()
+    db.collection("users").find({userToken: usertoken}).toArray(function(err, user) {
+        if (!user[0]) {
+            return
+        }
+        var url = 'https://api.pushbullet.com/v2/users/me'
+        var myHeaders = {
+            'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD'
+        };
+        var myInit = { method: 'GET',
+                   headers: myHeaders,
+                   mode: 'cors',
+                   cache: 'default' 
+                };
+        fetch(url, myInit)
+        .then((res) => {
+            return res.json()
+        })
+        .then((res) => {
+            console.log(res.iden)
+            var options = {
+                'method': 'POST',
+                'url': 'https://api.pushbullet.com/v2/ephemerals',
+                'headers': {
+                  'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"push":{"conversation_iden":user[0].telephone,"message":standings.join('\n'),"package_name":"com.pushbullet.android","source_user_iden":"ujAlU1gnioK","target_device_iden":"ujAlU1gnioKsjEw79BBUv6","type":"messaging_extension_reply"},"type":"push"})
+              };
+              request(options, function (error, response) { 
+                if (error) throw new Error(error);
+                console.log(response.body);
+              });
+        });
     })
-    .then((res) => {
-        console.log(res.iden)
-        var options = {
-            'method': 'POST',
-            'url': 'https://api.pushbullet.com/v2/ephemerals',
-            'headers': {
-              'Access-Token': 'o.IHsfX4kfjp0addDLDjEQXxGBfTBSSYaD',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({"push":{"conversation_iden":"+33643142020","message":standings.join('\n'),"package_name":"com.pushbullet.android","source_user_iden":"ujAlU1gnioK","target_device_iden":"ujAlU1gnioKsjEw79BBUv6","type":"messaging_extension_reply"},"type":"push"})
-          };
-          request(options, function (error, response) { 
-            if (error) throw new Error(error);
-            console.log(response.body);
-          });
-          
-    });
 }
