@@ -4,13 +4,13 @@ const services = ["spotify", "weather", "netflix", "gmail",
                   "google-drive", "instagram", "messenger", "microsoft-outlook",
                   "nasa", "souncloud", "twitch", "trello", "pushbullet", "imgur", "football"]
 const tab = {
-    "dropbox": [{"name" : "Dropbox + TOTO", "state" : "false"},{"name" : "Dropbox + TOTO", "state" : "false"}],
-    "spotify": [{"name" : "Spotify + TOTO", "state" : "false"},{"name" : "Spotify + TOTO", "state" : "false"}],
-    "trello": [{"name" : "Trello + TOTO", "state" : "false"},{"name" : "Trello + TOTO", "state" : "false"}],
-    "imgur": [{"name" : "Imgur + TOTO", "state" : "false"},{"name" : "Imgur + TOTO", "state" : "false"}],
-    "nasa": [{"name" : "Nasa + TOTO", "state" : "false"},{"name" : "Nasa + TOTO", "state" : "false"}],
-    "football": [{"name" : "Football + TOTO", "state" : "false"},{"name" : "Football + TOTO", "state" : "false"}],
-    "pushbullet": [{"name" : "Football + TOTO", "state" : "false"},{"name" : "Football + TOTO", "state" : "false"}],
+    "dropbox": [{"name" : "dropbox + TOTO", "state" : "false"},{"name" : "dropbox + TOTO", "state" : "false"}],
+    "spotify": [{"name" : "spotify + TOTO", "state" : "false"},{"name" : "spotify + TOTO", "state" : "false"}],
+    "trello": [{"name" : "trello + TOTO", "state" : "false"},{"name" : "trello + TOTO", "state" : "false"}],
+    "imgur": [{"name" : "imgur + TOTO", "state" : "false"},{"name" : "imgur + TOTO", "state" : "false"}],
+    "nasa": [{"name" : "nasa + TOTO", "state" : "false"},{"name" : "nasa + TOTO", "state" : "false"}],
+    "football": [{"name" : "football + TOTO", "state" : "false"},{"name" : "football + TOTO", "state" : "false"}],
+    "pushbullet": [{"name" : "football + TOTO", "state" : "false"},{"name" : "football + TOTO", "state" : "false"}],
 }
 
 function init(app_name) {
@@ -30,8 +30,8 @@ function init(app_name) {
     var url2 = button_2_url.split("_+_");
 
 
-    var goto_button1 = "window.location.href='/Page?" + "service=" + url1[0] + "?service2=" + url1[1] + "'";
-    var goto_button2 = "window.location.href='/Page?" + "service=" + url2[0] + "?service2=" + url2[1] + "'";
+    var goto_button1 = "window.location.href='/Page/?" + "service=" + url1[0] + "&service2=" + url1[1] + "'";
+    var goto_button2 = "window.location.href='/Page/?" + "service=" + url2[0] + "&service2=" + url2[1] + "'";
 
     var foo = document.getElementById("button1");
     foo.setAttribute("onclick", goto_button1);
