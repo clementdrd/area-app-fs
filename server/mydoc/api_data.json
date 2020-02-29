@@ -33,26 +33,27 @@
     "title": "Add Access Token",
     "description": "<p>Add an Access Token an his service</p>",
     "name": "Add_Access_Token",
+    "version": "0.1.0",
     "group": "AccessTokens",
     "parameter": {
       "fields": {
-        "Request headers": [
+        "Request body": [
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "usertoken",
             "description": "<p>The token that belongs to the user</p>"
           },
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "servicename",
             "description": "<p>The name of the service to get the associated Access Token</p>"
           },
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "value",
@@ -70,7 +71,6 @@
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "./doc/Tokens.apidoc.js",
     "groupTitle": "AccessTokens",
     "error": {
@@ -160,15 +160,107 @@
             "group": "Response Headers",
             "type": "String",
             "optional": false,
-            "field": "serviceToken",
-            "description": "<p>(Checker si la réponse contient un T majuscule) access token</p>"
+            "field": "servicetoken",
+            "description": "<p>access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "GetToken",
-          "content": "HTTP/1.1 200 OK\n headers: {\n     serviceToken : <Access Token>\n }\n \"Success\"",
+          "content": "HTTP/1.1 200 OK\n headers: {\n     servicetoken : <Access Token>\n }\n \"Token returned in the headers\"",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Tokens.apidoc.js",
+    "groupTitle": "AccessTokens",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FalseToken",
+            "description": "<p>The token you sent doesn't match any account in the database</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "EmptyFields",
+            "description": "<p>You sent an empty field</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "NoService",
+            "description": "<p>This service was not associated to the user</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "False Token",
+          "content": "HTTP/1.1 403 Forbidden\n\"You are not allowed to do this request\"",
+          "type": "String"
+        },
+        {
+          "title": "Empty Fields",
+          "content": "HTTP/1.1 400 Bad Request\n\"You can't send an empty field\"",
+          "type": "String"
+        },
+        {
+          "title": "No Service",
+          "content": "HTTP/1.1 422 Unprocessable Entity\n\"The service <Service Name> has not been initiated for this user\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/imgurnasadaily",
+    "title": "Activate Imgur + Nasa service",
+    "description": "<p>Get the access token associated to a service</p>",
+    "name": "Get_Access_Token",
+    "group": "AccessTokens",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "servicename",
+            "description": "<p>The name of the service to get the associated access token</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Response Headers": [
+          {
+            "group": "Response Headers",
+            "type": "String",
+            "optional": false,
+            "field": "servicetoken",
+            "description": "<p>access token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "GetToken",
+          "content": "HTTP/1.1 200 OK\n headers: {\n     servicetoken : <Access Token>\n }\n \"Token returned in the headers\"",
           "type": "json"
         }
       ]
@@ -314,19 +406,20 @@
     "title": "Remove a Service",
     "description": "<p>Remove a service and his Access Token</p>",
     "name": "Remove_Access_Token",
+    "version": "0.1.0",
     "group": "AccessTokens",
     "parameter": {
       "fields": {
-        "Request headers": [
+        "Request body": [
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "usertoken",
             "description": "<p>The token that belongs to the user</p>"
           },
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "servicename",
@@ -344,7 +437,6 @@
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "./doc/Tokens.apidoc.js",
     "groupTitle": "AccessTokens",
     "error": {
@@ -395,26 +487,27 @@
     "title": "Update Access Token",
     "description": "<p>Update the Access Token associated to a service</p>",
     "name": "Update_Access_Token",
+    "version": "0.1.0",
     "group": "AccessTokens",
     "parameter": {
       "fields": {
-        "Request headers": [
+        "Request body": [
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "usertoken",
             "description": "<p>The token that belongs to the user</p>"
           },
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "servicename",
             "description": "<p>The name of the service to update</p>"
           },
           {
-            "group": "Request headers",
+            "group": "Request body",
             "type": "String",
             "optional": false,
             "field": "value",
@@ -432,7 +525,6 @@
         }
       ]
     },
-    "version": "0.0.0",
     "filename": "./doc/Tokens.apidoc.js",
     "groupTitle": "AccessTokens",
     "error": {
@@ -601,6 +693,853 @@
     "version": "0.0.0",
     "filename": "./doc/Basic.apidoc.js",
     "groupTitle": "Basic_commands"
+  },
+  {
+    "type": "get",
+    "url": "/dribblepost",
+    "title": "Dribble - Imgur",
+    "description": "<p>Post uploaded to dribble will be uploaded to Imgur</p>",
+    "name": "DribbleToImgur",
+    "group": "Dribble",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Dribble.apidoc.js",
+    "groupTitle": "Dribble",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/send_best_img_pic_to_dropbox",
+    "title": "Imgur - DropBox",
+    "description": "<p>The picture of the week on Imgur will be uploaded to Dropbox</p>",
+    "name": "ImgurToDropbox",
+    "group": "DropBox",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/dropbox.apidoc.js",
+    "groupTitle": "DropBox",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/send_nasa_pic_to_dropbox",
+    "title": "Nasa - DropBox",
+    "description": "<p>The daily Nasa picture will be uploaded to Dropbox</p>",
+    "name": "NasaToDropbox",
+    "group": "DropBox",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/dropbox.apidoc.js",
+    "groupTitle": "DropBox",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/upcoming_match",
+    "title": "UpcommingMatch - SMS",
+    "description": "<p>Get all match that will occurs in the following 7days, and =send them by SMS</p>",
+    "name": "MatchToSms",
+    "group": "Football",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/football.apidoc.js",
+    "groupTitle": "Football",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/premier_league_schedule_sms",
+    "title": "FootballStandings - SMS",
+    "description": "<p>Send SMS about the standings in the premiere League</p>",
+    "name": "StandingToSms",
+    "group": "Football",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/football.apidoc.js",
+    "groupTitle": "Football",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/gitlabTrello",
+    "title": "Gitlab - Trello",
+    "description": "<p>Create Trello boards based on gitlab existing projects</p>",
+    "name": "GitlabToTrello",
+    "group": "Gitlab",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/trello.apidoc.js",
+    "groupTitle": "Gitlab",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/ImgurFavorites",
+    "title": "Favorite a picture and the owner know it",
+    "description": "<p>Adding a picture to the favorite puts a comment on the post</p>",
+    "name": "FavoriteToComment",
+    "group": "Imgur",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Imgur.apidoc.js",
+    "groupTitle": "Imgur",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "TokenNotFound",
+            "description": "<p>The userToken was not found in the database</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        },
+        {
+          "title": "Token Not Found",
+          "content": "HTTP/1.1 404 Not Found\n\"Undefined userToken in tokens collections\"",
+          "type": "String"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "ImgurEnabled",
+            "description": "<p>The service is enable</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Imgur Enabled",
+          "content": "HTTP/1.1 200 OK\n\"get Info from the Imgur account\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/imgurnasadaily",
+    "title": "Upload the Nasa picture to Imgur",
+    "description": "<p>Upload the Nasa picture of the day, to the associated Imgur account</p>",
+    "name": "ImgurNasaDaily",
+    "group": "Imgur",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Imgur.apidoc.js",
+    "groupTitle": "Imgur",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/nasadaily",
+    "title": "New Information about the Nasa",
+    "description": "<p>Get resume every day about the picture of the day provided by the Nasa</p>",
+    "name": "NasaDaily",
+    "group": "Nasa",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Nasa.apidoc.js",
+    "groupTitle": "Nasa",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/spotifyhistory",
+    "title": "Set up an history of listened Music",
+    "description": "<p>Listening to a music will either like it, follow the artist or find one of his concert</p>",
+    "name": "History",
+    "group": "Spotify",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          },
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "mode",
+            "description": "<p>&quot;like&quot; - &quot;follow&quot; - &quot;concert&quot;</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Spotify.apidoc.js",
+    "groupTitle": "Spotify",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "BadRequest",
+            "description": "<p>The method use was not the right one</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        },
+        {
+          "title": "Bad Request",
+          "content": "HTTP/1.1 400 Bad Request\n\"Bad Request\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/spotifyresume",
+    "title": "Resume of the week",
+    "description": "<p>Get resume of the top 10 artists of the week by Email</p>",
+    "name": "Resume",
+    "group": "Spotify",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/Spotify.apidoc.js",
+    "groupTitle": "Spotify",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/trelloGitlab",
+    "title": "Trello - Gitlab",
+    "description": "<p>create gitlab project from existing trello board</p>",
+    "name": "TrelloToGitlab",
+    "group": "Trello",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/trello.apidoc.js",
+    "groupTitle": "Trello",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/autologin",
+    "title": "Log an user without requiring is information",
+    "name": "AutoLogin",
+    "description": "<p>Automatically log the user</p>",
+    "group": "UserManagement",
+    "parameter": {
+      "fields": {
+        "Request Body": [
+          {
+            "group": "Request Body",
+            "type": "String",
+            "optional": false,
+            "field": "userToken",
+            "description": "<p>Token of the account to log</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Response Headers": [
+          {
+            "group": "Response Headers",
+            "type": "String",
+            "optional": false,
+            "field": "userToken",
+            "description": "<p>token for the authorization</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Account created",
+          "content": " HTTP/1.1 200 OK\n\"Valid Token\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidToken",
+            "description": "<p>No Token has been sent in the headers</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unprocessable",
+            "description": "<p>The token you sent doesn 't match any account in the database</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Invalid Token",
+          "content": "HTTP / 1.1 400 Bad Request\n\"Invalid token\"",
+          "type": "String"
+        },
+        {
+          "title": "Invalid token",
+          "content": "HTTP / 1.1 422 Unprocessable Entity\n\"Unprocessable Entity\"",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./doc/UserManagement.apidoc.js",
+    "groupTitle": "UserManagement"
   },
   {
     "type": "delete",
