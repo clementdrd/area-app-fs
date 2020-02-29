@@ -8,7 +8,6 @@ module.exports = function (app, db) {
         if (req.headers.mode === undefined || req.headers.mode === "")
             res.status(400).send("Bad Request")
         EnableService(db,req.headers.mode, usertoken)
-        //SpotifyHistory(req.headers.usertoken, db, req.headers.mode)
         res.status(200).send('Activated');
     })
     app.get('/spotifyresume', function (req, res) {
@@ -16,10 +15,11 @@ module.exports = function (app, db) {
             res.status(401).send("Unauthorized")
         }
         EnableService(db,"resume", req.headers.usertoken)
-        //SpotifyResume(req.headers.usertoken, db)
         res.status(200).send('Activated');
     })
 }
+
+
 function EnableService(db, service, usertoken)
 {
 

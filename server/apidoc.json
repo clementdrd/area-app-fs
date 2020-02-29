@@ -1,7 +1,7 @@
 {
     "name": "AREA",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "REST api developped for the AREA, as an shool year end project",
     "title": "REST AREA",
-    "url" : "https://area-rest-api-zuma.herokuapp.com/"
+    "url" : "https://area-rest-api-zuma.herokuapp.com"
 }
