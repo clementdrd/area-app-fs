@@ -60,6 +60,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             case "Dribble" :
                 holder.myImageView.setImageResource(Ressource.DribbleId);
                 break;
+            case "Trello" :
+                holder.myImageView.setImageResource(Ressource.TrelloId);
+                break;
+            case "Dropbox" :
+                holder.myImageView.setImageResource(Ressource.DropboxId);
+                break;
         }
     }
     // total number of rows
