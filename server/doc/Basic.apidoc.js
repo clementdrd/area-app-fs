@@ -18,3 +18,13 @@
  *     HTTP/1.1 404
  *      "404 page not found"
  */
+
+ /**
+  * @apiDefine Activated
+  *
+  * @apiSuccess Activated This AREA has been activated
+  *
+  * @apiSuccessExample {String} Activated
+  *     HTTP/1.1 200 OK
+  *     "Activated"
+  */

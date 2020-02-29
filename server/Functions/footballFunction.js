@@ -16,7 +16,7 @@ function TOFootBall(db)
                     if (test[0].premierleague == true) {
                         get_premier_league_standing(element.userToken)
                     }else if (test[0].upcomingmatch == true) {
-                        get_upcoming_match(element.userToken)
+                        get_upcoming_match(element.userToken, db)
                     }
                 }
             })
@@ -24,8 +24,9 @@ function TOFootBall(db)
     });
 }
 
-function get_upcoming_match()
+function get_upcoming_match(usertoken, db)
 {
+    var matches = []
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -39,8 +40,38 @@ function get_upcoming_match()
 
     today = yyyy + '-' + mm + '-' + dd;
     nextWeek = yyyy7 + '-' + mm7 + '-' + dd7;
-    console.log(today)
-    console.log(nextWeek)
+
+    var url = 'https://api.football-data.org/v2/competitions/PL/matches?status=SCHEDULED&dateFrom=' + today + '&dateTo=' + nextWeek
+    var myHeaders = {
+        'X-Auth-Token': '75c608bc71f44857973e61ebd74989f3'
+    };
+    var myInit = { method: 'GET',
+               headers: myHeaders,
+               mode: 'cors',
+               cache: 'default' 
+            };
+    fetch(url, myInit)
+    .then(res => {
+        return res.json()
+    })
+    .then(json => {
+        for (let i = 0; i < json.matches.length; i++) {
+            var date = new Date(json.matches[i].utcDate);
+            var dt = date.getDate();
+            var month = date.getMonth()+1;
+            var year = date.getFullYear();
+            if (dt < 10) {
+                dt = '0' + dt;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+            matches.push(json.matches[i].homeTeam.name + " vs " + json.matches[i].awayTeam.name)
+            matches.push("date: " + dt + "/" + month + "/" + year)
+        }
+        console.log(matches)
+    })
+    sendSMS(usertoken, matches, db)
 }
 
 function get_premier_league_standing(usertoken, db)

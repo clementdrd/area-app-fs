@@ -71,6 +71,26 @@
  */
 
  /**
+  * @apiDefine Unauthorized
+  *
+  * @apiError  Unauthorized The user was not authorized to perform the request
+  *
+  * @apiErrorExample {String} Unauthorized
+  *     HTTP/1.1 401 Unauthorized
+  *     "Unauthorized"
+  */
+
+  /**
+   * @apiDefine BadRequest
+   *
+   * @apiError  BadRequest The method use was not the right one
+   *
+   * @apiErrorExample {String} Bad Request
+   *     HTTP/1.1 400 Bad Request
+   *     "Bad Request"
+   */
+
+ /**
  * @apiDefine EmptyAccessToken
  *
  * @apiError  EmptyAccessToken The access token is empty or undefined

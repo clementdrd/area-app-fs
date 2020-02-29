@@ -62,7 +62,7 @@ function findGetParameter(parameterName) {
 function checkService() {
     if (usertoken) {
         console.log(usertoken)
-        service = findGetParameter('service')
+        service = findGetParameter('service2')
         if (service in redirect_link) {
             $.ajax({
                 url: "https://area-rest-api-zuma.herokuapp.com/getAllServices",

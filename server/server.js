@@ -20,7 +20,7 @@ app.set('view engine', 'html');
 
 
 const myUrl = 'mongodb+srv://AREA:AREA@users-uxyki.mongodb.net/test?retryWrites=true&w=majority';
-
+//mettre le password dans l'env
 
 MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     db = db.db("AREA")
@@ -28,13 +28,13 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     require("./Routes/register")(app, db)
     require("./Routes/about")(app, db)
     require("./Routes/isonline")(app, db)
+    require("./Routes/Activated")(app, db)
     require("./Routes/login")(app, db)
     require("./Routes/deleteUser")(app, db)
     require("./Routes/createAdmins")(app, db)
     require("./Routes/tokens")(app, db)
     require("./Routes/autologin")(app, db)
     
-    require("./Routes/twitchFollowCallback")(app, db)
     require("./Functions/SpotifyService")(app, db)
     require("./Routes/facebook")(app, db)
     require("./Functions/NasaRoute")(app,db)
