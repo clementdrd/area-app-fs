@@ -1,6 +1,6 @@
 /**
- * @api {get} /trelloGitlab Trello - Gitlab
- * @apiDescription create gitlab project from existing trello board
+ * @api {get} /trelloGitlabOrga TrelloOrga - GitlabOrga
+ * @apiDescription Create Trello organisation based on Gitlab teams in which the user is
  * @apiName TrelloToGitlab
  * @apiGroup Trello
  *
@@ -13,8 +13,8 @@
  **/
 
 /**
- * @api {get} /gitlabTrello Gitlab - Trello
- * @apiDescription Create Trello boards based on gitlab existing projects
+ * @api {get} /gitlabTrelloOrga GitlabOrga - TrelloOrga
+ * @apiDescription Create Gitlab teams based on the trello Organisations in which the user is
  * @apiName GitlabToTrello
  * @apiGroup Trello
  *

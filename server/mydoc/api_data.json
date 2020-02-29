@@ -882,6 +882,130 @@
   },
   {
     "type": "get",
+    "url": "/upcoming_match",
+    "title": "UpcommingMatch - SMS",
+    "description": "<p>Get all match that will occurs in the following 7days, and =send them by SMS</p>",
+    "name": "MatchToSms",
+    "group": "Football",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/football.apidoc.js",
+    "groupTitle": "Football",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
+    "url": "/premier_league_schedule_sms",
+    "title": "FootballStandings - SMS",
+    "description": "<p>Send SMS about the standings in the premiere League</p>",
+    "name": "StandingToSms",
+    "group": "Football",
+    "parameter": {
+      "fields": {
+        "Request headers": [
+          {
+            "group": "Request headers",
+            "type": "String",
+            "optional": false,
+            "field": "usertoken",
+            "description": "<p>The token that belongs to the user</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./doc/football.apidoc.js",
+    "groupTitle": "Football",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "Activated",
+            "description": "<p>This AREA has been activated</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Activated",
+          "content": "HTTP/1.1 200 OK\n\"Activated\"",
+          "type": "String"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": "<p>The user was not authorized to perform the request</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Unauthorized",
+          "content": "HTTP/1.1 401 Unauthorized\n\"Unauthorized\"",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  {
+    "type": "get",
     "url": "/gitlabTrello",
     "title": "Gitlab - Trello",
     "description": "<p>Create Trello boards based on gitlab existing projects</p>",
