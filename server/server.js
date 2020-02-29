@@ -53,6 +53,7 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     var TODropbox = require("./Functions/DropboxFunction").TODropbox
     var TOTrello = require("./Functions/TrelloFunction").TOTrello
     var TOGitlab = require("./Functions/GitlabGroupFunction").TOGitlab
+    var TOFootball = require("./Functions/footballFunction").TOFootBall
 
     setInterval(TONasa, 1000000, db)
     setInterval(TOImgur, 1000000, db)
@@ -62,6 +63,7 @@ MongoClient.connect(myUrl, { useUnifiedTopology: true }, function (err, db) {
     setInterval(TODropbox, 86400000, db)
     setInterval(TOTrello,1000000, db)
     setInterval(TOGitlab, 1000000, db)
+    setInterval(TOFootball, 100000, db)
     
     app.get("/", (req, res) => {
         console.log(dirname + "/index.html")

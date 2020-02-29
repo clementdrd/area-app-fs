@@ -15,13 +15,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.epitech.area.AuthenticationHelper;
 import com.epitech.area.ContactApi;
+import com.epitech.area.MainActivity;
 import com.epitech.area.MyRecyclerViewAdapterService;
 import com.epitech.area.R;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
@@ -174,7 +180,6 @@ public class TrelloFragment extends Fragment implements MyRecyclerViewAdapterSer
     {
         WebView myWebView = new WebView(getContext());
         myWebView.clearCache(true);
-        getActivity().setContentView(myWebView);
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.loadUrl("https://gitlab.com/oauth/authorize?client_id=211e20b122dc89a8593c8b86ea7bd02b1242d09e264b8c9947577b8929f5a727&redirect_uri=https://area/&response_type=code&state=123&scope=api%20sudo");
         myWebView.setWebViewClient(new WebViewClient() {

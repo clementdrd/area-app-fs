@@ -21,6 +21,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.epitech.area.ui.home.DropboxFragment;
+import com.epitech.area.ui.home.FootballFragment;
 import com.epitech.area.ui.home.GoogleFragment;
 import com.epitech.area.ui.home.ImgurFragment;
 import com.epitech.area.ui.home.NasaFragment;
@@ -139,6 +141,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.Reddit:
                 signInReddit();
                 break;
+            case R.id.Trello:
+                signInTrello();
+                break;
+            case R.id.Dropbox:
+                signInDropbox();
+                break;
+            case R.id.Football :
+                openFootballPage();
+                break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
@@ -161,6 +172,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void signInDropbox()
+    {
+        WebView myWebView = new WebView(this);
+        myWebView.clearCache(true);
+        setContentView(myWebView);
+        myWebView.getSettings().setJavaScriptEnabled(true);
+        myWebView.loadUrl("https://www.dropbox.com/oauth2/authorize?client_id=yp5wl24jy9d6l8l&response_type=token&redirect_uri=http:%2F%2Flocalhost:8000%2F#");
+        myWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                Uri url = request.getUrl();
+                Log.e("test", url.toString());
+                if (url.toString().contains("http://localhost:8000/#access_token") == true) {
+                    TreatDropboxConnect(url.toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    public void openFootballPage()
+    {
+        FootballFragment fragment = FootballFragment.createInstance(("user"));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
+
+    public void TreatDropboxConnect(String url)
+    {
+        String[] tab = url.split("#");
+        tab = tab[1].split("&");
+        String token = tab[0].split("=")[1];
+        Log.e("test", token);
+        //tab = tab[1].split("#");
+        //
+        SendThirdPartyToken( token, "Dropbox");
+        createViewtest();
+        openDropboxFragment("test");
     }
 
     public void signInTrello()
@@ -350,6 +403,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+    public void openDropboxFragment(String userName) {
+        DropboxFragment fragment = DropboxFragment.createInstance(userName);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
 
     public void openGoogleFragment(String userName) {
         GoogleFragment fragment = GoogleFragment.createInstance((userName));
@@ -526,6 +585,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         animalNames.add("Nasa");
         animalNames.add("Dribble");
         animalNames.add("Trello");
+        animalNames.add("Dropbox");
+        animalNames.add("Football");
         RecyclerView recyclerView = findViewById(R.id.RowRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyRecyclerViewAdapter(this, animalNames);
@@ -551,6 +612,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             signInReddit();
         else if (position == 6)
             signInTrello();
+        else if (position == 7)
+            signInDropbox();
+        else if (position == 8)
+            openFootballPage();
     }
 
     void GetDrawabelRessources()
@@ -563,5 +628,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Ressource.SpotifyId = id;
         id = getResources().getIdentifier("com.epitech.area:drawable/nasa_36" , null, null);
         Ressource.NasaId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/trello_icon" , null, null);
+        Ressource.TrelloId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/imgur_icon" , null, null);
+        Ressource.ImgurId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/dribble_icon" , null, null);
+        Ressource.DribbleId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/dropbox_icon" , null, null);
+        Ressource.DropboxId = id;
     }
 }

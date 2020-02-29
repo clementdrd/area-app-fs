@@ -1,42 +1,27 @@
 const fetch = require("node-fetch");
 var request = require('request');
 
-module.exports = function (app, db) {
-    app.get('/premier_league_schedule_sms', function (req, res) {
-        if (req.headers.usertoken == undefined || req.headers.usertoken == "") {
-            res.status(401).send("Unauthorized")
-        }
-        else {
-            get_premier_league_standing(req.headers.usertoken, db)
-            ActivateFootball(req.headers.usertoken, db, "premierleague")
-            res.status(200).send('Activated');
-        }
-    })
-    app.get('/upcoming_match', function (req, res) {
-        if (req.headers.usertoken == undefined || req.headers.usertoken == "") {
-            res.status(401).send("Unauthorized")
-        }
-        else {
-            get_upcoming_match(req.headers.usertoken, db)
-            ActivateFootball(req.headers.usertoken, db, "upcomingmatch")
-
-            res.status(200).send('Activated');
-        }
-    })
+module.exports = {
+    TOFootBall : TOFootBall
 }
 
-function ActivateFootball(token, db, name)
+function TOFootBall(db)
 {
-    let userQuery = {
-        userToken: token
-    }
-    let update = {
-        $set: {
-            [name.toLowerCase()] : true,
-            userToken: token
-        }
-    }
-    db.collection("Services").updateOne(userQuery, update)
+    db.collection("users").find({}).toArray(function(err, result) {
+        result.forEach(element => {
+            db.collection("Services").find({userToken: element.userToken}).toArray(function(err, test) {
+                
+                if (test[0] != undefined) {
+                    
+                    if (test[0].premierleague == true) {
+                        get_premier_league_standing(element.userToken)
+                    }else if (test[0].upcomingmatch == true) {
+                        get_upcoming_match(element.userToken)
+                    }
+                }
+            })
+        });
+    });
 }
 
 function get_upcoming_match()

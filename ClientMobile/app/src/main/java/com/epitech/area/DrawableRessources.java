@@ -7,4 +7,6 @@ public class DrawableRessources {
     int SpotifyId;
     int NasaId;
     int DribbleId;
+    int TrelloId;
+    int DropboxId;
 }

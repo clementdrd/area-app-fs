@@ -60,10 +60,18 @@ module.exports = function (app, db) {
                 "actions ": [{
                     "name": "Create Board",
                     "description ": "Trigger when creating a board"
-                }],
+                },{
+                    "name": "Create Organization",
+                    "description ": "Trigger when creating an Organization"
+                }
+            ],
                 "reactions ": [{
                     "name": "Create Board",
                     "description ": "Create a board"
+                },
+                {
+                    "name": "Create Organization",
+                    "description ": "Trigger when creating an Organization"
                 }
             ]},
             {
@@ -71,10 +79,17 @@ module.exports = function (app, db) {
                 "actions ": [{
                     "name": "Create Project",
                     "description ": "Trigger when creating a Project"
-                }],
+                },{
+                    "name": "Create Group",
+                    "description ": "Trigger when creating a Group"
+                }
+            ],
                 "reactions ": [{
                     "name": "Create Project",
                     "description ": "Create a Project"
+                },{
+                    "name": "Create Group",
+                    "description ": "Create a Group"
                 }
             ]},
             {

@@ -27,7 +27,17 @@
             android:title="Imgur" />
         <item
             android:id="@+id/Reddit"
-            android:title="Reddit" />
+            android:title="Dribble" />
+        <item
+            android:id="@+id/Trello"
+            android:title="Trello" />
+        <item
+            android:id="@+id/Dropbox"
+            android:title="Dropbox" />
+        <item
+            android:id="@+id/Football"
+            android:title="Football" />
+
 
     </group>
 </menu>
