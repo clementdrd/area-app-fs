@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         myWebView.clearCache(true);
         setContentView(myWebView);
         myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.loadUrl("https://dribbble.com/oauth/authorize?client_id=f5f8a1979f1e7dc4cb0a06a8199e9b36db59a3f66733bff33ad44163a0d1e154&redirect_uri=https://area/&scope=public+upload&state=123");
+        myWebView.loadUrl("https://dribbble.com/oauth/authorize?client_id=f5f8a1979f1e7dc4cb0a06a8199e9b36db59a3f66733bff33ad44163a0d1e154&redirect_uri=http://127.0.0.1:8000/&scope=public+upload&state=123");
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
