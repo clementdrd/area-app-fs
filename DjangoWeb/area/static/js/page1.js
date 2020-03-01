@@ -62,7 +62,18 @@ function Dynamic_Text() {
     return false;
 }
 
+function send_request_to_server()
+{
+    let splited = window.location.href.split('?')
+    let services_name = splited[1].split('&')
+    let service_name1 = services_name[0].split('=')[1]
+    let service_name2 = services_name[1].split('=')[1]
+    let combined_service = service_name1 + " + " + service_name2
+    console.log(combined_service)
+}
+
 function set_connected() {
+    send_request_to_server()
     var mydata = JSON.parse(youtube);
     var href = window.location.href;
     var splited = href.split('?')
