@@ -9,4 +9,5 @@ public class DrawableRessources {
     int DribbleId;
     int TrelloId;
     int DropboxId;
+    int FootballId;
 }

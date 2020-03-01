@@ -636,5 +636,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Ressource.DribbleId = id;
         id = getResources().getIdentifier("com.epitech.area:drawable/dropbox_icon" , null, null);
         Ressource.DropboxId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/ball_icon" , null, null);
+        Ressource.FootballId = id;
+
     }
 }
