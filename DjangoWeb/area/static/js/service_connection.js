@@ -13,7 +13,11 @@ const tab = {
     "spotify": [{
         "name": "spotify + mail"
     }, {
-        "name": "spotify + spotify"
+        "name": "spotify + follow"
+    }, {
+        "name": "spotify + like"
+    }, {
+        "name": "spotify + concert"
     }],
     "trello": [{
         "name": "trello + gitlab"

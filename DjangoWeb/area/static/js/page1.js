@@ -1,33 +1,37 @@
 const reaction = {
-    "dropbox + nasa": "/send_nasa_pic_to_dropbox",
-    "nasa + dropbox": "/send_nasa_pic_to_dropbox",
+    "dropbox + nasa": ["/send_nasa_pic_to_dropbox", "nasafilehistory"],
+    "nasa + dropbox": ["/send_nasa_pic_to_dropbox", "nasafilehistory"],
 
-    "nasa + mail": "/nasadaily",
+    "nasa + mail": ["/nasadaily", "nasa"],
 
-    "dropbox + imgur": "/send_best_img_pic_to_dropbox",
-    "imgur + dropbox": "/send_best_img_pic_to_dropbox",
+    "dropbox + imgur": ["/send_best_img_pic_to_dropbox", "dropboxbestimage"],
+    "imgur + dropbox": ["/send_best_img_pic_to_dropbox", "dropboxbestimage"],
 
-    "nasa + imgur": "/imgurnasadaily",
-    "imgur + nasa": "/imgurnasadaily",
+    "nasa + imgur": ["/imgurnasadaily", "imgurnasa"],
+    "imgur + nasa": ["/imgurnasadaily", "imgurnasa"],
 
-    "dribble + imgur": "/dribblepost",
-    "imgur + dribble": "/dribblepost",
+    "dribble + imgur": ["/dribblepost", "dribblepost"],
+    "imgur + dribble": ["/dribblepost", "dribblepost"],
 
-    "imgur + imgur": "/ImgurFavorites",
+    "imgur + imgur": ["/ImgurFavorites", "imgurComment"],
 
-    "spotify + mail": "/spotifyresume",
+    "spotify + mail": ["/spotifyresume", "spotifyresume"],
 
-    "spotify + spotify": "/spotifyhistory",
+    "spotify + like": ["/spotifyhistory", "spotifylike"],
+    "spotify + concert": ["/spotifyhistory", "spotifyconcert"],
+    "spotify + follow": ["/spotifyhistory", "spotifyfollow"],
 
-    "trello + gitlab": "/trelloGitlabOrga",
-    "gitlab + trello": "/trelloGitlabOrga",
+    "trello + gitlab": ["/trelloGitlab", "trellogitlab"],
+    "gitlab + trello": ["/gitlabTrello", "gitlabtrello"],
 
-    "pushbullet + standings": "/premier_league_schedule_sms",
-    "standings + pushbullet": "/premier_league_schedule_sms",
+    "pushbullet + standings": ["/premier_league_schedule_sms", "premiereleague"],
+    "standings + pushbullet": ["/premier_league_schedule_sms", "premiereleague"],
 
-    "pushbullet + upcomingMatch": "/upcoming_match",
-    "upcomingMatch + pushbullet": "/upcoming_match",
+    "pushbullet + upcomingMatch": ["/upcoming_match", "upcomingmatch"],
+    "upcomingMatch + pushbullet": ["/upcoming_match", "upcomingmatch"],
 }
+
+var i = 0;
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -46,8 +50,6 @@ function getCookie(cname) {
 }
 
 function Dynamic_Text() {
-
-
     var href = window.location.href;
     var toto = href.split('?')
     console.log(href)
@@ -58,22 +60,57 @@ function Dynamic_Text() {
     console.log(frst_service)
     console.log(scnd_service)
     document.getElementById('main_text').value = scnd_service[1] + ' + ' + frst_service[1];
-
-    return false;
+    check_if_service_is_connected()
 }
 
-function send_request_to_server()
+function check_if_service_is_connected()
 {
     let splited = window.location.href.split('?')
     let services_name = splited[1].split('&')
-    let service_name1 = services_name[0].split('=')[1]
-    let service_name2 = services_name[1].split('=')[1]
-    let combined_service = service_name1 + " + " + service_name2
-    console.log(combined_service)
+    var service_name1 = services_name[0].split('=')[1]
+    var service_name2 = services_name[1].split('=')[1]
+    var combined_service = service_name1 + " + " + service_name2
+    let usertoken = getCookie("userToken")
+    $.ajax({
+        url: "https://area-rest-api-zuma.herokuapp.com/isActivated",
+        headers: {"usertoken": usertoken},
+        success: function (result) {
+            if (result[0][reaction[combined_service][1]]) {
+                document.getElementById("toggleSwitch").checked = true;
+                document.getElementById('switch_text').value = 'Connected';
+                i = 1
+            }
+        },
+        error: function (error) {
+            alert(error)
+        }
+    })
+}
+
+function request_the_server()
+{
+    let splited = window.location.href.split('?')
+    let services_name = splited[1].split('&')
+    var service_name1 = services_name[0].split('=')[1]
+    var service_name2 = services_name[1].split('=')[1]
+    var combined_service = service_name1 + " + " + service_name2
+    let usertoken = getCookie("userToken")
+    $.ajax({
+        url: "https://area-rest-api-zuma.herokuapp.com" + reaction[combined_service][0],
+        headers: {"usertoken": usertoken},
+        success: function (result) {
+            console.log("https://area-rest-api-zuma.herokuapp.com" + reaction[combined_service][0])
+            console.log(result)
+            document.getElementById('switch_text').value = 'Connected';
+            i = 1;
+        },
+        error: function (error) {
+            alert(error)
+        }
+    })
 }
 
 function set_connected() {
-    send_request_to_server()
     var mydata = JSON.parse(youtube);
     var href = window.location.href;
     var splited = href.split('?')
@@ -96,16 +133,10 @@ function set_connected() {
     return false;
 }
 
-var i = 0;
-
 function doOnClick() {
 
     if (i == 0) {
-        document.getElementById('switch_text').value = 'Connected';
-        i = 1;
-        set_connected()
-
-
+        request_the_server()
     } else {
         document.getElementById('switch_text').value = 'Disconnected';
         i = 0;
