@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String mUserName = null;
     private String mUserEmail = null;
     private AuthenticationHelper mAuthHelper = null;
-    public static String Url = "http://10.0.2.2:8080/";//"https://area-rest-api-zuma.herokuapp.com/";
+    public static String Url = "https://area-rest-api-zuma.herokuapp.com/";
     private IsUserConnected ConnectionStatus = new IsUserConnected(Connected.Token);
     MyRecyclerViewAdapter adapter;
    public static DrawableRessources Ressource = new DrawableRessources();
@@ -636,5 +636,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Ressource.DribbleId = id;
         id = getResources().getIdentifier("com.epitech.area:drawable/dropbox_icon" , null, null);
         Ressource.DropboxId = id;
+        id = getResources().getIdentifier("com.epitech.area:drawable/ball_icon" , null, null);
+        Ressource.FootballId = id;
+
     }
 }

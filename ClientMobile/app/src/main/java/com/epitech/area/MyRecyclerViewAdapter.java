@@ -66,6 +66,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             case "Dropbox" :
                 holder.myImageView.setImageResource(Ressource.DropboxId);
                 break;
+            case "Football" :
+                holder.myImageView.setImageResource(Ressource.FootballId);
+                break;
         }
     }
     // total number of rows
