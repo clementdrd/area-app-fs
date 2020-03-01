@@ -1,16 +1,60 @@
 const services = ["spotify", "weather", "netflix", "gmail",
-                  "dropbox", "deezer",
-                  "twitter", "facebook", "amazon", "google-calendar",
-                  "google-drive", "instagram", "messenger", "microsoft-outlook",
-                  "nasa", "souncloud", "twitch", "trello", "pushbullet", "imgur", "football"]
+    "dropbox", "deezer",
+    "twitter", "facebook", "amazon", "google-calendar",
+    "google-drive", "instagram", "messenger", "microsoft-outlook",
+    "nasa", "souncloud", "twitch", "trello", "pushbullet", "imgur", "football", "gitlab", "dribble"
+]
 const tab = {
-    "dropbox": [{"name" : "dropbox + nasa", "state" : "false"},{"name" : "dropbox + imgur", "state" : "false"}],
-    "spotify": [{"name" : "spotify + mail", "state" : "false"},{"name" : "spotify + spotify", "state" : "false"}],
-    "trello": [{"name" : "trello + gitlab", "state" : "false"}],
-    "imgur": [{"name" : "imgur + dropbox", "state" : "false"},{"name" : "imgur + TOTO", "state" : "false"}],
-    "nasa": [{"name" : "nasa + dropbox", "state" : "false"},{"name" : "nasa + mail", "state" : "false"}, {"name" : "nasa + imgur", "state" : "false"}],
-    "football": [{"name" : "football + pushbullet", "state" : "false"},{"name" : "football + pushbullet", "state" : "false"}],
-    "pushbullet": [{"name" : "pushbullet + football", "state" : "false"},{"name" : "pushbullet + football", "state" : "false"}],
+    "dropbox": [{
+        "name": "dropbox + nasa"
+    }, {
+        "name": "dropbox + imgur"
+    }],
+    "spotify": [{
+        "name": "spotify + mail"
+    }, {
+        "name": "spotify + spotify"
+    }],
+    "trello": [{
+        "name": "trello + gitlab"
+    }],
+    "imgur": [{
+        "name": "imgur + dropbox"
+    }, {
+        "name": "imgur + TOTO"
+    }],
+    "nasa": [{
+        "name": "nasa + dropbox"
+    }, {
+        "name": "nasa + mail"
+    }, {
+        "name": "nasa + imgur"
+    }],
+    "football": [{
+        "name": "standings + pushbullet"
+    }, {
+        "name": "upcomingMatch + pushbullet"
+    }],
+    "pushbullet": [{
+        "name": "pushbullet + standings"
+    }, {
+        "name": "pushbullet + upcomingMatch"
+    }],
+    "gitlab": [{
+        "name": "gitlab + trello"
+    }],
+    "dribble": [{
+        "name": "dribble + imgur"
+    }],
+}
+
+var button = function createButton(name) {
+    let myButton = document.createElement("button");
+    myButton.className = "w3-button w3-black";
+    let goto_button = "window.location.href='/Page/?" + "service=" + name.split(" + ")[0] + "&service2=" + name.split(" + ")[1] + "'";
+    myButton.setAttribute("onclick", goto_button);
+    myButton.innerHTML = name;
+    return myButton;
 }
 
 function init(app_name) {
@@ -20,26 +64,10 @@ function init(app_name) {
             mydata = tab[services[i]];
         }
     }
-    console.log(mydata[0])
-    document.getElementById('button1').innerHTML = mydata[0]["name"];
-    
-    var button_1_url = (mydata[0]["name"]).split(" ").join("_");
-    var button_2_url = (mydata[1]["name"]).split(" ").join("_");
 
-    var url1 = button_1_url.split("_+_");
-    var url2 = button_2_url.split("_+_");
+    let buttons = document.getElementsByClassName("buttons")[0];
 
-
-    var goto_button1 = "window.location.href='/Page/?" + "service=" + url1[0] + "&service2=" + url1[1] + "'";
-    var goto_button2 = "window.location.href='/Page/?" + "service=" + url2[0] + "&service2=" + url2[1] + "'";
-
-    var foo = document.getElementById("button1");
-    foo.setAttribute("onclick", goto_button1);
-
-    var foo = document.getElementById("button2");
-    foo.setAttribute("onclick", goto_button2);
-
-    document.getElementById('button2').innerHTML = mydata[1]["name"];
+    mydata.forEach(element => {buttons.appendChild(button(element.name))});
 }
 
 function change_logo() {

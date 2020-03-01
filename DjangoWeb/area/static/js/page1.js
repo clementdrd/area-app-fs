@@ -1,4 +1,33 @@
-const usertoken = getCookie('userToken')
+const reaction = {
+    "dropbox + nasa": "/send_nasa_pic_to_dropbox",
+    "nasa + dropbox": "/send_nasa_pic_to_dropbox",
+
+    "nasa + mail": "/nasadaily",
+
+    "dropbox + imgur": "/send_best_img_pic_to_dropbox",
+    "imgur + dropbox": "/send_best_img_pic_to_dropbox",
+
+    "nasa + imgur": "/imgurnasadaily",
+    "imgur + nasa": "/imgurnasadaily",
+
+    "dribble + imgur": "/dribblepost",
+    "imgur + dribble": "/dribblepost",
+
+    "imgur + imgur": "/ImgurFavorites",
+
+    "spotify + mail": "/spotifyresume",
+
+    "spotify + spotify": "/spotifyhistory",
+
+    "trello + gitlab": "/trelloGitlabOrga",
+    "gitlab + trello": "/trelloGitlabOrga",
+
+    "pushbullet + standings": "/premier_league_schedule_sms",
+    "standings + pushbullet": "/premier_league_schedule_sms",
+
+    "pushbullet + upcomingMatch": "/upcoming_match",
+    "upcomingMatch + pushbullet": "/upcoming_match",
+}
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -33,7 +62,18 @@ function Dynamic_Text() {
     return false;
 }
 
+function send_request_to_server()
+{
+    let splited = window.location.href.split('?')
+    let services_name = splited[1].split('&')
+    let service_name1 = services_name[0].split('=')[1]
+    let service_name2 = services_name[1].split('=')[1]
+    let combined_service = service_name1 + " + " + service_name2
+    console.log(combined_service)
+}
+
 function set_connected() {
+    send_request_to_server()
     var mydata = JSON.parse(youtube);
     var href = window.location.href;
     var splited = href.split('?')
