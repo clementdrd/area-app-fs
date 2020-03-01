@@ -1,7 +1,5 @@
 from django import forms
 import re 
-from phonenumber_field.modelfields import PhoneNumberField
-
 class RegisterForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data['email']
